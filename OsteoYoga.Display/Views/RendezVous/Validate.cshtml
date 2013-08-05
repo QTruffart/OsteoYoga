@@ -1,0 +1,27 @@
+﻿@using OsteoYoga.Resource.RendezVous
+@model OsteoYoga.Domain.Models.Date
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    if (Model != null)
+    {
+        <div>
+            <h4>@DateResource.DateValidated </h4>
+
+            Résumé : <br />
+            Date : @Model.Day<br />
+            Horaire : @Model.TimeSlot.ToString()<br />
+            Patient : @Model.Contact.ToString()<br />
+        </div>
+    }
+    else
+    {
+        <h4>
+            @DateResource.ErrorOccured
+        </h4>
+    }
+}

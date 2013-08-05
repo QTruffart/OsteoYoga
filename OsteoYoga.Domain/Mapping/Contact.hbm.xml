@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="OsteoYoga.Domain"
+                   namespace="OsteoYoga.Domain.Models">
+
+  <class name="Contact" table="Contact">
+    <id column="Id" name="Id" type="Int32" unsaved-value="0">
+      <generator class="increment" />
+    </id>
+    <property name="FullName" column="FullName" not-null="true" />
+    <property name="Phone" column="Phone" not-null="true" />
+    <property name="Mail" column="Mail" not-null="true" />
+    <property name="IsConfirmed" column="IsConfirmed" not-null="true" />
+    <property name="ConfirmNumber" column="ConfirmNumber" not-null="true" />
+  </class>
+</hibernate-mapping>

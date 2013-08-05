@@ -1,0 +1,105 @@
+﻿@{
+    ViewBag.Title = "osteoyoga.fr site de nicolas truffart osteopathe à bayonne 64 pays basque 40 sud landes";
+}
+
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+  <div id="fb-root"></div>
+  <script>    
+      (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s);
+          js.id = id;
+          js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
+          fjs.parentNode.insertBefore(js, fjs);
+      }
+      (document, 'script', 'facebook-jssdk'));
+  </script>
+
+  <div class="sliderContainer clearfix"> <!-- sliderContainer -->
+      <span class="sliderBg"></span> 
+      <section class="flexslider circleSlider"> <!-- Slider -->
+          <ul class="slides">
+              <li> <!-- slide -->
+                  <div class="slideCaption"> <!-- slide caption -->
+                      <div class="centeringWrapper">
+                          <p class="excerpt">Bienvenue sur ostéoyoga.fr, site du cabinet de Nicolas Truffart Ostéopathe à Bayonne , Pole Santé de la ZUP</p>
+                      </div>
+                  </div>
+                  <a href="#"><img src="@Url.Content("~/Theme/Images/logo.png")" alt="" /></a> <!-- slide image -->
+              </li>
+          </ul>      
+      </section> <!-- end Slider -->
+      <span class="shadow"></span>
+  </div>
+            <nav id="mainMenu" class="navbar"> <!-- Main Menu -->       
+                   <ul class="nav">  
+                    <li class="dropdown-submenu">@Html.ActionLink("Ostéopathie", "Osthéopathie", "Home")</li>
+                    <li class="dropdown-submenu">@Html.ActionLink("Yoga thérapie", "Yogathérapie", "Home")</li>
+                       <li class="dropdown-submenu">
+                            @Html.ActionLink("L'ostéo", "MaPratique", "Home")
+                           <ul class="dropdown-menu">
+                               <li>@Html.ActionLink("Mon parcours", "QuiSuisJe", "Home")</li>
+                           </ul>
+                       </li>
+                    <li class="dropdown-submenu">@Html.ActionLink("Partenaires", "Partenaires", "Home")</li>
+                    @*<li class="dropdown-submenu">@Html.ActionLink("Administration", "Index", "Administration")</li>*@
+                </ul>   
+                <!-- TODO gérer le mobile -->
+                <select id="mobileMenu">  <!-- Mobile Menu -->
+                    <option selected="selected" value="">Main Menu</option>          
+                </select>        
+            </nav> 
+  <div role="main" id="mainContent"> <!-- Main Content -->  
+  <div class="fb-like-box" data-href="https://www.facebook.com/pages/osteoyogafr/184250505057824" data-width="960" data-show-faces="false" data-stream="true" data-show-border="false" data-header="false"></div>
+      @*<section class="homeFeatures"> <!-- Services/Features -->       
+        <div class="row-fluid">     
+          <div class="span4 feature"> <!-- service/feature item -->
+            <h3><i class="icon-print"></i> <a href="services.html">Lorem Ipsum</a></h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dictum ante eu diam sagittis luctus. Mauris venenatis blandit congue.</p>              
+          </div> <!-- end service/feature item --> 
+          
+          <div class="span4 feature">                  
+            <h3><i class="icon-comments"></i><a href="services.html">Integer Elementum</a></h3>
+            <p>Aliquam odio ligula, mattis a fermentum nec, egestas volutpat quam. In iaculis consectetur risus sit amet consectetur.</p>              
+          </div> <!-- end service/feature item --> 
+          
+          <div class="span4 feature">
+            <h3><i class="icon-cogs"></i><a href="services.html">Suspendisse Eget Augue</a></h3>
+            <p>Pellentesque vulputate libero nec turpis volutpat facilisis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>              
+          </div> <!-- end service/feature item -->    
+        </div> <!-- end row-fluid -->
+      </section> <!-- end Services/Features section -->    *@
+      
+      @*<section class="homeLatest"> <!-- latest work -->  
+        <h2 class="sectionTitle">Latest <a href="work.html">Work</a></h2>          
+        <div class="row-fluid">
+          <div class="span3"> <!-- work item -->           
+            <a href="work-single.html" class="circle">                            
+              <span class="textOverlay"><i class="icon-plus-sign projectZoom"></i><span class="projectTitle">Project Title</span></span> <!-- project title -->
+              <img src="@Url.Content("/Theme/Images/thumbnail.png")" alt="" /> <!-- project thumbnail -->
+            </a>          
+          </div> <!-- end work item -->
+          <div class="span3">             
+            <a href="work-single.html" class="circle">                
+              <span class="textOverlay"><i class="icon-plus-sign projectZoom"></i><span class="projectTitle">This is a longer Project Title</span></span>
+              <img src="@Url.Content("/Theme/Images/thumbnail.png")" alt="" />
+            </a>          
+          </div>
+          <div class="span3">             
+            <a href="work-single.html" class="circle">                
+              <span class="textOverlay"><i class="icon-plus-sign projectZoom"></i><span class="projectTitle">Project Title</span></span>
+              <img src="@Url.Content("/Theme/Images/thumbnail.png")" alt="" />
+            </a>          
+          </div>
+          <div class="span3">             
+            <a href="work-single.html" class="circle">                
+              <span class="textOverlay"><i class="icon-plus-sign projectZoom"></i><span class="projectTitle">Project Title</span></span>
+              <img src="@Url.Content("/Theme/Images/thumbnail.png")" alt="" />
+            </a>          
+          </div>
+        </div> <!-- end row-fluid -->
+      </section> <!-- end latest work section --> *@
+      
+    </div> <!-- end mainContent -->

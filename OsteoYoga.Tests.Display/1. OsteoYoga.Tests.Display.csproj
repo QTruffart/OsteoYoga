@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9272987A-E8D2-416B-AE76-BF6CE8DDFBCE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OsteoYoga.Tests.Display</RootNamespace>
+    <AssemblyName>OsteoYoga.Tests.Display</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Moq">
+      <HintPath>..\External Libraries\Moq\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AdministrationControllerHaveTo.cs" />
+    <Compile Include="Controllers\AgendaControllerHaveTo.cs" />
+    <Compile Include="Controllers\HolidayControllerHaveTo.cs" />
+    <Compile Include="Controllers\HomeControllerHaveTo.cs" />
+    <Compile Include="Controllers\LoginControllerHaveTo.cs" />
+    <Compile Include="Controllers\RendezVousControllerHaveTo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OsteoYoga.Display\1. OsteoYoga.Display.csproj">
+      <Project>{1A87A554-DE7A-4F64-9703-1F1DA78BED64}</Project>
+      <Name>1. OsteoYoga.Display</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OsteoYoga.Domain\1. OsteoYoga.Domain.csproj">
+      <Project>{B915504D-D01D-4BEF-802D-C527B2F5078C}</Project>
+      <Name>1. OsteoYoga.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OsteoYoga.DAO\2. OsteoYoga.DAO.csproj">
+      <Project>{67C487A2-9ECD-4ACD-8DE5-8E7008E08575}</Project>
+      <Name>2. OsteoYoga.DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OsteoYoga.Helpers\3. OsteoYoga.Helper.csproj">
+      <Project>{AD42CF25-232D-482B-84FE-CE92EFC31C66}</Project>
+      <Name>3. OsteoYoga.Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OsteoYoga.Resource\2. OsteoYoga.Resource.csproj">
+      <Project>{149B66BB-12EA-4A38-ACF9-8D712550E3FB}</Project>
+      <Name>2. OsteoYoga.Resource</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

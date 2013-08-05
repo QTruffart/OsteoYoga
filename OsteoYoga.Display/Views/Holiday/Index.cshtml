@@ -1,0 +1,66 @@
+﻿@using OsteoYoga.Helper
+@using OsteoYoga.Resource.Holiday
+@using OsteoYoga.Resource.RendezVous
+@{
+    ViewBag.Title = "Congés";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#DatePicker").datepicker({
+            dateFormat: 'dd/mm/yy',
+            onSelect: function () {
+                $("#button").show();
+            }
+        });
+        $("#TakeAnHoliday").click(function () {
+            $.ajax({
+                url: '@Url.Action( "AddAnHoliday", "Holiday")',
+                data: {
+                    dateTime: $("#DatePicker").val(),
+                    hours: $("#selectedTimeSlot").val()
+                },
+                type: 'POST',
+                success: function (data) {
+                    RefreshHolidays();
+                    $("#result").html(data);
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $("#result").html(errorThrown);
+                }
+            });
+        });
+        RefreshHolidays();
+    });
+
+    function RefreshHolidays() {
+        $.ajax({
+            url: '@Url.Action( "ListOfHolidays", "Holiday")',
+            type: 'POST',
+            success: function (data) {
+                $("#listOfHolidays").html(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $("#listOfHolidays").html(errorThrown);
+            }
+        });
+    }
+    
+</script>
+<div style="width: 50%; float: left" id="listOfHolidays"></div>
+
+<div style="width: 50%; float: right;">
+    <h3>@HolidayResource.TakeAnHolidayAtThe</h3>
+    <div id="DatePicker" align="center"></div>
+    <div id="button" hidden="hidden" style="padding: 10px">
+        <select id="selectedTimeSlot">
+            <option value="@Constants.GetInstance().AMBegin()-@Constants.GetInstance().PMEnd()" selected="selected">@DateResource.AllTheDay</option>
+            <option value="@Constants.GetInstance().AMBegin()-@Constants.GetInstance().AMEnd()">@DateResource.AM</option>
+            <option value="@Constants.GetInstance().PMBegin()-@Constants.GetInstance().PMEnd()">@DateResource.PM</option>
+            @*<option id="timeSlot">Horaires personnalisés</option>*@
+        </select>
+        <button class="btn btn-primary" id="TakeAnHoliday">@HolidayResource.TakeTheHoliday</button>
+        <div id="result"></div>
+    </div>
+</div>
+

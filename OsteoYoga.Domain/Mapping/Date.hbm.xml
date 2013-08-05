@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="OsteoYoga.Domain"
+                   namespace="OsteoYoga.Domain.Models">
+
+  <class name="Date" table="Date">
+    <id column="Id" name="Id" type="Int32" unsaved-value="0">
+      <generator class="increment" />
+    </id>
+    <property name="Day" column="Day" not-null="true" />
+    <many-to-one name="TimeSlot" column="TimeSlotId" class="TimeSlot" foreign-key="FK_Date_TimeSlot" />
+    <many-to-one name="Contact" column="ContactId" class="Contact" foreign-key="FK_Date_Contact" />
+    <property name="IsConfirmed" column="IsConfirmed" />
+    <property name="ConfirmationId" column="ConfirmationId" />
+  </class>
+</hibernate-mapping>
