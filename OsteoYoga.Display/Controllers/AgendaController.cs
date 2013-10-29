@@ -9,16 +9,20 @@ namespace OsteoYoga.Display.Controllers
 {
     public class AgendaController : Controller
     {
+        
         //
         // GET: /Index/
         public DateRepository DateRepository { get; set; }
-
         public HolidayRepository HolidayRepository { get; set; }
+        public TimeSlotRepository TimeSlotRepository { get; set; }
+        public ContactRepository ContactRepository { get; set; }
 
         public AgendaController()
         {
             DateRepository = new DateRepository();
             HolidayRepository = new HolidayRepository();
+            TimeSlotRepository = new TimeSlotRepository();
+            ContactRepository = new ContactRepository();
         }
 
         public PartialViewResult Index()
@@ -29,8 +33,8 @@ namespace OsteoYoga.Display.Controllers
             }
             DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
-            IList<Date> dates = DateRepository.GetFutureDates(date.AddDays(-3));
-            ViewBag.Holidays = HolidayRepository.GetFutureHoliday(date);
+            IList<Date> dates = /*new List<Date>();*/DateRepository.GetFutureDates(date.AddDays(-3));
+            ViewBag.Holidays = /* new List<Holiday>();*/ HolidayRepository.GetFutureHoliday(date);
             return PartialView("Index", dates);
         }
 
@@ -51,5 +55,15 @@ namespace OsteoYoga.Display.Controllers
             return new EmptyResult();
         }
 
+        [HttpGet]
+        public PartialViewResult CreateDate()
+        {
+            return PartialView("CreateDate", ContactRepository.GetAll());
+        }
+        
+        public PartialViewResult GetTimeSlotsForADay(DateTime dateTime){
+            IList<TimeSlot> slots = TimeSlotRepository.GetFreeTimeSlots(dateTime);
+            return PartialView("GetTimeSlotsForADay", slots);
+        }
     }
 }

@@ -47,5 +47,24 @@ namespace OsteoYoga.Display.Controllers
         {
             return PartialView("QuiSuisJe");
         }
+
+        public PartialViewResult MotifsCourants(){
+            return PartialView("MotifsCourants");
+        }
+
+        public PartialViewResult QuandConsulterBebe()
+        {
+            return PartialView("QuandConsulterBebe");
+        }
+
+        public PartialViewResult MotifsMeconnus()
+        {
+            return PartialView("MotifsMeconnus");
+        }
+
+        public PartialViewResult QuandConsulterGrossesse()
+        {
+            return PartialView("QuandConsulterGrossesse");
+        }
     }
 }

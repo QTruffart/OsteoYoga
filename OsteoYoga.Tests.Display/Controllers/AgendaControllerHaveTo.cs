@@ -17,6 +17,8 @@ namespace OsteoYoga.Tests.Display.Controllers
         private const string PassPagePath = "/Views/Administration/PassAdmin.cshtml";
         readonly Mock<DateRepository> dateRepositoryMock = new Mock<DateRepository>();
         readonly Mock<HolidayRepository> holidayRepositoryMock = new Mock<HolidayRepository>();
+        readonly Mock<TimeSlotRepository> timeSlotRepositoryMock = new Mock<TimeSlotRepository>();
+        readonly Mock<ContactRepository> contactRepositoryMock = new Mock<ContactRepository>();
         readonly Mock<SessionHelper> sessionHelperMock = new Mock<SessionHelper>();
         private AgendaController Controller { get; set; }
 
@@ -27,6 +29,8 @@ namespace OsteoYoga.Tests.Display.Controllers
             {
                 DateRepository = dateRepositoryMock.Object,
                 HolidayRepository = holidayRepositoryMock.Object,
+                TimeSlotRepository = timeSlotRepositoryMock.Object,
+                ContactRepository = contactRepositoryMock.Object
             };
             sessionHelperMock.SetupGet(shm => shm.AdminConnected).Returns(true);
             SessionHelper.Instance = sessionHelperMock.Object;
@@ -83,6 +87,32 @@ namespace OsteoYoga.Tests.Display.Controllers
 
             Assert.AreEqual(PassPagePath, Controller.GetDetailDate(ID).ViewName);
             Assert.AreEqual(PassPagePath, Controller.Index().ViewName);
+        }
+
+        [TestMethod]
+        public void GetCreateDatePage()
+        {
+            List<Contact> contacts = new List<Contact>();
+            contactRepositoryMock.Setup(crm => crm.GetAll()).Returns(contacts);
+
+            PartialViewResult viewResult = Controller.CreateDate();
+
+            contactRepositoryMock.Verify(crm => crm.GetAll(), Times.Once());
+            Assert.AreEqual("CreateDate", viewResult.ViewName);
+            Assert.AreEqual(contacts, viewResult.Model);
+        }
+
+        [TestMethod]
+        public void GetFreeTimeSlots(){
+            DateTime dateTime = DateTime.Now;
+            IList<TimeSlot> slots = new List<TimeSlot>();
+            timeSlotRepositoryMock.Setup(tsrm => tsrm.GetFreeTimeSlots(dateTime)).Returns(slots);
+
+            PartialViewResult viewResult = Controller.GetTimeSlotsForADay(dateTime);
+
+            timeSlotRepositoryMock.Verify(tsrm => tsrm.GetFreeTimeSlots(dateTime), Times.Once());
+            Assert.AreEqual(slots, viewResult.Model);
+            Assert.AreEqual("GetTimeSlotsForADay", viewResult.ViewName);
         }
     }
 }

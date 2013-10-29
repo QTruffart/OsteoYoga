@@ -71,6 +71,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\MenuExtensions.cs" />
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\SessionHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +82,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Global.asax" />
+    <Content Include="robots.txt" />
     <Content Include="Theme\Css\avgrund.css" />
     <Content Include="Theme\Css\bootstrap.css" />
     <Content Include="Theme\Css\color-blue.css" />
@@ -89,6 +91,7 @@
     <Content Include="Theme\Css\fullcalendar.print.css" />
     <Content Include="Theme\Css\jquery-ui.css" />
     <Content Include="Theme\Css\messi.min.css" />
+    <Content Include="Theme\Css\normalize.css" />
     <Content Include="Theme\Css\pattern1.css" />
     <Content Include="Theme\Css\pattern2.css" />
     <Content Include="Theme\Css\pattern3.css" />
@@ -99,6 +102,11 @@
     <Content Include="Theme\Css\Site.css" />
     <Content Include="Theme\Css\style.css" />
     <Content Include="Theme\Images\abeille.jpg" />
+    <Content Include="Theme\Images\consulterbebe.jpg" />
+    <Content Include="Theme\Images\consultergrossesse.jpg" />
+    <Content Include="Theme\Images\logo.jpg" />
+    <Content Include="Theme\Images\motifscourants.jpg" />
+    <Content Include="Theme\Images\motifsmeconnus.jpg" />
     <Content Include="Theme\Images\wait_gd.gif" />
     <Content Include="Theme\Images\cabinet.jpg" />
     <Content Include="Theme\Images\ombakyoga.png" />
@@ -273,6 +281,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Administration\PassAdmin.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Agenda\CreateDate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Agenda\GetTimeSlotsForADay.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\MotifsCourants.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\QuandConsulterBebe.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\MotifsMeconnus.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\QuandConsulterGrossesse.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

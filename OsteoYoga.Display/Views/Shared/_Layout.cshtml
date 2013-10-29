@@ -1,3 +1,4 @@
+@using OsteoYoga.Display.Helpers
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
@@ -7,7 +8,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>@ViewBag.Title</title>  
-    <meta name="description" content="Cabinet d'ostéopathie; Nicolas Truffart à Bayonne; Techniques douces et yoga thérapie; Le cabinet situé au pôle santé de la ZUP est facilement accessible du 64 pays basque et du 40 sud landes; Bébé, femme enceinte, sportif (cadets aviron bayonnais rugby), séniors (arthrose, ostéoporose); Osteopathe; english spoken" />
+    <meta name="description" content="Cabinet d'ostéopathie; Nicolas Truffart à Bayonne; Méthodes douces et yoga thérapie; Le cabinet situé au pôle santé de la ZUP est facilement accessible du 64 pays basque et du 40 sud landes; Bébé, femme enceinte, sportif (cadets aviron bayonnais rugby), séniors (arthrose, ostéoporose); Osteopathe; english spoken" />
     <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1.0, maximum-scale=1.0" />
     <meta http-equiv="Content-Type" CONTENT="text/html; charset=iso-8859-1">
     <link href='@Url.Content("~/Theme/Css/Fonts/fontawesome-webfont.ttf")' rel='stylesheet' type='text/css' />
@@ -53,17 +54,13 @@
         <header id="mainHeader" > <!-- mainHeader -->  
             <h1>@Html.ActionLink("OstéoYoga.fr", "Index", "Home", null, new { @class = "brand" })</h1>
             <nav id="mainMenu" class="navbar"> <!-- Main Menu -->       
-                   <ul class="nav">  
-                    <li class="active dropdown-submenu">@Html.ActionLink("Accueil", "Index", "Home")</li>
-                    <li class="dropdown-submenu">@Html.ActionLink("Prise de rendez-vous en ligne", "Index", "RendezVous")</li>                
-                    <li class="dropdown-submenu">@Html.ActionLink("Me Contacter", "MeContacter", "Home")</li>          
-                    <li class="dropdown-submenu">@Html.ActionLink("Tarifs", "Tarifs", "Home")</li>
+                <ul class="nav">
+                    @Html.MenuItem("Accueil", "Index", "Home") 
+                    @Html.MenuItem("Prise de rendez-vous en ligne", "Index", "RendezVous") 
+                    @Html.MenuItem("Me Contacter", "MeContacter", "Home") 
+                    @Html.MenuItem("Tarifs", "Tarifs", "Home") 
                     @*<li class="dropdown-submenu">@Html.ActionLink("Administration", "Index", "Administration")</li>*@
-                </ul>   
-                <!-- TODO gérer le mobile -->
-                <select id="mobileMenu">  <!-- Mobile Menu -->
-                    <option selected="selected" value="">Main Menu</option>          
-                </select>        
+                </ul>     
             </nav> 
         </header>
         @RenderBody()

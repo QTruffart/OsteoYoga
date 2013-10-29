@@ -21,15 +21,14 @@
             <div class="span6 content">
                 <h3>Les petits + du cabinet</h3>
                 <ul>
-                    <li>Accès en périphérie de l'agglomération Bayonne/ Tarnos/ Boucau</li>
-                    <li>Accès autouroute A64 Bordeaux- Irun (sortie Bayonne Nord) à 1 Km du cabinet</li>
-                    <li>Parking gratuit devant le Pôle Santé</li>
-                    <li>Accès handicapés</li>
-                    <li>Salle d'attente et sanitaires handicapés</li>
-                    <li>Parc pour enfant et piscine municipale à quelques mètres</li>
-                    <li>Cadre de verdure derrière le cabinet</li>
-                    <li>Equipe pluridisciplinaire (ostéopathes, orthophonistes, réflexologue, sophrologue, infirmières)</li>
-                    <li>Proximité de pharmacie et médecins généralistes</li>
+                    <li>prise de rendez vous sur internet 24h/24.</li>
+                    <li>parking gratuit et illimité devant le Pôle Santé</li>
+                    <li>accès en périphérie de l'agglomération Bayonne/ Tarnos/ Boucau</li>
+                    <li>accès autouroute A64 Bordeaux-Irun (sortie Bayonne Nord) à 1 Km du cabinet</li>
+                    <li>accès et sanitaires adaptés aux personnes handicapés</li>
+                    <li>jardin d'enfants et piscine municipale au milieu d'un cadre de verdure.</li>
+                    <li>équipe pluridisciplinaire (ostéopathes, orthophonistes, sophrologue, infirmières)</li>
+                    <li>proximité de pharmacie et médecins généralistes</li>
                 </ul>
                 @*<h3>Ecrivez-nous !</h3>
             <p id="response"></p>
@@ -66,6 +65,14 @@
       <script src="@Url.Content("~/Theme/Scripts/gmap3.min.js")"></script>
       <script src="@Url.Content("~/Theme/Scripts/script.js")"></script>
 <script>
+    $("#map").gmap3({
+        action: 'addMarker',
+        address: '5 ter Avenue Jouandin 64100 Bayonne', // Replace with your address     
+        map: {
+            center: true,
+            zoom: 14
+        }
+    });
     Modernizr.load({
         test: Modernizr.input.placeholder,
         nope: [

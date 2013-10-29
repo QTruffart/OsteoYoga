@@ -24,7 +24,7 @@
             dayNamesShort :['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
             header: {
                 left: 'prev,next today',
-                center: 'title',
+                center: 'title'
             },
             events: [
                 @foreach (Date date in Model)
@@ -79,9 +79,32 @@
                 });
             }
         });
-        
+       
     });
+     $("#addADate").click(function() {
+           $.ajax({
+                    url: '@Url.Action( "CreateDate", "Agenda")',
+                    type: 'GET',
+                    success: function (data) {
+                        $("#eventDialog").html(data);
+                        $("#eventDialog").dialog({
+                            autoOpen: true,
+                            resizable: false,
+                            modal: true,
+                            width:'350',
+                            closeText:""
+                        }); 
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+        });
 </script>
+
+<button class="btn btn-primary" id="addADate">
+    Créer un rendez-vous
+</button>
 <div id="calendar" ></div>
 <div id="eventDialog" ></div>
 
