@@ -4,9 +4,16 @@
   <session-factory>
     <property name="connection.driver_class">NHibernate.Driver.SqlClientDriver</property>
     <property name="dialect">NHibernate.Dialect.MsSql2008Dialect</property>
-    <!--<property name="connection.connection_string">Data Source=(local);Initial Catalog=OsteoYoga;Integrated Security=True</property>-->
+    <!--PC FIXE-->
+    <!--<property name="connection.connection_string">Data Source=(local);Initial Catalog=OsteoYoga;Integrated Security=True</property>-->  
+
+    <!--PC PORTABLE-->
+    <!--<property name="connection.connection_string">Data Source=(local)\SQLSERVER;Initial Catalog=OsteoYoga;Integrated Security=True</property>-->
+    
+    <!-- PRODUCTION -->
     <property name="connection.connection_string">Data Source=SRV-SQL002\SQLMUTU;Initial Catalog=osteoyogprd;Integrated Security=False;User ID=osteoyogprd;Password=JizgEUcX</property>
-    <!--<property name="connection.connection_string">Data Source=(local)\SQLEXPRESS;Initial Catalog=osteoyogprd;Integrated Security=True</property>-->
+    
+    
     <property name="show_sql">true</property>
     <mapping assembly="OsteoYoga.Domain"/>
   </session-factory>

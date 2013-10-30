@@ -15,10 +15,15 @@ h1, h2, h3, h4, h5, h6 {
   height: 5px;
   width: 100%;
 }
-#mainHeader, #mainContent, #footerInfo, #footerExtra {
+#mainHeader, #footerInfo, #footerExtra {
   margin: 0 auto;
   width: 960px;
   clear: both;
+}
+
+#content {
+  margin: 0 auto;
+  clear: both;  
 }
 #calendar {
 		width: 900px;
@@ -371,9 +376,11 @@ ul.icons i {
   border-radius: 170px 170px 170px 170px;
   color: #FFFFFF;
   display: table;
-  height: 170px;
+  height: 100%;
   margin: 0 auto 25px;
-  width: 170px;
+  width: 100%;
+    max-width: 170px;
+    max-height: 170px
   -webkit-transition: all 0.2s linear;
   -moz-transition: all 0.2s linear;
   -ms-transition: all 0.2s linear;

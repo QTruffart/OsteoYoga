@@ -14,7 +14,7 @@
                 $("#dateTimeSelection").val(date);
                 $.ajax({
                     url: '@Url.Action( "GetTimeSlotsForADay", "Agenda")',
-                    data: date,
+                    data: {'datetime' : date},
                     type: 'POST',
                     success: function (data) {
                         $("#timeSlotSelection").html(data);
@@ -30,7 +30,7 @@
         });
     });     
 </script>
-<form action="CreateDate" method="POST">
+<form action="@Url.Action("CreateDate", "Agenda")" method="POST">
     <div id="DatePicker"></div>
     <select id="timeSlotSelection" name="timeSlotId"></select>
     <select id="contactSelection" name="contactId" >
@@ -40,5 +40,5 @@
         }
     </select>
     <input type="hidden" name="dateTime" id="dateTimeSelection"/>
-    <input id="validateDate" type="submit"/>
+    <input id="validateDate" type="submit" class="btn btn-primary"/>
 </form>

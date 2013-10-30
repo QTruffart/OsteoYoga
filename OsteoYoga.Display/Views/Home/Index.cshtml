@@ -5,49 +5,8 @@
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
   
-  <div id="fb-root"></div>
-  <script>    
-      (function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s);
-          js.id = id;
-          js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
-          fjs.parentNode.insertBefore(js, fjs);
-      }
-      (document, 'script', 'facebook-jssdk'));
-  </script>
-  <div class="sliderBg"></div>
-  <div class="span4" style="vertical-align: middle">
-      <nav id="mainMenu" class="navbar"> <!-- Main Menu -->       
-        <ul class="nav">  
-            <li class="span3 dropdown-submenu">@Html.ActionLink("Ostéopathie", "Osthéopathie", "Home")</li>
-            <li class="span3 dropdown-submenu">@Html.ActionLink("Yoga thérapie", "Yogathérapie", "Home")</li>
-            <li class="span3 dropdown-submenu">
-                @Html.ActionLink("L'ostéo", "MaPratique", "Home")
-                <ul class="dropdown-menu">
-                    <li>@Html.ActionLink("Mon parcours", "QuiSuisJe", "Home")</li>
-                </ul>
-            </li>
-            <li class="span3 dropdown-submenu">@Html.ActionLink("Partenaires", "Partenaires", "Home")</li>
-            <li class="span3 dropdown-submenu">
-                Pourquoi Consulter?
-                <ul class="dropdown-menu">
-                    <li>@Html.ActionLink("Motifs courants", "MotifsCourants", "Home")</li>
-                    <li>@Html.ActionLink("Motifs méconnus", "MotifsMeconnus", "Home")</li>
-                    <li>@Html.ActionLink("Pour les bébés", "QuandConsulterBebe", "Home")</li>
-                    <li>@Html.ActionLink("Pour les femmes enceintes", "QuandConsulterGrossesse", "Home")</li>
-                </ul>
-            </li>
-            @*<li class="dropdown-submenu">@Html.ActionLink("Administration", "Index", "Administration")</li>*@
-        </ul>   
-        <!-- TODO gérer le mobile -->
-        <select id="mobileMenu">  <!-- Mobile Menu -->
-            <option selected="selected" value="">Main Menu</option>          
-        </select>        
-    </nav> 
-  </div>
-  <div class="span5 sliderContainer clearfix"> <!-- sliderContainer -->
+  
+  <div class="sliderContainer clearfix"> <!-- sliderContainer -->
       <section class="flexslider circleSlider"> <!-- Slider -->
           <ul class="slides">
               <li> <!-- slide -->
@@ -58,13 +17,10 @@
                   </div>
                   <a href="#"><img src="@Url.Content("~/Theme/Images/logo.jpg")" alt="" /></a> <!-- slide image -->
               </li>
-            </ul>      
+          </ul>      
       </section> <!-- end Slider -->
       <span class="shadow"></span>
-    </div>
-    <div class="fb-like-box span4" data-href="https://www.facebook.com/pages/osteoyogafr/184250505057824" data-show-faces="false" data-stream="true" data-show-border="false" data-header="false"></div>
-  
-    
+  </div>
     <div role="main" id="mainContent"> <!-- Main Content -->  
     
       @*<section class="homeFeatures"> <!-- Services/Features -->       

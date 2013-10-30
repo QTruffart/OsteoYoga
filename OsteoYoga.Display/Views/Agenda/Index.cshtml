@@ -27,29 +27,28 @@
                 center: 'title'
             },
             events: [
-                @foreach (Date date in Model)
-                {
+                @foreach (Date date in Model){
                     string color = date.IsConfirmed ? "green" : "red";
                     <text>   
                         {   
                             id: '@date.Id',
                             title: '@StringHelper.GetInstance().ToJavascript(date.Contact.FullName)',
-                            start: new Date(@date.Day.Year, @(date.Day.Month -1), @date.Day.Day, @date.TimeSlot.BeginHour.Hours, @date.TimeSlot.BeginHour.Minutes),
-                            end: new Date(@date.Day.Year, @(date.Day.Month -1), @date.Day.Day, @date.TimeSlot.EndHour.Hours, @date.TimeSlot.EndHour.Minutes),
+                            start: new Date(@date.Day.Year, @(date.Day.Month - 1), @date.Day.Day, @date.TimeSlot.BeginHour.Hours, @date.TimeSlot.BeginHour.Minutes),
+                            end: new Date(@date.Day.Year, @(date.Day.Month - 1), @date.Day.Day, @date.TimeSlot.EndHour.Hours, @date.TimeSlot.EndHour.Minutes),
                             allDay: false,
                             color:'@color'
                         },
                     </text>
                 }
-                @foreach (Holiday holiday in ViewBag.Holidays)
-                {
+            
+                @foreach (Holiday holiday in ViewBag.Holidays){
                     string color = "orange";
                     <text>   
                         {   
                             id: '@holiday.Id',
                             title: '@HolidayResource.Holidays',
-                            start: new Date(@holiday.Day.Year, @(holiday.Day.Month -1), @holiday.Day.Day, @holiday.BeginHour.Hours, @holiday.BeginHour.Minutes),
-                            end: new Date(@holiday.Day.Year, @(holiday.Day.Month -1), @holiday.Day.Day, @holiday.EndHour.Hours, @holiday.EndHour.Minutes),
+                            start: new Date(@holiday.Day.Year, @(holiday.Day.Month - 1), @holiday.Day.Day, @holiday.BeginHour.Hours, @holiday.BeginHour.Minutes),
+                            end: new Date(@holiday.Day.Year, @(holiday.Day.Month - 1), @holiday.Day.Day, @holiday.EndHour.Hours, @holiday.EndHour.Minutes),
                             allDay: false,
                             color:'@color'
                         },
@@ -58,11 +57,8 @@
             ],
             eventClick: function(calEvent) {
                 $.ajax({
-                    url: '@Url.Action( "GetDetailDate", "Agenda")',
-                    data: {
-                        id: calEvent.id
-                    },
-                    type: 'POST',
+                    url: '/Agenda/GetDetailDate?id=' + calEvent.id,
+                    type: 'GET',
                     success: function (data) {
                         $("#eventDialog").html(data);
                         $("#eventDialog").dialog({

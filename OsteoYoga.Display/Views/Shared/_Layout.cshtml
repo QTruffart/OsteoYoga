@@ -39,7 +39,16 @@
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
-
+        
+      (function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s);
+          js.id = id;
+          js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1";
+          fjs.parentNode.insertBefore(js, fjs);
+      }
+      (document, 'script', 'facebook-jssdk'));
     </script>
     
     <!--[if lt IE 9]>
@@ -48,22 +57,55 @@
 </head>
 
 <body class="home">
+    
+  <div id="fb-root"></div>
     <div id="top" ></div>
     <div class="gradient" ></div>
     <div id="bodyContainer" style="padding: 1em; text-align: center">  
-        <header id="mainHeader" > <!-- mainHeader -->  
-            <h1>@Html.ActionLink("OstéoYoga.fr", "Index", "Home", null, new { @class = "brand" })</h1>
+    <header id="mainHeader" > <!-- mainHeader -->  
+        <h1>@Html.ActionLink("OstéoYoga.fr", "Index", "Home", null, new { @class = "brand" })</h1>
+        <nav id="mainMenu" class="navbar"> <!-- Main Menu -->       
+            <ul class="nav">
+                @Html.MenuItem("Accueil", "Index", "Home") 
+                @Html.MenuItem("Prise de rendez-vous en ligne", "Index", "RendezVous") 
+                @Html.MenuItem("Me Contacter", "MeContacter", "Home") 
+                @Html.MenuItem("Tarifs", "Tarifs", "Home") 
+                @*<li class="dropdown-submenu">@Html.ActionLink("Administration", "Index", "Administration")</li>*@
+            </ul>     
+        </nav> 
+    </header>
+    <div class="row-fluid" style="text-align: center">
+        <div class="span3" style="vertical-align: middle">
             <nav id="mainMenu" class="navbar"> <!-- Main Menu -->       
-                <ul class="nav">
-                    @Html.MenuItem("Accueil", "Index", "Home") 
-                    @Html.MenuItem("Prise de rendez-vous en ligne", "Index", "RendezVous") 
-                    @Html.MenuItem("Me Contacter", "MeContacter", "Home") 
-                    @Html.MenuItem("Tarifs", "Tarifs", "Home") 
+                <ul class="nav">  
+                    <li class="dropdown-submenu">@Html.ActionLink("Ostéopathie", "Osthéopathie", "Home")</li><br />
+                    <li class="dropdown-submenu">@Html.ActionLink("Yoga thérapie", "Yogathérapie", "Home")</li><br />
+                    <li class="dropdown-submenu">
+                        @Html.ActionLink("L'ostéo", "MaPratique", "Home")
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Mon parcours", "QuiSuisJe", "Home")</li>
+                        </ul>
+                    </li><br />
+                    <li class="dropdown-submenu">@Html.ActionLink("Partenaires", "Partenaires", "Home")</li><br />
+                    <li class="dropdown-submenu">
+                        Pourquoi Consulter?
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Motifs courants", "MotifsCourants", "Home")</li>
+                            <li>@Html.ActionLink("Motifs méconnus", "MotifsMeconnus", "Home")</li>
+                            <li>@Html.ActionLink("Pour les bébés", "QuandConsulterBebe", "Home")</li>
+                            <li>@Html.ActionLink("Pour les femmes enceintes", "QuandConsulterGrossesse", "Home")</li>
+                        </ul>
+                    </li><br />
                     @*<li class="dropdown-submenu">@Html.ActionLink("Administration", "Index", "Administration")</li>*@
-                </ul>     
+                </ul>   
             </nav> 
-        </header>
-        @RenderBody()
+        </div>
+        <div class="span6" style="text-align: center">
+            @RenderBody()
+        </div>
+        <div class="span3" style="text-align: center">
+            <div class="fb-like-box" data-href="https://www.facebook.com/pages/osteoyogafr/184250505057824" data-show-faces="false" data-stream="true" data-show-border="false" data-header="true"></div>
+        </div>
     </div>
     <footer id="mainFooter"> <!-- Main Footer -->
         <div id="toTop"><a href="#top" id="topLink" title="Haut de la page"><i class="icon-chevron-up"></i></a></div>
@@ -81,15 +123,16 @@
         </section> <!-- end footer extra -->
         <section id="footerInfo">
       
-        <p id="copyright">&copy; Copyright 2012. All Rights Reserved</p>
-        <ul class="socialMedia">
-            <li><a href="https://fr-fr.facebook.com/pages/Ost%C3%A9opathie-Yogath%C3%A9rapie-N-Truffart-DO/184250505057824" title="Facebook"><i class="icon-facebook"></i></a></li>
-            <li><a href="https://twitter.com/osteoyogafr" title="Twitter"><i class="icon-twitter"></i></a></li>
-            <li><a href="https://plus.google.com/u/0/104059425150663666735" title="Google Plus" rel="publisher"><i class="icon-google-plus"></i></a></li>
-            <li><a href="http://fr.linkedin.com/pub/nicolas-truffart/73/243/1b0" title="LinkedIn"><i class="icon-linkedin"></i></a></li>
-        </ul>
+            <p id="copyright">&copy; Copyright 2012. All Rights Reserved</p>
+            <ul class="socialMedia">
+                <li><a href="https://fr-fr.facebook.com/pages/Ost%C3%A9opathie-Yogath%C3%A9rapie-N-Truffart-DO/184250505057824" title="Facebook"><i class="icon-facebook"></i></a></li>
+                <li><a href="https://twitter.com/osteoyogafr" title="Twitter"><i class="icon-twitter"></i></a></li>
+                <li><a href="https://plus.google.com/u/0/104059425150663666735" title="Google Plus" rel="publisher"><i class="icon-google-plus"></i></a></li>
+                <li><a href="http://fr.linkedin.com/pub/nicolas-truffart/73/243/1b0" title="LinkedIn"><i class="icon-linkedin"></i></a></li>
+            </ul>
       
-    </section> <!-- end copyright and social media -->
+        </section> <!-- end copyright and social media -->
        
     </footer> <!-- end mainFooter -->
+    </div>
 </body>

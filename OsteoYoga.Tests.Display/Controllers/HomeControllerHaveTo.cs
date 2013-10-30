@@ -1,10 +1,5 @@
-﻿using System;
-using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OsteoYoga.Display.Controllers;
-using OsteoYoga.Domain.Models;
-using OsteoYoga.Repository.DAO;
 
 namespace OsteoYoga.Tests.Display.Controllers
 {
@@ -59,6 +54,30 @@ namespace OsteoYoga.Tests.Display.Controllers
         public void GoToQuiSuisJe()
         {
             Assert.AreEqual("QuiSuisJe", Controller.QuiSuisJe().ViewName);
+        }
+
+        [TestMethod]
+        public void GoToQuandConsulterBebe()
+        {
+            Assert.AreEqual("QuandConsulterBebe", Controller.QuandConsulterBebe().ViewName);
+        }
+
+        [TestMethod]
+        public void GoToQuandConsulterGrossesse()
+        {
+            Assert.AreEqual("QuandConsulterGrossesse", Controller.QuandConsulterGrossesse().ViewName);
+        }
+
+        [TestMethod]
+        public void GoToMotifsCourants()
+        {
+            Assert.AreEqual("MotifsCourants", Controller.MotifsCourants().ViewName);
+        }
+
+        [TestMethod]
+        public void GoToMotifsMeconnus()
+        {
+            Assert.AreEqual("MotifsMeconnus", Controller.MotifsMeconnus().ViewName);
         }
     }
 }

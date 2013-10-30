@@ -38,6 +38,7 @@ namespace OsteoYoga.Display.Controllers
             return PartialView("Index", dates);
         }
 
+        [HttpGet]
         public PartialViewResult GetDetailDate(int id)
         {
             if (!SessionHelper.GetInstance().AdminConnected)
@@ -48,17 +49,36 @@ namespace OsteoYoga.Display.Controllers
             return PartialView("GetDetailDate", date);
         }
 
-        public ActionResult DeleteDate(int id)
+        [HttpPost]
+        public bool DeleteDate(int id)
         {
             Date date = DateRepository.GetById(id);
             DateRepository.Delete(date);
-            return new EmptyResult();
+            return false;
         }
 
         [HttpGet]
         public PartialViewResult CreateDate()
         {
             return PartialView("CreateDate", ContactRepository.GetAll());
+        }
+
+
+        [HttpPost]
+        public Date CreateDate(int timeSlotId, int contactId, DateTime datetime)
+        {
+            TimeSlot timeSlot = TimeSlotRepository.GetById(timeSlotId);
+            Contact contact = ContactRepository.GetById(contactId);
+
+            Date date = new Date{
+                                      ConfirmationId = Guid.NewGuid().ToString(),
+                                      Contact = contact,
+                                      TimeSlot = timeSlot,
+                                      Day = datetime,
+                                      IsConfirmed = true
+                                  };
+            DateRepository.Save(date);
+            return date;
         }
         
         public PartialViewResult GetTimeSlotsForADay(DateTime dateTime){

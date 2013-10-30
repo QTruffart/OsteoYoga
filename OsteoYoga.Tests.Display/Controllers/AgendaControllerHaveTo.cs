@@ -103,6 +103,30 @@ namespace OsteoYoga.Tests.Display.Controllers
         }
 
         [TestMethod]
+        public void CreateADate(){
+
+            int timeSlotId = 1;
+            int contactId = 2;
+            Contact contact = new Contact(){Id = contactId,};
+            TimeSlot timeSlot = new TimeSlot(){Id = timeSlotId};
+            DateTime dateTime = DateTime.Now;
+            contactRepositoryMock.Setup(crm => crm.GetById(contactId)).Returns(contact);
+            timeSlotRepositoryMock.Setup(tsrm => tsrm.GetById(timeSlotId)).Returns(timeSlot);
+            dateRepositoryMock.Setup(drm => drm.Save(It.Is<Date>(d => d.Contact == contact && d.TimeSlot == timeSlot && d.Day == dateTime)));
+            
+            Date date = Controller.CreateDate(timeSlotId, contactId, dateTime);
+
+            contactRepositoryMock.Verify(crm => crm.GetById(contactId), Times.Once());
+            timeSlotRepositoryMock.Verify(tsrm => tsrm.GetById(timeSlotId), Times.Once());
+            dateRepositoryMock.Verify(drm => drm.Save(It.Is<Date>(d => d.Contact == contact && d.TimeSlot == timeSlot && d.Day == dateTime)), Times.Once());
+            Assert.AreEqual(contact, date.Contact);
+            Assert.AreEqual(timeSlot, date.TimeSlot);
+            Assert.AreEqual(dateTime, date.Day);
+            Assert.IsTrue(date.IsConfirmed);
+            Assert.IsNotNull(date.ConfirmationId);
+        }
+
+        [TestMethod]
         public void GetFreeTimeSlots(){
             DateTime dateTime = DateTime.Now;
             IList<TimeSlot> slots = new List<TimeSlot>();

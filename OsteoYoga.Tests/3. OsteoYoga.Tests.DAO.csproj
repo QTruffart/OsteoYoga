@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Iesi.Collections">
-      <HintPath>..\External Libraries\NHibernate\bin\Iesi.Collections.dll</HintPath>
+      <HintPath>..\External Libraries\NHibernate\NHibernate-3.3.3.GA-bin\Required_Bins\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -42,7 +42,7 @@
       <HintPath>..\External Libraries\Moq\Moq.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
-      <HintPath>..\External Libraries\NHibernate\bin\NHibernate.dll</HintPath>
+      <HintPath>..\External Libraries\NHibernate\NHibernate-3.3.3.GA-bin\Required_Bins\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
