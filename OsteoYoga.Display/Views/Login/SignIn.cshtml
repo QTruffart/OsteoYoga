@@ -4,7 +4,9 @@
 @using OsteoYoga.Resource.Contact
 @model OsteoYoga.Domain.Models.Contact
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";   
+    ViewBag.Title = "Enregistrement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Meta = "Inscription facile et rapide afin de pouvoir prendre rendez-vous en sur Internet"; 
 }
 @*@{
     if ((string) Session["UserIsLogged"] == "true")
@@ -60,7 +62,7 @@
         <div id="errors" class="error">@ViewBag.SignInError</div>
         <div>
             <fieldset>
-                <legend>Inscription</legend>
+                <legend><h1>Inscription</h1></legend>
                 <div class="notification">@SignInResource.AllFieldsAreMandatory</div>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.FullName)

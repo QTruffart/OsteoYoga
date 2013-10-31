@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>@ViewBag.Title</title>  
-    <meta name="description" content="Cabinet d'ostéopathie; Nicolas Truffart à Bayonne; Méthodes douces et yoga thérapie; Le cabinet situé au pôle santé de la ZUP est facilement accessible du 64 pays basque et du 40 sud landes; Bébé, femme enceinte, sportif (cadets aviron bayonnais rugby), séniors (arthrose, ostéoporose); Osteopathe; english spoken" />
+    <meta name="description" content="@ViewBag.Meta" />
     <meta name="viewport" content="width=device-width,initial-scale=1, minimum-scale=1.0, maximum-scale=1.0" />
     <meta http-equiv="Content-Type" CONTENT="text/html; charset=iso-8859-1">
     <link href='@Url.Content("~/Theme/Css/Fonts/fontawesome-webfont.ttf")' rel='stylesheet' type='text/css' />
@@ -48,7 +48,6 @@
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
-
 <body class="home">
     <div id="fb-root"></div>
     <script>    (function (d, s, id) {
@@ -91,7 +90,7 @@
                         <li class="dropdown-submenu">@Html.ActionLink("Ostéopathie", "Osthéopathie", "Home")</li><br />
                         <li class="dropdown-submenu">@Html.ActionLink("Yoga thérapie", "Yogathérapie", "Home")</li><br />
                         <li class="dropdown-submenu">
-                            @Html.ActionLink("L'ostéo", "MaPratique", "Home")
+                            @Html.ActionLink("Ma pratique", "MaPratique", "Home")
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Mon parcours", "QuiSuisJe", "Home")</li>
                             </ul>

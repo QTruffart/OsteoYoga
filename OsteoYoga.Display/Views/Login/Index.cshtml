@@ -2,7 +2,8 @@
 @using OsteoYoga.Resource.Contact
 @{
     ViewBag.Title = "Connexion";
-    Layout = "~/Views/Shared/_Layout.cshtml";  
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Meta = "Connectez vous afin de pouvoir prendre rendez-vous en ligne";
     if (ViewBag.isForDate != null && ViewBag.isForDate)
     {
         <div>
@@ -23,7 +24,7 @@
     {
         <div id="Errors" class="error">@ViewBag.Errors</div>
         <fieldset>
-            <legend>@LoginResource.Connection</legend>
+            <legend><h1>@LoginResource.Connection</h1></legend>
             <div><input type="text" name="email" id="email" /></div>
             <div><input class="btn btn-primary" type="submit" value="@LoginResource.ConnectMySelf"/></div>
         </fieldset>

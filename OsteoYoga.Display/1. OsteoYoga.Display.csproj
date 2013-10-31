@@ -83,6 +83,9 @@
     </Content>
     <Content Include="Global.asax" />
     <Content Include="robots.txt" />
+    <Content Include="sitemap.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Theme\Css\avgrund.css" />
     <Content Include="Theme\Css\bootstrap.css" />
     <Content Include="Theme\Css\color-blue.css" />

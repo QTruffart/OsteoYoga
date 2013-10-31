@@ -13,6 +13,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Prise de rendez vous sur internet";
+    ViewBag.Meta = "Prise de rendez vous sur internet facile et rapide selon vos disponibilités. La prise en compte est immédiate.";
 }
 
 <script type="text/javascript">
@@ -77,11 +78,11 @@
 </script>
 <div role="main" id="mainContent"> 
     <fieldset>
-        <legend>@DateResource.DateQuery</legend>
+        <legend><h1>@DateResource.DateQuery</h1></legend>
         <label class="error" id="erreurs">@ViewBag.ResultMessage</label>
         <table >
             <tr>
-                <th>@DateResource.DateSelection</th>
+                <th><h2>@DateResource.DateSelection</h2></th>
             </tr>
             <tr>
                 <td style="width:25%; vertical-align:top; background-color: transparent;">
@@ -89,7 +90,7 @@
                 </td>
             </tr>
             <tr hidden="hidden" id="timeSlotSelection">
-                <th>@DateResource.TimeSlotSelection</th>
+                <th><h2>@DateResource.TimeSlotSelection</h2></th>
             </tr>
             <tr hidden="hidden" id="timeSlotSelectionValues">
                 <td style="width:75%; text-align:center; vertical-align:top; background-color: transparent;">
@@ -97,7 +98,6 @@
                         <option value="@Constants.GetInstance().AMBegin()-@Constants.GetInstance().PMEnd()" selected="selected">@DateResource.AllTheDay</option>
                         <option value="@Constants.GetInstance().AMBegin()-@Constants.GetInstance().AMEnd()">@DateResource.AM</option>
                         <option value="@Constants.GetInstance().PMBegin()-@Constants.GetInstance().PMEnd()">@DateResource.PM</option>
-                        @*<option id="timeSlot">Horaires personnalisés</option>*@
                     </select>
                     <div id="customTimeSLot"></div>
                 </td>
@@ -106,45 +106,3 @@
         <div id="proposeDate"></div>
     </fieldset> 
 </div>
-@{
-    
-    /*function ajouterUnePlageHoraire(date, heureDebut, heureFin) {
-        
-    compteurId = compteurId + 1;
-    if (remplirIdArray()) {
-    var id = compteurId;
-    } else {
-    return;
-    }
-    var imageUrl = "../Content/themes/images/cancel.png";
-    var html1 = "<table><tr id='ligne_" + id + "'><td>" + date + "</td>";
-    html1 = html1 + "<td><div id='slider_" + id + "' style='min-width:15em'></div></td>";
-    html1 = html1 + "<td><div id='horaires_" + id + "'>"+heureDebut+":00H - "+heureFin+":00H</div></td>";
-    html1 = html1 + "<td><a href='#' id='supprimer_" + id + "'><img src='" + imageUrl + "' alt='Supprimer' style='width:2em; height:2height' /></a></td></tr></table>";
-    $("#patientHours").append(html1);
-    var option = "<option id='plage_" + id + "' value='" + heureDebut + "-" + heureFin + "-" + date + "' selected=selected></option>";
-    $("#hours").append(option);
-
-    $("#supprimer_" + id).click(function() {
-    $("#ligne_" + id).remove();
-    $("#plage_" + id).remove();
-            
-    ids[id] = "";
-    });
-
-    $("#slider_" + id).slider({
-    range: true,
-    min: 8,
-    max: 19,
-    values: [heureDebut, heureFin],
-    slide: function (event, ui) {
-    var heureMin = ui.values[0];
-    var heureMax = ui.values[1];
-    $("#horaires_" + id).html(heureMin + ":00H - " + heureMax + ":00H");
-    var optionValue = heureMin + "-" + heureMax + "-" + date;
-    $("#plage_" + id).val(optionValue);
-    }
-    });
-    }
-    */
-}
