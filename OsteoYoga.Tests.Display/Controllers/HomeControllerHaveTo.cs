@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OsteoYoga.Display.Controllers;
+using OsteoYoga.WebSite.Controllers;
+
 
 namespace OsteoYoga.Tests.Display.Controllers
 {
@@ -15,9 +16,14 @@ namespace OsteoYoga.Tests.Display.Controllers
         }
 
         [TestMethod]
-        public void GoToMeContacter()
+        public void GoToMeContacterABayonne()
         {
-            Assert.AreEqual("MeContacter", Controller.MeContacter().ViewName);
+            Assert.AreEqual("MeContacterABayonne", Controller.MeContacterABayonne().ViewName);
+        }
+        [TestMethod]
+        public void GoToMeContacterRionDesLandes()
+        {
+            Assert.AreEqual("MeContacterARionDesLandes", Controller.MeContacterARionDesLandes().ViewName);
         }
 
         [TestMethod]
@@ -78,6 +84,11 @@ namespace OsteoYoga.Tests.Display.Controllers
         public void GoToMotifsMeconnus()
         {
             Assert.AreEqual("MotifsMeconnus", Controller.MotifsMeconnus().ViewName);
+        }
+        [TestMethod]
+        public void QuestionsFrequentes()
+        {
+            Assert.AreEqual("QuestionsFrequentes", Controller.QuestionsFrequentes().ViewName);
         }
     }
 }

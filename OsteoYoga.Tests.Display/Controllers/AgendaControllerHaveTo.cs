@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using OsteoYoga.Display.Controllers;
-using OsteoYoga.Display.Helpers;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Repository.DAO;
+using OsteoYoga.WebSite.Controllers;
+using OsteoYoga.WebSite.Helpers;
 
 namespace OsteoYoga.Tests.Display.Controllers
 {

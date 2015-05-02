@@ -1,9 +1,12 @@
 ﻿using System.Web.Mvc;
+using log4net;
+using log4net.Config;
 
 namespace OsteoYoga.WebSite.Controllers
 {
     public class HomeController : Controller
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(HomeController));
         public ActionResult Index()
         {
             ViewBag.Message = "Welcome to ASP.NET MVC!";
@@ -18,10 +21,13 @@ namespace OsteoYoga.WebSite.Controllers
 
         public PartialViewResult MeContacterABayonne()
         {
+            XmlConfigurator.Configure();
+            log.Error("message");
             return PartialView("MeContacterABayonne");
         }
         public PartialViewResult MeContacterARionDesLandes()
         {
+
             return PartialView("MeContacterARionDesLandes");
         }
 
@@ -74,6 +80,21 @@ namespace OsteoYoga.WebSite.Controllers
         public PartialViewResult QuestionsFrequentes()
         {
             return PartialView("QuestionsFrequentes");
+        }
+
+        public ActionResult Certifications()
+        {
+            return PartialView("Certifications");
+        }
+
+        public ActionResult CoursYoga()
+        {
+            return PartialView("CoursYoga");
+        }
+
+        public ActionResult LiensDivers()
+        {
+            return PartialView("LiensDivers");
         }
     }
 }

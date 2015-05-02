@@ -63,8 +63,9 @@
     <div id="top" ></div>
     <div class="gradient" ></div>
     <div id="bodyContainer" style="padding: 1em; text-align: center">  
-        <header id="mainHeader" > <!-- mainHeader -->  
-            <h1>@Html.ActionLink("OstéoYoga.fr", "Index", "Home", null, new { @class = "brand" })</h1>
+        <header id="mainHeader" > <!-- mainHeader -->
+            <h1>@Html.ActionLink("Nicolas Truffart - Ostéopathe", "Index", "Home", null, new {@class = "brand"})</h1>
+            <h2><i>@Html.ActionLink("Méthode douce alliant ostéopathie et yoga", "Index", "Home", null, new { @class = "brand" })</i></h2>
             <nav id="mainMenu" class="navbar"> <!-- Main Menu -->       
                 <ul class="nav">
                     @Html.MenuItem("Accueil", "Index", "Home") 
@@ -102,7 +103,15 @@
                             </ul>
                         </li><br />
                         <li class="dropdown-submenu">@Html.ActionLink("Questions fréquentes", "QuestionsFrequentes", "Home")</li><br />
-                        <li class="dropdown-submenu">@Html.ActionLink("Partenaires", "Partenaires", "Home")</li><br />
+                        <li class="dropdown-submenu">@Html.ActionLink("Liens utiles", "Partenaires", "Home")
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Cours de Yoga", "CoursYoga", "Home")</li>
+                                <li>@Html.ActionLink("Divers", "LiensDivers", "Home")</li>
+                            </ul>
+                        </li>
+                        <br />
+                        <li class="dropdown-submenu">@Html.ActionLink("Certifications", "Certifications", "Home")</li>
+                        <br />
                         @*<li class="dropdown-submenu">@Html.ActionLink("Administration", "Index", "Administration")</li>*@
                     </ul>   
                 </nav> 

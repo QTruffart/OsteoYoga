@@ -1,0 +1,19 @@
+#bodyContainer, 
+#mainContent hr,
+.sliderBg {
+  background-image: url("../Images/pattern2-black.png");
+}
+.dropdown-submenu > .dropdown-menu, 
+#mainFooter, #top, #topLink,
+th, .pageFeature,
+.nav-tabs > .active > a,
+.nav.nav-tabs > .active > a:hover, 
+.nav.nav-tabs > li > a:hover, 
+.accordion-heading,
+.circle, 
+.circleSlider, .circleSlider .slideCaption, .rectSlider {
+  background-image: url("../Images/pattern2-white.png");
+}
+.dropdown-menu li > a:hover, .dropdown-menu li > a:focus {
+  background: #fff url("../Images/pattern2-black.png");
+} 

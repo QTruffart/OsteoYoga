@@ -1,0 +1,396 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{797F3E40-57F7-4B09-94B4-F143A401E95F}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OsteoYoga.Display.MVC4</RootNamespace>
+    <AssemblyName>OsteoYoga.Display.MVC4</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.30506.0\lib\net40\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.30506.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.30506.0\lib\net40\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.OData, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.OData.4.0.30506\lib\net40\System.Web.Http.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Data.Edm.5.2.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Data.OData.5.2.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Spatial, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\System.Spatial.5.2.0\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AdministrationController.cs" />
+    <Compile Include="Controllers\AgendaController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\HolidayController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RendezVousController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\MenuExtensions.cs" />
+    <Compile Include="Helpers\SessionHelper.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="hibernate.cfg.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="robots.txt" />
+    <Content Include="sitemap.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Css\avgrund.css" />
+    <Content Include="Theme\Css\bootstrap.css" />
+    <Content Include="Theme\Css\color-blue.css" />
+    <Content Include="Theme\Css\color-green.css" />
+    <Content Include="Theme\Css\color-pink.css" />
+    <Content Include="Theme\Css\color-white.css" />
+    <Content Include="Theme\Css\color-yellow.css" />
+    <Content Include="Theme\Css\font-awesome.css" />
+    <Content Include="Theme\Css\Fonts\fontawesome-webfont.svg" />
+    <Content Include="Theme\Css\fullcalendar.css" />
+    <Content Include="Theme\Css\fullcalendar.print.css" />
+    <Content Include="Theme\Css\jquery-ui.css" />
+    <Content Include="Theme\Css\messi.min.css" />
+    <Content Include="Theme\Css\normalize.css" />
+    <Content Include="Theme\Css\pattern1.css" />
+    <Content Include="Theme\Css\pattern2.css" />
+    <Content Include="Theme\Css\pattern3.css" />
+    <Content Include="Theme\Css\pattern4.css" />
+    <Content Include="Theme\Css\pattern5.css" />
+    <Content Include="Theme\Css\pattern6.css" />
+    <Content Include="Theme\Css\placeholder-ie.css" />
+    <Content Include="Theme\Css\Site.css" />
+    <Content Include="Theme\Css\style.css" />
+    <Content Include="Theme\Images\abeille.jpg" />
+    <Content Include="Theme\Images\animated-overlay.gif" />
+    <Content Include="Theme\Images\cabinet.jpg" />
+    <Content Include="Theme\Images\cancel.png" />
+    <Content Include="Theme\Images\consulterbebe.jpg" />
+    <Content Include="Theme\Images\consultergrossesse.jpg" />
+    <Content Include="Theme\Images\homeslider1.png" />
+    <Content Include="Theme\Images\homeslider2.png" />
+    <Content Include="Theme\Images\imageRions.jpg" />
+    <Content Include="Theme\Images\logo.jpg" />
+    <Content Include="Theme\Images\logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Theme\Images\motifscourants.jpg" />
+    <Content Include="Theme\Images\motifsmeconnus.jpg" />
+    <Content Include="Theme\Images\news-img.png" />
+    <Content Include="Theme\Images\ombakyoga.png" />
+    <Content Include="Theme\Images\pattern1-black.png" />
+    <Content Include="Theme\Images\pattern1-white.png" />
+    <Content Include="Theme\Images\pattern2-black.png" />
+    <Content Include="Theme\Images\pattern2-white.png" />
+    <Content Include="Theme\Images\pattern3-black.png" />
+    <Content Include="Theme\Images\pattern3-white.png" />
+    <Content Include="Theme\Images\pattern4-black.png" />
+    <Content Include="Theme\Images\pattern4-white.png" />
+    <Content Include="Theme\Images\pattern5-black.png" />
+    <Content Include="Theme\Images\pattern5-white.png" />
+    <Content Include="Theme\Images\pattern6-black.png" />
+    <Content Include="Theme\Images\pattern6-white.png" />
+    <Content Include="Theme\Images\projectslider.png" />
+    <Content Include="Theme\Images\services1.png" />
+    <Content Include="Theme\Images\services2.png" />
+    <Content Include="Theme\Images\services3.png" />
+    <Content Include="Theme\Images\shadow-section.png" />
+    <Content Include="Theme\Images\shadow-slider.png" />
+    <Content Include="Theme\Images\shadow.png" />
+    <Content Include="Theme\Images\sprite-nav.png" />
+    <Content Include="Theme\Images\still.jpg" />
+    <Content Include="Theme\Images\suryanamaskar.png" />
+    <Content Include="Theme\Images\tarif.jpg" />
+    <Content Include="Theme\Images\thumbnail-team.png" />
+    <Content Include="Theme\Images\thumbnail.png" />
+    <Content Include="Theme\Images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Theme\Images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="Theme\Images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="Theme\Images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="Theme\Images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Theme\Images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Theme\Images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="Theme\Images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Theme\Images\ui-icons_217bc0_256x240.png" />
+    <Content Include="Theme\Images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Theme\Images\ui-icons_469bdd_256x240.png" />
+    <Content Include="Theme\Images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="Theme\Images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Theme\Images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Theme\Images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="Theme\Images\vivekananda.jpg" />
+    <Content Include="Theme\Images\wait_gd.gif" />
+    <Content Include="Theme\Scripts\bootstrap.js" />
+    <Content Include="Theme\Scripts\bootstrap.min.js" />
+    <Content Include="Theme\Scripts\fullcalendar.min.js" />
+    <Content Include="Theme\Scripts\gcal.js" />
+    <Content Include="Theme\Scripts\gmap3.min.js" />
+    <Content Include="Theme\Scripts\jquery-1.9.1.js" />
+    <Content Include="Theme\Scripts\jquery-ui.min.js" />
+    <Content Include="Theme\Scripts\jquery.flexslider-min.js" />
+    <Content Include="Theme\Scripts\jquery.isotope.min.js" />
+    <Content Include="Theme\Scripts\jquery.maskedinput.js" />
+    <Content Include="Theme\Scripts\jquery.tweet.min.js" />
+    <Content Include="Theme\Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Theme\Scripts\jquery.unobtrusive-ajax.min.js" />
+    <None Include="Properties\PublishProfiles\OstéoProd.pubxml" />
+    <None Include="Theme\Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Theme\Scripts\jquery.validate.js" />
+    <Content Include="Theme\Scripts\jquery.validate.min.js" />
+    <Content Include="Theme\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Theme\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Theme\Scripts\jquery.watermark.min.js" />
+    <Content Include="Theme\Scripts\messi.min.js" />
+    <Content Include="Theme\Scripts\MicrosoftAjax.debug.js" />
+    <Content Include="Theme\Scripts\MicrosoftAjax.js" />
+    <Content Include="Theme\Scripts\MicrosoftMvcAjax.debug.js" />
+    <Content Include="Theme\Scripts\MicrosoftMvcAjax.js" />
+    <Content Include="Theme\Scripts\MicrosoftMvcValidation.debug.js" />
+    <Content Include="Theme\Scripts\MicrosoftMvcValidation.js" />
+    <Content Include="Theme\Scripts\modalScript.js" />
+    <Content Include="Theme\Scripts\modernizr.custom.js" />
+    <Content Include="Theme\Scripts\MyScripts\login.js" />
+    <Content Include="Theme\Scripts\script.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Theme\Css\Fonts\fontawesome-webfont.eot" />
+    <Content Include="Theme\Css\Fonts\fontawesome-webfont.ttf" />
+    <Content Include="Theme\Css\Fonts\fontawesome-webfont.woff" />
+    <Content Include="Views\Administration\Index.cshtml" />
+    <Content Include="Views\Administration\PassAdmin.cshtml" />
+    <Content Include="Views\Administration\UserList.cshtml" />
+    <Content Include="Views\Agenda\CreateDate.cshtml" />
+    <Content Include="Views\Agenda\GetDetailDate.cshtml" />
+    <Content Include="Views\Agenda\GetTimeSlotsForADay.cshtml" />
+    <Content Include="Views\Agenda\Index.cshtml" />
+    <Content Include="Views\Contact\Create.cshtml" />
+    <Content Include="Views\Holiday\HolidayCancelled.cshtml" />
+    <Content Include="Views\Holiday\HolidayCreated.cshtml" />
+    <Content Include="Views\Holiday\Index.cshtml" />
+    <Content Include="Views\Holiday\ListOfHolidays.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\MaPratique.cshtml" />
+    <Content Include="Views\Home\MeContacterABayonne.cshtml" />
+    <Content Include="Views\Home\MeContacterARionDesLandes.cshtml" />
+    <Content Include="Views\Home\MotifsCourants.cshtml" />
+    <Content Include="Views\Home\MotifsMeconnus.cshtml" />
+    <Content Include="Views\Home\Osthéopathie.cshtml" />
+    <Content Include="Views\Home\Partenaires.cshtml" />
+    <Content Include="Views\Home\QuandConsulterBebe.cshtml" />
+    <Content Include="Views\Home\QuandConsulterGrossesse.cshtml" />
+    <Content Include="Views\Home\QuestionsFrequentes.cshtml" />
+    <Content Include="Views\Home\QuiSuisJe.cshtml" />
+    <Content Include="Views\Home\Tarifs.cshtml" />
+    <Content Include="Views\Home\Yogathérapie.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Login\SignIn.cshtml" />
+    <Content Include="Views\RendezVous\CreateDate.cshtml" />
+    <Content Include="Views\RendezVous\Index.cshtml" />
+    <Content Include="Views\RendezVous\ProposeDate.cshtml" />
+    <Content Include="Views\RendezVous\Validate.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LogOnPartial.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OsteoYoga.DAO\2. OsteoYoga.DAO.csproj">
+      <Project>{67c487a2-9ecd-4acd-8de5-8e7008e08575}</Project>
+      <Name>2. OsteoYoga.DAO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OsteoYoga.Domain\1. OsteoYoga.Domain.csproj">
+      <Project>{b915504d-d01d-4bef-802d-c527b2f5078c}</Project>
+      <Name>1. OsteoYoga.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OsteoYoga.Helpers\3. OsteoYoga.Helper.csproj">
+      <Project>{ad42cf25-232d-482b-84fe-ce92efc31c66}</Project>
+      <Name>3. OsteoYoga.Helper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OsteoYoga.Resource\2. OsteoYoga.Resource.csproj">
+      <Project>{149b66bb-12ea-4a38-acf9-8d712550e3fb}</Project>
+      <Name>2. OsteoYoga.Resource</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>59542</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:59542/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

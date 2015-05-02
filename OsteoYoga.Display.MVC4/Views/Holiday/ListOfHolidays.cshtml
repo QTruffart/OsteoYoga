@@ -1,0 +1,21 @@
+﻿@using OsteoYoga.Domain.Models
+@model IList<Holiday>
+<script type="text/javascript">
+    function CancelHoliday(idHoliday) {
+        var data = { id: idHoliday };
+        ajaxWithResultInModal('@Url.Action( "CancelAnHoliday", "Holiday")', data, 'Annulation du congé', RefreshHolidays);
+    }
+</script>
+<h3>Liste des congés</h3>
+<div style="height: 400px;overflow: auto;">
+    <table >
+        <tr><th>Date</th><th>Annuler</th></tr>
+        @foreach (Holiday holiday in Model)
+        {
+            <tr>
+                <td>@holiday.ToString()</td>
+                <td><button class="btn btn-primary" onclick="CancelHoliday(@holiday.Id);">Annuler</button></td>
+            </tr>
+        }
+    </table>
+</div>

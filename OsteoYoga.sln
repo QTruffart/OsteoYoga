@@ -1,8 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1. OsteoYoga.Display", "OsteoYoga.Display\1. OsteoYoga.Display.csproj", "{1A87A554-DE7A-4F64-9703-1F1DA78BED64}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3. OsteoYoga.Tests.DAO", "OsteoYoga.Tests\3. OsteoYoga.Tests.DAO.csproj", "{84123587-811B-46F5-8A8F-2223816B3CB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1. OsteoYoga.Domain", "OsteoYoga.Domain\1. OsteoYoga.Domain.csproj", "{B915504D-D01D-4BEF-802D-C527B2F5078C}"
@@ -23,16 +23,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1. OsteoYoga.Tests.Display"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2. OsteoYoga.Tests.Domain", "OsteoYoga.Tests.Domain\2. OsteoYoga.Tests.Domain.csproj", "{56BE1902-3D8B-4B6E-AE77-58FCAD2FA2C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsteoYoga.WebSite", "OsteoYoga.WebSite\OsteoYoga.WebSite.csproj", "{14D1B8D4-EF6C-403E-B7F4-A9C3F47B1AA8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1A87A554-DE7A-4F64-9703-1F1DA78BED64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A87A554-DE7A-4F64-9703-1F1DA78BED64}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A87A554-DE7A-4F64-9703-1F1DA78BED64}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A87A554-DE7A-4F64-9703-1F1DA78BED64}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84123587-811B-46F5-8A8F-2223816B3CB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{84123587-811B-46F5-8A8F-2223816B3CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84123587-811B-46F5-8A8F-2223816B3CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -61,13 +59,17 @@ Global
 		{56BE1902-3D8B-4B6E-AE77-58FCAD2FA2C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56BE1902-3D8B-4B6E-AE77-58FCAD2FA2C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56BE1902-3D8B-4B6E-AE77-58FCAD2FA2C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14D1B8D4-EF6C-403E-B7F4-A9C3F47B1AA8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14D1B8D4-EF6C-403E-B7F4-A9C3F47B1AA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14D1B8D4-EF6C-403E-B7F4-A9C3F47B1AA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14D1B8D4-EF6C-403E-B7F4-A9C3F47B1AA8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{1A87A554-DE7A-4F64-9703-1F1DA78BED64} = {0180B0BB-C67D-49CB-A6B2-65810BDD9CB2}
 		{149B66BB-12EA-4A38-ACF9-8D712550E3FB} = {0180B0BB-C67D-49CB-A6B2-65810BDD9CB2}
+		{14D1B8D4-EF6C-403E-B7F4-A9C3F47B1AA8} = {0180B0BB-C67D-49CB-A6B2-65810BDD9CB2}
 		{84123587-811B-46F5-8A8F-2223816B3CB1} = {D9E631DB-0341-4325-933E-A5B2A0CAE51E}
 		{9272987A-E8D2-416B-AE76-BF6CE8DDFBCE} = {D9E631DB-0341-4325-933E-A5B2A0CAE51E}
 		{56BE1902-3D8B-4B6E-AE77-58FCAD2FA2C1} = {D9E631DB-0341-4325-933E-A5B2A0CAE51E}
