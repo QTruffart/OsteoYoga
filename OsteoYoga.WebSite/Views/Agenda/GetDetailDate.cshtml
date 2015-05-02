@@ -1,0 +1,49 @@
+﻿@model OsteoYoga.Domain.Models.Date
+<script type="text/javascript">
+    $("#delete").click(function() {
+        if (confirm('Êtes vous sûr de vouloir supprimer ce rendez-vous?')) {
+            $.ajax({
+                url: '@Url.Action( "DeleteDate", "Agenda")',
+                data: {
+                    id: @Model.Id
+                },
+                type: 'POST',
+                success: function() {
+                    $("#deleteContent").html("Le rendez-vous a été supprimé.");
+                    LoadAjaxMenu('@Url.Action("Index", "Agenda")');
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        }
+    })
+</script>
+<div style="padding: 30px">
+    <h3>Rendez vous avec @Model.Contact.FullName</h3>
+    <table>
+        <tr>
+            <th colspan="2">Date et horaires</th>
+            <th colspan="2">Contact</th>
+        </tr>
+        <tr>
+            <td>Date :</td>
+            <td>@Model.ToString()</td>
+            <td>Nom :</td>
+            <td>@Model.Contact.FullName</td>
+        </tr>
+        <tr>
+            <td>Horaires :</td>
+            <td>@Model.TimeSlot.ToString()</td>
+            <td>Email :</td>
+            <td>@Model.Contact.Mail</td>
+        </tr>
+        <tr>
+            <td colspan="2" >
+            <div id="deleteContent"><button class="btn btn-primary" id="delete">Supprimer</button></div>
+            
+            <td>Téléphone :</td>
+            <td>@Model.Contact.Phone</td>
+        </tr>
+    </table>
+</div>

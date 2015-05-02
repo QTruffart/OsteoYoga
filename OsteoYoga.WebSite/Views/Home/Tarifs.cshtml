@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Tarifs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Meta = "Le prix de la consultation est à 50€, remboursable par des mutuelles.";
+}
+<div role="main" id="mainContent">
+    <section class="pageSection" style="text-align: justify">
+    <div class="row-fluid">
+         
+        <div class="span3 sectionImg">
+        <div class="circle noTransition">            
+            <div class="centeringWrapper">
+                <img src="@Url.Content("~/Theme/Images/abeille.jpg")" style="width:200px; height: 180px" />
+            </div>
+        </div>
+        </div> <!-- Picture -->
+          
+        <div class="span9 content"> 
+        <h1 id="1">Mes tarifs</h1>   
+            <p>Le coût de la consultation est de 50 € </p>
+            <p>La durée de la consultation est de 45 min à 60 min en fonction de la personne.</p>
+            <p>Indémnité de déplacement à domicile: 10 €<br /> Indemnité jour férié: 20 €</p>
+            <p>
+                Des remboursements sont possibles par les mutuelles en fonction de votre contrat. Je délivre en fin de consultation des factures comportant les informations administratives nécessaires à votre mutuelle pour vous rembourser.
+                La consultation n'est pas prise en charge par la sécurité sociale. L'ostéopathie n'est pas une activité conventionnée avec la CPAM.
+            </p>
+        </div>  <!-- Content -->          
+    </div> <!-- end row-fluid -->
+    </section> 
+</div>
+

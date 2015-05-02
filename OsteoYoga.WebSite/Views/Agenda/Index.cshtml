@@ -1,0 +1,106 @@
+﻿@using OsteoYoga.Domain.Models
+@using OsteoYoga.Resource.Holiday
+@using OsteoYoga.WebSite.Helpers
+@model IList<Date>
+
+<link href='@Url.Content("~/Theme/Css/fullcalendar.css")' rel='stylesheet' />
+<link href='@Url.Content("~/Theme/Css/fullcalendar.print.css")' rel='stylesheet' media='print' />
+<script type="text/javascript" src='@Url.Content("~/Theme/Scripts/jquery-1.9.1.js")'></script>
+<script type="text/javascript" src='@Url.Content("~/Theme/Scripts/jquery-ui.min.js")'></script>
+<script type="text/javascript" src='@Url.Content("~/Theme/Scripts/fullcalendar.min.js")'></script>
+<script type="text/javascript">
+    
+    $(document).ready(function () {
+        $('#calendar').fullCalendar({
+            defaultView: 'agendaWeek',
+            allDaySlot:false,
+            editable: false,
+            firstHour: 8,
+            minTime:8,
+            maxTime: 19,
+            monthNames:['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet','Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort :['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil','Août', 'Sept', 'Oct', 'Nov', 'Déc'],
+            dayNames  :['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort :['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+            header: {
+                left: 'prev,next today',
+                center: 'title'
+            },
+            events: [
+                @foreach (Date date in Model){
+                    string color = date.IsConfirmed ? "green" : "red";
+                    <text>   
+                        {   
+                            id: '@date.Id',
+                            title: '@StringHelper.GetInstance().ToJavascript(date.Contact.FullName)',
+                            start: new Date(@date.Day.Year, @(date.Day.Month - 1), @date.Day.Day, @date.TimeSlot.BeginHour.Hours, @date.TimeSlot.BeginHour.Minutes),
+                            end: new Date(@date.Day.Year, @(date.Day.Month - 1), @date.Day.Day, @date.TimeSlot.EndHour.Hours, @date.TimeSlot.EndHour.Minutes),
+                            allDay: false,
+                            color:'@color'
+                        },
+                    </text>
+                }
+            
+                @foreach (Holiday holiday in ViewBag.Holidays){
+                    string color = "orange";
+                    <text>   
+                        {   
+                            id: '@holiday.Id',
+                            title: '@HolidayResource.Holidays',
+                            start: new Date(@holiday.Day.Year, @(holiday.Day.Month - 1), @holiday.Day.Day, @holiday.BeginHour.Hours, @holiday.BeginHour.Minutes),
+                            end: new Date(@holiday.Day.Year, @(holiday.Day.Month - 1), @holiday.Day.Day, @holiday.EndHour.Hours, @holiday.EndHour.Minutes),
+                            allDay: false,
+                            color:'@color'
+                        },
+                    </text>
+                }
+            ],
+            eventClick: function(calEvent) {
+                $.ajax({
+                    url: '/Agenda/GetDetailDate?id=' + calEvent.id,
+                    type: 'GET',
+                    success: function (data) {
+                        $("#eventDialog").html(data);
+                        $("#eventDialog").dialog({
+                            autoOpen: true,
+                            resizable: false,
+                            modal: true,
+                            width:'650',
+                            closeText:""
+                        }); 
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+        });
+       
+    });
+     $("#addADate").click(function() {
+           $.ajax({
+                    url: '@Url.Action( "CreateDate", "Agenda")',
+                    type: 'GET',
+                    success: function (data) {
+                        $("#eventDialog").html(data);
+                        $("#eventDialog").dialog({
+                            autoOpen: true,
+                            resizable: false,
+                            modal: true,
+                            width:'350',
+                            closeText:""
+                        }); 
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+        });
+</script>
+
+<button class="btn btn-primary" id="addADate">
+    Créer un rendez-vous
+</button>
+<div id="calendar" ></div>
+<div id="eventDialog" ></div>
+

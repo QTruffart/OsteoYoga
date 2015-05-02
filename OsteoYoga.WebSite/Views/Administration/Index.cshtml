@@ -1,0 +1,60 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Administration";
+    Layout = Url.Content("~/Views/Shared/_Layout.cshtml");
+}
+<script src="@Url.Content("~/Theme/Scripts/jquery-1.9.1.js")" type="text/javascript" ></script>
+<script src="@Url.Content("~/Theme/Scripts/jquery-ui.min.js")" type="text/javascript" ></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#initializeTimeSlots").click(function () {
+            $.ajax({
+                url: '@Url.Action( "InitializeTimeSlot", "Administration")',
+                type: 'POST',
+                success: function () {
+                    alert("Opération réussie!");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        });
+        $("#clickAgenda").click(function () {
+            LoadAjaxMenu('@Url.Action("Index", "Agenda")');
+        });
+        $("#clickUserList").click(function () {
+            LoadAjaxMenu('@Url.Action("UserList", "Administration")');
+        });
+        $("#clickHolidays").click(function () {
+            LoadAjaxMenu('@Url.Action( "Index", "Holiday")');
+        });
+        $("#clickAgenda").click();
+    });
+
+    function LoadAjaxMenu(url) {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            success: function (data) {
+                $("#adminContent").html(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+    
+</script>
+<div role="main" id="mainContent">
+    <div id="nav">
+        <ul>
+            <li><a href="#" id="clickAgenda">Agenda</a></li>
+            <li><a href="#" id="clickUserList">Contacts</a></li>
+            <li><a href="#" id="clickHolidays">Congés</a></li>
+        </ul>
+    </div><br/><br/><br/>
+    
+    <div id="adminContent" style="min-height: 500px"></div>
+    <input id="initializeTimeSlots" type="button" value="Initialiser les plages Horaires" />
+</div>

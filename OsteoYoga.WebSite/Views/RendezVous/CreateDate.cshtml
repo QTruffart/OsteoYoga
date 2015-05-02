@@ -1,0 +1,19 @@
+﻿@using OsteoYoga.Resource.RendezVous
+@model OsteoYoga.Domain.Models.Date
+@{
+    if (Model != null)
+    {
+        <div>
+            <h4>@DateResource.EmailSending</h4>
+
+            Résumé : <br />
+            Date : @Model.ToString()<br />
+            Horaire : @Model.TimeSlot.ToString()<br />
+            Patient : @Model.Contact.ToString( )<br />
+        </div>
+    }
+    else
+    {
+        <div>@ViewBag.ResultMessage</div>
+    }
+}
