@@ -423,6 +423,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\Certifications.cshtml" />
+    <None Include="Views\Home\Association.cshtml" />
     <None Include="Views\Home\CoursYoga.cshtml" />
     <None Include="Views\Home\LiensDivers.cshtml" />
   </ItemGroup>

@@ -96,5 +96,10 @@ namespace OsteoYoga.WebSite.Controllers
         {
             return PartialView("LiensDivers");
         }
+
+        public ActionResult Association()
+        {
+            return PartialView("Association");
+        }
     }
 }
