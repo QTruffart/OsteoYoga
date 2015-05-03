@@ -82,22 +82,22 @@ namespace OsteoYoga.WebSite.Controllers
             return PartialView("QuestionsFrequentes");
         }
 
-        public ActionResult Certifications()
+        public PartialViewResult Certifications()
         {
             return PartialView("Certifications");
         }
 
-        public ActionResult CoursYoga()
+        public PartialViewResult CoursYoga()
         {
             return PartialView("CoursYoga");
         }
 
-        public ActionResult LiensDivers()
+        public PartialViewResult LiensDivers()
         {
             return PartialView("LiensDivers");
         }
 
-        public ActionResult Association()
+        public PartialViewResult Association()
         {
             return PartialView("Association");
         }

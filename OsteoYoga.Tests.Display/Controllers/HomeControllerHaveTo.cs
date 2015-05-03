@@ -85,10 +85,35 @@ namespace OsteoYoga.Tests.Display.Controllers
         {
             Assert.AreEqual("MotifsMeconnus", Controller.MotifsMeconnus().ViewName);
         }
+
         [TestMethod]
         public void QuestionsFrequentes()
         {
             Assert.AreEqual("QuestionsFrequentes", Controller.QuestionsFrequentes().ViewName);
+        }
+
+        [TestMethod]
+        public void Certifications()
+        {
+            Assert.AreEqual("Certifications", Controller.Certifications().ViewName);
+        }
+
+        [TestMethod]
+        public void CoursYoga()
+        {
+            Assert.AreEqual("CoursYoga", Controller.CoursYoga().ViewName);
+        }
+
+        [TestMethod]
+        public void LiensDivers()
+        {
+            Assert.AreEqual("LiensDivers", Controller.LiensDivers().ViewName);
+        }
+
+        [TestMethod]
+        public void Association()
+        {
+            Assert.AreEqual("Association", Controller.Association().ViewName);
         }
     }
 }
