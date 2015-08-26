@@ -9,7 +9,7 @@ namespace OsteoYoga.Helper
         readonly MailAddress fromAddress = new MailAddress("quentin.truffart@gmail.com", "Administration osteoyoga.fr");
         private const string Subject = "Demande de rendez-vous au ";
         private static Email _instance;
-        private const string SmtpOsteoyogaFr = "smtp.gmail.com";
+        private const string SmtpOsteoyogaFr = "smtp.osteoyoga.fr";
         private const string FormatDate = "dd/MM/yyyy";
         private const int Port = 587;
         private bool ssl = true;

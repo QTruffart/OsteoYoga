@@ -1,105 +1,240 @@
-﻿using System.Web.Mvc;
-using log4net;
-using log4net.Config;
+﻿using System;
+using System.Web.Mvc;
+using _5.OsteoYoga.Exception;
 
 namespace OsteoYoga.WebSite.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController.BaseController
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(HomeController));
-        public ActionResult Index()
-        {
-            ViewBag.Message = "Welcome to ASP.NET MVC!";
-
-            return View();
-        }
-
         public ActionResult About()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
 
         public PartialViewResult MeContacterABayonne()
         {
-            XmlConfigurator.Configure();
-            log.Error("message");
-            return PartialView("MeContacterABayonne");
+            try
+            {
+                return PartialView("MeContacterABayonne");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
+            
         }
         public PartialViewResult MeContacterARionDesLandes()
         {
-
-            return PartialView("MeContacterARionDesLandes");
+            try
+            {
+                return PartialView("MeContacterARionDesLandes");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
 
         public PartialViewResult Yogathérapie()
         {
-            return PartialView("Yogathérapie");
+            try
+            {
+                return PartialView("Yogathérapie");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
 
         public PartialViewResult MaPratique()
         {
-            return PartialView("MaPratique");
+            try
+            {
+                return PartialView("MaPratique");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
 
         public PartialViewResult Osthéopathie()
         {
-            return PartialView("Osthéopathie");
+            try
+            {
+                return PartialView("Osthéopathie");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
         public PartialViewResult Partenaires()
         {
-            return PartialView("Partenaires");
+            try
+            {
+                return PartialView("Partenaires");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
         public PartialViewResult Tarifs()
         {
-            return PartialView("Tarifs");
+            try
+            {
+                return PartialView("Tarifs");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
         public PartialViewResult QuiSuisJe()
         {
-            return PartialView("QuiSuisJe");
+            try
+            {
+                return PartialView("QuiSuisJe");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
 
-        public PartialViewResult MotifsCourants(){
-            return PartialView("MotifsCourants");
+        public PartialViewResult MotifsCourants()
+        {
+            try
+            {
+                return PartialView("MotifsCourants");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
 
         public PartialViewResult QuandConsulterBebe()
         {
-            return PartialView("QuandConsulterBebe");
+            try
+            {
+                return PartialView("QuandConsulterBebe");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
 
         public PartialViewResult MotifsMeconnus()
         {
-            return PartialView("MotifsMeconnus");
+            try
+            {
+                return PartialView("MotifsMeconnus");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
 
         public PartialViewResult QuandConsulterGrossesse()
         {
-            return PartialView("QuandConsulterGrossesse");
+            try
+            {
+                return PartialView("QuandConsulterGrossesse");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
 
         public PartialViewResult QuestionsFrequentes()
         {
-            return PartialView("QuestionsFrequentes");
+            try
+            {
+                return PartialView("QuestionsFrequentes");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
 
         public PartialViewResult Certifications()
         {
-            return PartialView("Certifications");
+            try
+            {
+                return PartialView("Certifications");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
 
         public PartialViewResult CoursYoga()
         {
-            return PartialView("CoursYoga");
+            try
+            {
+                return PartialView("CoursYoga");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
 
         public PartialViewResult LiensDivers()
         {
-            return PartialView("LiensDivers");
+            try
+            {
+                return PartialView("LiensDivers");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
 
         public PartialViewResult Association()
         {
-            return PartialView("Association");
+            try
+            {
+                return PartialView("Association");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
         }
     }
 }

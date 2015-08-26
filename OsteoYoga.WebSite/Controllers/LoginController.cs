@@ -68,11 +68,51 @@ namespace OsteoYoga.WebSite.Controllers
             return PartialView("SignIn", contact);
         }
 
+
+        [HttpPost]
+        public PartialViewResult SignInWithFacebook(string id, string mail, string name)
+        {
+            if (ContactRepository.EmailAlreadyExists(mail))
+            {
+                SessionHelper.GetInstance().CurrentUser = ContactRepository.GetByEmail(mail);
+                return PartialView("~/Views/RendezVous/Index.cshtml", GetHolidays());
+            }
+            Contact contact = new Contact()
+            {
+                Mail = mail,
+                FullName = name,
+                IsConfirmed = true
+            };
+            ContactRepository.Save(contact);
+            SessionHelper.GetInstance().CurrentUser = contact;
+            return PartialView("~/Views/RendezVous/Index.cshtml", GetHolidays());
+        }
+
+
+        [HttpPost]
+        public PartialViewResult SignInWithGoogle(string id, string mail, string name)
+        {
+            if (ContactRepository.EmailAlreadyExists(mail))
+            {
+                SessionHelper.GetInstance().CurrentUser = ContactRepository.GetByEmail(mail);
+                return PartialView("~/Views/RendezVous/Index.cshtml", GetHolidays());
+            }
+            Contact contact = new Contact()
+            {
+                Mail = mail,
+                FullName = name,
+                IsConfirmed = true
+            };
+            ContactRepository.Save(contact);
+            SessionHelper.GetInstance().CurrentUser = contact;
+            return PartialView("~/Views/RendezVous/Index.cshtml", GetHolidays());
+        }
+
         private IList<Holiday> GetHolidays()
         {
             return HolidayRepository.GetFutureHoliday(
-                                                new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)
-                                        );
+                new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)
+            );
         }
 
     }

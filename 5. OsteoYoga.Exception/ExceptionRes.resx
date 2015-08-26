@@ -117,31 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Connection" xml:space="preserve">
-    <value>Connexion</value>
+  <data name="ExceptionGenerique" xml:space="preserve">
+    <value>Une erreur non gérée est survenue</value>
   </data>
-  <data name="ConnectMySelf" xml:space="preserve">
-    <value>Se Connecter</value>
-  </data>
-  <data name="ConnectToAccesToCategory" xml:space="preserve">
-    <value>Vous devez vous connecter pour accéder à cette section.</value>
-  </data>
-  <data name="CreateAccount" xml:space="preserve">
-    <value>Se créer un compte</value>
-  </data>
-  <data name="IfNoAccountSignIn" xml:space="preserve">
-    <value>Si vous n'avez pas encore un compte, vous devez en créer un :</value>
-  </data>
-  <data name="UnknownEmail" xml:space="preserve">
-    <value>L'email n'existe pas, veullez réessayer ou vous inscrire.</value>
-  </data>
-  <data name="From" xml:space="preserve">
-    <value> =&gt; De </value>
-  </data>
-  <data name="ConnectionFacebook" xml:space="preserve">
-    <value>Connexion Facebook</value>
-  </data>
-  <data name="ConnectionGoogle" xml:space="preserve">
-    <value>Connexion Google</value>
+  <data name="ExceptionView" xml:space="preserve">
+    <value>Une erreur est survenue lors de la récupération de la vue</value>
   </data>
 </root>

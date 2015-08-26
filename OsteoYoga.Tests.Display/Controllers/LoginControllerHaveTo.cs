@@ -17,6 +17,7 @@ namespace OsteoYoga.Tests.Display.Controllers
     public class LoginControllerHaveTo
     {
         const string Email = "toto@toto.com";
+        const string Name = "fullName";
         Contact currentContact = new Contact();
         IList<Holiday> holidays = new List<Holiday>();
         readonly Mock<ContactRepository> contactRepositoryMock = new Mock<ContactRepository>();
@@ -130,6 +131,77 @@ namespace OsteoYoga.Tests.Display.Controllers
             sessionHelperMock.VerifySet(shm=> shm.CurrentUser = newContact);
             Assert.AreEqual("/Views/RendezVous/Index.cshtml", view.ViewName);
             Assert.AreEqual(holidays, view.Model);
+        }
+
+        [TestMethod]
+        public void SignInWithFacebookGetExistingContact()
+        {
+            const string id = "id";
+            Contact contact = new Contact()
+            {
+                FullName = Name,
+                Mail = Email
+            };
+            contactRepositoryMock.Setup(crm => crm.EmailAlreadyExists(Email)).Returns(true);
+            contactRepositoryMock.Setup(crm => crm.GetByEmail(Email)).Returns(contact);
+
+            PartialViewResult viewResult = Controller.SignInWithFacebook(id, Email,Name );
+
+            contactRepositoryMock.Verify(crm => crm.EmailAlreadyExists(Email), Times.Once());
+            sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
+            Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);            
+        }
+
+
+        [TestMethod]
+        public void SignInWithFacebookSaveANewContact()
+        {
+            const string id = "id";
+         
+            contactRepositoryMock.Setup(crm => crm.EmailAlreadyExists(Email)).Returns(false);
+
+            PartialViewResult viewResult = Controller.SignInWithFacebook(id, Email, Name);
+
+            contactRepositoryMock.Verify(crm => crm.EmailAlreadyExists(Email), Times.Once());
+            contactRepositoryMock.Verify(crm => crm.Save(It.Is<Contact>(c => c.IsConfirmed && c.Mail == Email && c.FullName == Name)), Times.Once());
+            sessionHelperMock.VerifySet(shm => shm.CurrentUser = It.Is<Contact>(c => c.IsConfirmed && c.Mail == Email && c.FullName == Name), Times.Once());
+            Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);
+        }
+
+
+        [TestMethod]
+        public void SignInWithGoogleGetExistingContact()
+        {
+            const string id = "id";
+            Contact contact = new Contact()
+            {
+                FullName = Name,
+                Mail = Email
+            };
+            contactRepositoryMock.Setup(crm => crm.EmailAlreadyExists(Email)).Returns(true);
+            contactRepositoryMock.Setup(crm => crm.GetByEmail(Email)).Returns(contact);
+
+            PartialViewResult viewResult = Controller.SignInWithGoogle(id, Email, Name);
+
+            contactRepositoryMock.Verify(crm => crm.EmailAlreadyExists(Email), Times.Once());
+            sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
+            Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);
+        }
+
+
+        [TestMethod]
+        public void SignInWithGoogleSaveANewContact()
+        {
+            const string id = "id";
+
+            contactRepositoryMock.Setup(crm => crm.EmailAlreadyExists(Email)).Returns(false);
+
+            PartialViewResult viewResult = Controller.SignInWithGoogle(id, Email, Name);
+
+            contactRepositoryMock.Verify(crm => crm.EmailAlreadyExists(Email), Times.Once());
+            contactRepositoryMock.Verify(crm => crm.Save(It.Is<Contact>(c => c.IsConfirmed && c.Mail == Email && c.FullName == Name)), Times.Once());
+            sessionHelperMock.VerifySet(shm => shm.CurrentUser = It.Is<Contact>(c => c.IsConfirmed && c.Mail == Email && c.FullName == Name), Times.Once());
+            Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);
         }
     }
 }

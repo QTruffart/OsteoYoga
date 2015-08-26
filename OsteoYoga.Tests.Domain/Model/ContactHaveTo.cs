@@ -86,5 +86,6 @@ namespace OsteoYoga.Tests.Domain.Model
             contact = new Contact { Phone = Phone, Mail = Mail };
             Assert.IsFalse(contact.IsValid());
         }
+
     }
 }
