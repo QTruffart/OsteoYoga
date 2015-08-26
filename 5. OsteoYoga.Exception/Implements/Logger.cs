@@ -10,8 +10,7 @@ namespace _5.OsteoYoga.Exception.Implements
     public class Logger :  ILogger
     {
         ILog Log { get; set; }
-
-
+        
         public Logger(Type origin)
         {
             Log = LogManager.GetLogger(origin);

@@ -1,7 +1,6 @@
 ﻿@using OsteoYoga.Domain.Models
-@using OsteoYoga.Helper
 @using OsteoYoga.Resource.RendezVous
-@model IList<Holiday>
+@model IList<OsteoYoga.Domain.Models.Office>
 <script src="@Url.Content("~/Theme/Scripts/jquery-1.9.1.js")" type="text/javascript" ></script>
 <script src="@Url.Content("~/Theme/Scripts/jquery-ui.min.js")" type="text/javascript" ></script>
 <script src="@Url.Content("~/Theme/Scripts/jquery.maskedinput.js")" type="text/javascript" ></script>
@@ -16,7 +15,7 @@
     ViewBag.Meta = "Prise de rendez vous sur internet facile et rapide selon vos disponibilités. La prise en compte est immédiate.";
 }
 
-<script type="text/javascript">
+@*<script type="text/javascript">
     var compteurId = 0;
     var ids = new Array();
     //var dayHours = '@Constants.GetInstance().AMBegin()-@Constants.GetInstance().PMEnd()';
@@ -75,12 +74,30 @@
             }
         });
     }
-</script>
-<div role="main" id="mainContent"> 
+</script>*@
+<div role="main" id="mainContent">
     <fieldset>
         <legend><h1>@DateResource.DateQuery</h1></legend>
         <label class="error" id="erreurs">@ViewBag.ResultMessage</label>
-        <table >
+        <table>
+            <tr>
+                <th>
+                    <h2>@DateResource.OfficeList</h2>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <select name="listbox" id="listbox">
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.Id">@item.Name</option>
+                        }
+                    </select>
+                </td>
+            </tr>
+        </table>
+
+        @*<table >
             <tr>
                 <th><h2>@DateResource.DateSelection</h2></th>
             </tr>
@@ -102,7 +119,7 @@
                     <div id="customTimeSLot"></div>
                 </td>
             </tr>
-        </table>
+        </table>*@
         <div id="proposeDate"></div>
-    </fieldset> 
+    </fieldset>*
 </div>

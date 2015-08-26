@@ -14,7 +14,7 @@ namespace OsteoYoga.Tests.DAO
         readonly TimeSlotRepository timeSlotRepository = new TimeSlotRepository();
         readonly Repository<Contact> contactRepository = new Repository<Contact>();
         readonly DateRepository dateRepository = new DateRepository();
-        readonly Contact contact = new Contact {FullName = "test", Mail = "test@test.com", Phone = "+33(0)556578996", ConfirmNumber = Guid.NewGuid(), IsConfirmed = false};
+        readonly Contact contact = new Contact {FullName = "test", Mail = "test@test.com", Phone = "+33(0)556578996"};
        
         [TestInitialize]
         public override void Initialize()

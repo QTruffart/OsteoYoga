@@ -8,9 +8,9 @@
       <generator class="increment" />
     </id>
     <property name="FullName" column="FullName" not-null="true" />
-    <property name="Phone" column="Phone" not-null="true" />
+    <property name="Phone" column="Phone" not-null="false" />
     <property name="Mail" column="Mail" not-null="true" />
-    <property name="IsConfirmed" column="IsConfirmed" not-null="true" />
-    <property name="ConfirmNumber" column="ConfirmNumber" not-null="true" />
+    <property name="NetworkType" column="NetworkType" not-null="false" />
+    <property name="NetworkId" column="NetworkId" not-null="false" />
   </class>
 </hibernate-mapping>

@@ -12,6 +12,9 @@ namespace OsteoYoga.Tests.DAO
     public class RepositoryHaveTo : BaseTestsNHibernate
     {
         IRepository<TimeSlot> repository = new Repository<TimeSlot>();
+
+        OfficeRepository officeRepository = new OfficeRepository();
+
         [TestInitialize]
         public override void Initialize()
         {
@@ -21,7 +24,8 @@ namespace OsteoYoga.Tests.DAO
         [TestCleanup]
         public override void CleanUp()
         {
-            repository.DeleteAll();
+            //repository.DeleteAll();
+            officeRepository.DeleteAll();
         }
 
         [TestMethod]
@@ -63,16 +67,16 @@ namespace OsteoYoga.Tests.DAO
         public void GetAll()
         {
 
-            TimeSlot expectedEntity1 = new TimeSlot();
-            TimeSlot expectedEntity2 = new TimeSlot();
-            repository.Save(expectedEntity1);
-            repository.Save(expectedEntity2);
+            Office officeEntity1 = new Office(){Name = "Name1"};
+            Office officeEntity2 = new Office() { Name = "Name2" };
+            officeRepository.Save(officeEntity1);
+            officeRepository.Save(officeEntity2);
 
-            IList<Entity> resultEntities = repository.GetAll().ToList<Entity>();
+            IList<Office> resultEntities = officeRepository.GetAll().ToList();
 
             Assert.AreEqual(2, resultEntities.Count);
-            CollectionAssert.Contains(resultEntities.ToList(), expectedEntity1);
-            CollectionAssert.Contains(resultEntities.ToList(), expectedEntity2);
+            CollectionAssert.Contains(resultEntities.ToList(), officeEntity1);
+            CollectionAssert.Contains(resultEntities.ToList(), officeEntity2);
         }
 
         [TestMethod]

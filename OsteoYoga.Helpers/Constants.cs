@@ -50,5 +50,7 @@ namespace OsteoYoga.Helper
         public virtual string NomNico { get { return ConfigurationManager.AppSettings["NomNico"]; } }
         public virtual string PassAdmin { get { return ConfigurationManager.AppSettings["PassAdmin"]; } }
         public virtual string PassMail { get { return ConfigurationManager.AppSettings["PassMail"]; } }
+        public virtual string GoogleNetwork { get { return ConfigurationManager.AppSettings["GoogleNetwork"]; } }
+        public virtual string FacebookNetwork { get { return ConfigurationManager.AppSettings["FacebookNetwork"]; } }
     }
 }

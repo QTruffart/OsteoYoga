@@ -6,6 +6,18 @@ namespace OsteoYoga.WebSite.Controllers
 {
     public class HomeController : BaseController.BaseController
     {
+        public ActionResult Index()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ExceptionRes.ExceptionView, ex);
+            }
+            return PartialView("Error");
+        }
         public ActionResult About()
         {
             try

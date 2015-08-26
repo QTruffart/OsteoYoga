@@ -51,9 +51,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="OfficeRepository.cs" />
     <Compile Include="ContactRepository.cs" />
     <Compile Include="HolidayRepository.cs" />
     <Compile Include="DateRepository.cs" />
+    <Compile Include="Interfaces\ICabinetRepository.cs" />
     <Compile Include="Interfaces\IHolidaySlotRepository.cs" />
     <Compile Include="Interfaces\IDateRepository.cs" />
     <Compile Include="Interfaces\IContactRepository.cs" />

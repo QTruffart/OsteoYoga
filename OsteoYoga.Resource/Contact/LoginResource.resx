@@ -133,7 +133,7 @@
     <value>Si vous n'avez pas encore un compte, vous devez en créer un :</value>
   </data>
   <data name="UnknownEmail" xml:space="preserve">
-    <value>L'email n'existe pas, veullez réessayer ou vous inscrire.</value>
+    <value>L'email n'existe pas, veuillez réessayer ou vous inscrire.</value>
   </data>
   <data name="From" xml:space="preserve">
     <value> =&gt; De </value>
@@ -143,5 +143,11 @@
   </data>
   <data name="ConnectionGoogle" xml:space="preserve">
     <value>Connexion Google</value>
+  </data>
+  <data name="MailFormat" xml:space="preserve">
+    <value>L'email doit être du format : "______@_____.___"</value>
+  </data>
+  <data name="PhoneFormat" xml:space="preserve">
+    <value>Le numéro de téléphone doit être au format : "+33(0) __ __ __ __"</value>
   </data>
 </root>

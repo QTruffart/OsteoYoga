@@ -133,7 +133,25 @@ namespace OsteoYoga.Resource.Contact {
         }
         
         /// <summary>
-        ///   Recherche une chaîne localisée semblable à L&apos;email n&apos;existe pas, veullez réessayer ou vous inscrire..
+        ///   Recherche une chaîne localisée semblable à L&apos;email doit être du format : &quot;______@_____.___&quot;.
+        /// </summary>
+        public static string MailFormat {
+            get {
+                return ResourceManager.GetString("MailFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Le numéro de téléphone doit être au format : &quot;+33(0) __ __ __ __&quot;.
+        /// </summary>
+        public static string PhoneFormat {
+            get {
+                return ResourceManager.GetString("PhoneFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à L&apos;email n&apos;existe pas, veuillez réessayer ou vous inscrire..
         /// </summary>
         public static string UnknownEmail {
             get {

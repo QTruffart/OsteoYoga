@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using OsteoYoga.Resource;
+using OsteoYoga.Resource.Contact;
 
 namespace OsteoYoga.Domain.Models
 {
@@ -11,22 +12,22 @@ namespace OsteoYoga.Domain.Models
         public virtual string FullName { get; set; }
 
         [Required]
-        [RegularExpression("^([0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$", ErrorMessage = "L'email doit être du format : \"______@_____.___\"")]
+        [RegularExpression("^([0-9a-zA-Z]([-.\\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\\w]*[0-9a-zA-Z]\\.)+[a-zA-Z]{2,9})$", ErrorMessageResourceType = typeof(LoginResource), ErrorMessageResourceName = "MailFormat")]
         public virtual string Mail { get; set; }
-        
-        [Required]
-        public virtual string Phone { get; set; }
-        
-        [Required]
-        public virtual Guid ConfirmNumber { get; set; }
-        
-        [Required]
-        public virtual bool IsConfirmed { get; set; }
 
-        public override string ToString()
-        {
-            return FullName + " ( " + ModelResource.Mail + ": " + Mail + " ; " + ModelResource.Phone + ": " + Phone + " )";
-        }
+        [Required]
+        [RegularExpression("\\(?\\d{3}\\)?-? *\\d{3}-? *-?\\d{4}", ErrorMessageResourceType = typeof(LoginResource), ErrorMessageResourceName = "PhoneFormat")]
+        public virtual string Phone { get; set; }
+
+        //todo à mettre en Enum
+        public virtual string NetworkType { get; set; }
+
+        public virtual string NetworkId { get; set; }
+        
+        //public override string ToString()
+        //{
+        //    return FullName + " ( " + ModelResource.Mail + ": " + Mail + " ; " + ModelResource.Phone + ": " + Phone + " )";
+        //}
 
         public virtual bool IsValid()
         {

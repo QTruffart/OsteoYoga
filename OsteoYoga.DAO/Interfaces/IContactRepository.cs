@@ -8,5 +8,7 @@ namespace OsteoYoga.Repository.DAO.Interfaces
     {
         bool EmailAlreadyExists(string mail);
         Contact GetByEmail(string mail);
+        bool SocialNetworkEmailAlreadyExists(string mail, string socialId, string networkType);
+        Contact GetBySocialNetworkEmail(string mail, string socialId, string networkType);
     }
 }

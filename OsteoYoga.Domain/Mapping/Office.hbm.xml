@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="OsteoYoga.Domain"
+                   namespace="OsteoYoga.Domain.Models">
+
+  <class name="Office" table="Office">
+    <id column="Id" name="Id" type="Int32" unsaved-value="0">
+      <generator class="increment" />
+    </id>
+    <property name="Name" column="Name" not-null="true" />
+  </class>
+</hibernate-mapping>

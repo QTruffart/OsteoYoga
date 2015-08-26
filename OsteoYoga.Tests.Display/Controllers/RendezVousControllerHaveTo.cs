@@ -53,178 +53,180 @@ namespace OsteoYoga.Tests.Display.Controllers
             constantsMock.Setup(cm => cm.ServerAddress(It.IsAny<HttpRequestBase>())).Returns(ServerAddress);
         }
         
-        [TestMethod]
-        public void GoToLoginPageIfThereIsNoContactConnectedOnIndexAction()
-        {
-            sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(null as Contact);
 
-            Assert.AreEqual(LoginPath, Controller.Index().ViewName);
-        }
 
-        [TestMethod]
-        public void GoToIndexIfThereIsContactConnectedOnIndexAction()
-        {
-            IList<Holiday> holidays = new List<Holiday>();
-            holidayRepoMock.Setup(hrm => hrm.GetFutureHoliday(It.IsAny<DateTime>())).Returns(holidays);
+        //[TestMethod]
+        //public void GoToLoginPageIfThereIsNoContactConnectedOnIndexAction()
+        //{
+        //    sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(null as Contact);
 
-            PartialViewResult view = Controller.Index();
+        //    Assert.AreEqual(LoginPath, Controller.Index().ViewName);
+        //}
 
-            holidayRepoMock.Verify(hrm => hrm.GetFutureHoliday(It.IsAny<DateTime>()), Times.Once());
-            Assert.AreEqual(IndexPath, view.ViewName);
-            Assert.AreEqual(holidays, view.Model);
-        }
+        //[TestMethod]
+        //public void GoToIndexIfThereIsContactConnectedOnIndexAction()
+        //{
+        //    IList<Holiday> holidays = new List<Holiday>();
+        //    holidayRepoMock.Setup(hrm => hrm.GetFutureHoliday(It.IsAny<DateTime>())).Returns(holidays);
 
-        [TestMethod]
-        public void GoToLoginPageIfThereIsNoContactConnectedOnProposeDateAction()
-        {
-            sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(null as Contact);
+        //    PartialViewResult view = Controller.Index();
 
-            Assert.AreEqual(LoginPath, Controller.ProposeDate(DateTime.Now, string.Empty).ViewName);
-        }
+        //    holidayRepoMock.Verify(hrm => hrm.GetFutureHoliday(It.IsAny<DateTime>()), Times.Once());
+        //    Assert.AreEqual(IndexPath, view.ViewName);
+        //    Assert.AreEqual(holidays, view.Model);
+        //}
 
-        [TestMethod]
-        public void GoToLoginPageIfThereIsNoContactConnectedOnCreateDateAction()
-        {
-            sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(null as Contact);
+        //[TestMethod]
+        //public void GoToLoginPageIfThereIsNoContactConnectedOnProposeDateAction()
+        //{
+        //    sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(null as Contact);
 
-            Assert.AreEqual(LoginPath, Controller.CreateDate(DateTime.Now, 0).ViewName);
-        }
+        //    Assert.AreEqual(LoginPath, Controller.ProposeDate(DateTime.Now, string.Empty).ViewName);
+        //}
 
-        [TestMethod]
-        public void TimeSlotInPatientHours()
-        {
-            TimeSlot expectedTimeSlot = InitTimeSlot(dateTime, 14, 15);
-            IList<TimeSlot> timeSlots = new List<TimeSlot>
-                {
-                    expectedTimeSlot
-                };
-            timeSlotRepoMock.Setup(tsr => tsr.GetFreeTimeSlots(dateTime)).Returns(timeSlots);
+        //[TestMethod]
+        //public void GoToLoginPageIfThereIsNoContactConnectedOnCreateDateAction()
+        //{
+        //    sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(null as Contact);
 
-            PartialViewResult view = Controller.ProposeDate(dateTime, PatientHours);
+        //    Assert.AreEqual(LoginPath, Controller.CreateDate(DateTime.Now, 0).ViewName);
+        //}
 
-            timeSlotRepoMock.Verify(tsr => tsr.GetFreeTimeSlots(dateTime), Times.Once());
-            Assert.AreEqual(ProposeDatePath, view.ViewName);
-            Assert.AreEqual(expectedTimeSlot, view.Model);
-        }
+        //[TestMethod]
+        //public void TimeSlotInPatientHours()
+        //{
+        //    TimeSlot expectedTimeSlot = InitTimeSlot(dateTime, 14, 15);
+        //    IList<TimeSlot> timeSlots = new List<TimeSlot>
+        //        {
+        //            expectedTimeSlot
+        //        };
+        //    timeSlotRepoMock.Setup(tsr => tsr.GetFreeTimeSlots(dateTime)).Returns(timeSlots);
 
-        [TestMethod]
-        public void PatientHoursInTimeSlot()
-        {
-            TimeSlot timeSlot1 = InitTimeSlot(dateTime, 13, 18);
-            ProposeDateHaveToReturnAnErrorMessage(timeSlot1, Times.Once());
-            TimeSlot timeSlot2 = InitTimeSlot(dateTime, 12, 13);
-            ProposeDateHaveToReturnAnErrorMessage(timeSlot2, Times.Exactly(2));
-            TimeSlot timeSlot3 = InitTimeSlot(dateTime, 12, 15);
-            ProposeDateHaveToReturnAnErrorMessage(timeSlot3, Times.Exactly(3));
-        }
+        //    PartialViewResult view = Controller.ProposeDate(dateTime, PatientHours);
 
-        private void ProposeDateHaveToReturnAnErrorMessage(TimeSlot timeSlot, Times times)
-        {
-            IList<TimeSlot> timeSlots = new List<TimeSlot>
-                {
-                    timeSlot
-                };
-            timeSlotRepoMock.Setup(tsr => tsr.GetFreeTimeSlots(dateTime)).Returns(timeSlots);
+        //    timeSlotRepoMock.Verify(tsr => tsr.GetFreeTimeSlots(dateTime), Times.Once());
+        //    Assert.AreEqual(ProposeDatePath, view.ViewName);
+        //    Assert.AreEqual(expectedTimeSlot, view.Model);
+        //}
 
-            PartialViewResult view = Controller.ProposeDate(dateTime, PatientHours);
+        //[TestMethod]
+        //public void PatientHoursInTimeSlot()
+        //{
+        //    TimeSlot timeSlot1 = InitTimeSlot(dateTime, 13, 18);
+        //    ProposeDateHaveToReturnAnErrorMessage(timeSlot1, Times.Once());
+        //    TimeSlot timeSlot2 = InitTimeSlot(dateTime, 12, 13);
+        //    ProposeDateHaveToReturnAnErrorMessage(timeSlot2, Times.Exactly(2));
+        //    TimeSlot timeSlot3 = InitTimeSlot(dateTime, 12, 15);
+        //    ProposeDateHaveToReturnAnErrorMessage(timeSlot3, Times.Exactly(3));
+        //}
 
-            timeSlotRepoMock.Verify(tsr => tsr.GetFreeTimeSlots(dateTime), times);
-            Assert.AreEqual(DateResource.NoFreeTimeSlot, view.ViewBag.ProposeError);
-            Assert.AreEqual(ProposeDatePath, view.ViewName);
-            Assert.AreEqual(null, view.Model);
-        }
+        //private void ProposeDateHaveToReturnAnErrorMessage(TimeSlot timeSlot, Times times)
+        //{
+        //    IList<TimeSlot> timeSlots = new List<TimeSlot>
+        //        {
+        //            timeSlot
+        //        };
+        //    timeSlotRepoMock.Setup(tsr => tsr.GetFreeTimeSlots(dateTime)).Returns(timeSlots);
 
-        [TestMethod]
-        public void ProposeMinFreeTimeSlotCorrespondingWithPatientHours()
-        {
-            TimeSlot timeSlot1 = InitTimeSlot(dateTime, 15, 16);
-            TimeSlot timeSlot2 = InitTimeSlot(dateTime, 16, 17);
-            TimeSlot timeSlotMin = InitTimeSlot(dateTime, 14, 15);
-            IList<TimeSlot> timeSlots = new List<TimeSlot>
-                {
-                    timeSlot1,
-                    timeSlot2,
-                    timeSlotMin,
-                };
-            timeSlotRepoMock.Setup(tsr => tsr.GetFreeTimeSlots(dateTime)).Returns(timeSlots);
+        //    PartialViewResult view = Controller.ProposeDate(dateTime, PatientHours);
 
-            PartialViewResult view = Controller.ProposeDate(dateTime, PatientHours);
+        //    timeSlotRepoMock.Verify(tsr => tsr.GetFreeTimeSlots(dateTime), times);
+        //    Assert.AreEqual(DateResource.NoFreeTimeSlot, view.ViewBag.ProposeError);
+        //    Assert.AreEqual(ProposeDatePath, view.ViewName);
+        //    Assert.AreEqual(null, view.Model);
+        //}
 
-            timeSlotRepoMock.Verify(tsr => tsr.GetFreeTimeSlots(dateTime), Times.Once());
-            Assert.AreEqual(ProposeDatePath, view.ViewName);
-            Assert.AreEqual(timeSlotMin, view.Model);
-        }
+        //[TestMethod]
+        //public void ProposeMinFreeTimeSlotCorrespondingWithPatientHours()
+        //{
+        //    TimeSlot timeSlot1 = InitTimeSlot(dateTime, 15, 16);
+        //    TimeSlot timeSlot2 = InitTimeSlot(dateTime, 16, 17);
+        //    TimeSlot timeSlotMin = InitTimeSlot(dateTime, 14, 15);
+        //    IList<TimeSlot> timeSlots = new List<TimeSlot>
+        //        {
+        //            timeSlot1,
+        //            timeSlot2,
+        //            timeSlotMin,
+        //        };
+        //    timeSlotRepoMock.Setup(tsr => tsr.GetFreeTimeSlots(dateTime)).Returns(timeSlots);
 
-        [TestMethod]
-        public void ReturnAnErrorMessageIfThereAreNoTimeSlotFreeCorrespondingWithPatientDateTime()
-        {
-            timeSlotRepoMock.Setup(tsr => tsr.GetFreeTimeSlots(dateTime)).Returns(new List<TimeSlot>());
+        //    PartialViewResult view = Controller.ProposeDate(dateTime, PatientHours);
 
-            PartialViewResult view = Controller.ProposeDate(dateTime, PatientHours);
+        //    timeSlotRepoMock.Verify(tsr => tsr.GetFreeTimeSlots(dateTime), Times.Once());
+        //    Assert.AreEqual(ProposeDatePath, view.ViewName);
+        //    Assert.AreEqual(timeSlotMin, view.Model);
+        //}
 
-            timeSlotRepoMock.Verify(tsr => tsr.GetFreeTimeSlots(dateTime), Times.Once());
-            Assert.AreEqual(DateResource.NoFreeTimeSlot, view.ViewBag.ProposeError);
-            Assert.AreEqual(ProposeDatePath, view.ViewName);
-            Assert.IsNull(view.Model);
-        }
+        //[TestMethod]
+        //public void ReturnAnErrorMessageIfThereAreNoTimeSlotFreeCorrespondingWithPatientDateTime()
+        //{
+        //    timeSlotRepoMock.Setup(tsr => tsr.GetFreeTimeSlots(dateTime)).Returns(new List<TimeSlot>());
 
-        [TestMethod]
-        public void CreateDateAndSendEmails()
-        {
-            timeSlotRepoMock.Setup(tsrm => tsrm.GetById(TimeSlotId)).Returns(expectedTimeSlot);
+        //    PartialViewResult view = Controller.ProposeDate(dateTime, PatientHours);
+
+        //    timeSlotRepoMock.Verify(tsr => tsr.GetFreeTimeSlots(dateTime), Times.Once());
+        //    Assert.AreEqual(DateResource.NoFreeTimeSlot, view.ViewBag.ProposeError);
+        //    Assert.AreEqual(ProposeDatePath, view.ViewName);
+        //    Assert.IsNull(view.Model);
+        //}
+
+        //[TestMethod]
+        //public void CreateDateAndSendEmails()
+        //{
+        //    timeSlotRepoMock.Setup(tsrm => tsrm.GetById(TimeSlotId)).Returns(expectedTimeSlot);
             
-            PartialViewResult view =  Controller.CreateDate(dateTime, TimeSlotId);
+        //    PartialViewResult view =  Controller.CreateDate(dateTime, TimeSlotId);
 
-            timeSlotRepoMock.Verify(tsrm => tsrm.GetById(TimeSlotId), Times.Once());
-            dateRepoMock.Verify(drm => drm.Save(It.Is<Date>(d => d.Day == dateTime &&
-                                                                 d.Contact == contact &&
-                                                                 d.IsConfirmed == false &&
-                                                                 d.TimeSlot == expectedTimeSlot)));
-            emailMock.Verify(em => em.SendForAdminPropose(It.IsAny<Date>()));
-            emailMock.Verify(em => em.SendForPatientPropose(It.Is<Date>(d => d.Day == dateTime && 
-                                                                             d.Contact == contact && 
-                                                                             d.IsConfirmed == false && 
-                                                                             d.TimeSlot == expectedTimeSlot),
-                                                            It.IsAny<string>()));
-            Assert.AreEqual(CreateDatePath, view.ViewName);
-        }
+        //    timeSlotRepoMock.Verify(tsrm => tsrm.GetById(TimeSlotId), Times.Once());
+        //    dateRepoMock.Verify(drm => drm.Save(It.Is<Date>(d => d.Day == dateTime &&
+        //                                                         d.Contact == contact &&
+        //                                                         d.IsConfirmed == false &&
+        //                                                         d.TimeSlot == expectedTimeSlot)));
+        //    emailMock.Verify(em => em.SendForAdminPropose(It.IsAny<Date>()));
+        //    emailMock.Verify(em => em.SendForPatientPropose(It.Is<Date>(d => d.Day == dateTime && 
+        //                                                                     d.Contact == contact && 
+        //                                                                     d.IsConfirmed == false && 
+        //                                                                     d.TimeSlot == expectedTimeSlot),
+        //                                                    It.IsAny<string>()));
+        //    Assert.AreEqual(CreateDatePath, view.ViewName);
+        //}
 
-        [TestMethod]
-        public void ReturnAnErrorMessageIfThereAreAnExceptionThrownDuringEmailSending()
-        {
-            timeSlotRepoMock.Setup(tsrm => tsrm.GetById(TimeSlotId)).Returns(expectedTimeSlot);
-            emailMock.Setup(em => em.SendForAdminPropose(It.IsAny<Date>())).Throws<Exception>();
+        //[TestMethod]
+        //public void ReturnAnErrorMessageIfThereAreAnExceptionThrownDuringEmailSending()
+        //{
+        //    timeSlotRepoMock.Setup(tsrm => tsrm.GetById(TimeSlotId)).Returns(expectedTimeSlot);
+        //    emailMock.Setup(em => em.SendForAdminPropose(It.IsAny<Date>())).Throws<Exception>();
 
-            PartialViewResult view = Controller.CreateDate(dateTime, TimeSlotId);
+        //    PartialViewResult view = Controller.CreateDate(dateTime, TimeSlotId);
 
-            Assert.AreEqual(DateResource.ErrorOccured, view.ViewBag.ResultMessage);
-            Assert.AreEqual(CreateDatePath, view.ViewName);
-        }
+        //    Assert.AreEqual(DateResource.ErrorOccured, view.ViewBag.ResultMessage);
+        //    Assert.AreEqual(CreateDatePath, view.ViewName);
+        //}
 
-        [TestMethod]
-        public void ValidateADate()
-        {
-            const string id = "id";
-            Date date = new Date();
-            emailMock.Setup(em => em.SendForAdminPropose(It.IsAny<Date>())).Throws<Exception>();
-            dateRepoMock.Setup(drm => drm.Validate(id)).Returns(date);
+        //[TestMethod]
+        //public void ValidateADate()
+        //{
+        //    const string id = "id";
+        //    Date date = new Date();
+        //    emailMock.Setup(em => em.SendForAdminPropose(It.IsAny<Date>())).Throws<Exception>();
+        //    dateRepoMock.Setup(drm => drm.Validate(id)).Returns(date);
 
-            PartialViewResult view = Controller.Validate(id);
+        //    PartialViewResult view = Controller.Validate(id);
             
-            dateRepoMock.Verify(drm => drm.Validate(id), Times.Once());
-            emailMock.Verify(em => em.SendForPatientValidation(date), Times.Once());
-            emailMock.Verify(em => em.SendForAdminValidation(date), Times.Once());
-            Assert.AreEqual(ValidatePath, view.ViewName);
-        }
+        //    dateRepoMock.Verify(drm => drm.Validate(id), Times.Once());
+        //    emailMock.Verify(em => em.SendForPatientValidation(date), Times.Once());
+        //    emailMock.Verify(em => em.SendForAdminValidation(date), Times.Once());
+        //    Assert.AreEqual(ValidatePath, view.ViewName);
+        //}
 
-        private static TimeSlot InitTimeSlot(DateTime date, int beginHour, int endHour)
-        {
-            return new TimeSlot
-                {
-                    BeginHour = new TimeSpan(beginHour, 00, 00),
-                    DayOfWeek = date.DayOfWeek,
-                    EndHour = new TimeSpan(endHour, 00, 00)
-                };
-        }
+        //private static TimeSlot InitTimeSlot(DateTime date, int beginHour, int endHour)
+        //{
+        //    return new TimeSlot
+        //        {
+        //            BeginHour = new TimeSpan(beginHour, 00, 00),
+        //            DayOfWeek = date.DayOfWeek,
+        //            EndHour = new TimeSpan(endHour, 00, 00)
+        //        };
+        //}
     }
 }

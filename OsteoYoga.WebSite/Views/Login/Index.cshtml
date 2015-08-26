@@ -37,7 +37,7 @@
                 })
                     .success(function (response) {
                         console.log(response);
-                        var url = 'http://localhost:64176/Login/SignInWithGoogle';
+                        var url = 'http://localhost:64176/Login/LoginWithGoogle';
                         var form = $('<form action="' + url + '" method="post">' +
                             '<input type="text" name="id" value="' + response.id + '" />' +
                             '<input type="text" name="mail" value="' + response.email + '" />' +
@@ -79,7 +79,7 @@
 
     function LoginFacebook() {
         FB.api('/me', function (response) {
-            var url = 'http://localhost:64176/Login/SignInWithFacebook';
+            var url = 'http://localhost:64176/Login/LoginWithFacebook';
             var form = $('<form action="' + url + '" method="post">' +
                 '<input type="text" name="id" value="' + response.id + '" />' +
                 '<input type="text" name="mail" value="' + response.email + '" />' +

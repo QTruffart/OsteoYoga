@@ -92,6 +92,10 @@
       <Project>{B915504D-D01D-4BEF-802D-C527B2F5078C}</Project>
       <Name>1. OsteoYoga.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\OsteoYoga.Helpers\3. OsteoYoga.Helper.csproj">
+      <Project>{AD42CF25-232D-482B-84FE-CE92EFC31C66}</Project>
+      <Name>3. OsteoYoga.Helper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
