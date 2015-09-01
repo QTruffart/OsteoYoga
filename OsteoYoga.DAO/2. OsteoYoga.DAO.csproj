@@ -51,6 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IProfileRepository.cs" />
+    <Compile Include="ProfileRepository.cs" />
     <Compile Include="OfficeRepository.cs" />
     <Compile Include="ContactRepository.cs" />
     <Compile Include="HolidayRepository.cs" />

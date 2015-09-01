@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseTestsNHibernate.cs" />
+    <Compile Include="ProfileRepositoryHaveTo.cs" />
     <Compile Include="ContactRepositoryHaveTo.cs" />
     <Compile Include="HolidayRepositoryHaveTo.cs" />
     <Compile Include="DateRepositoryHaveTo.cs" />

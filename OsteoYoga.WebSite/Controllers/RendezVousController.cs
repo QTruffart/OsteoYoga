@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web.Mvc;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper;
+using OsteoYoga.Helper.Helpers;
 using OsteoYoga.Repository.DAO;
 using OsteoYoga.Resource.RendezVous;
-using OsteoYoga.WebSite.Helpers;
 
 namespace OsteoYoga.WebSite.Controllers
 {

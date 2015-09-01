@@ -5,9 +5,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper;
+using OsteoYoga.Helper.Helpers;
 using OsteoYoga.Repository.DAO;
 using OsteoYoga.WebSite.Controllers;
-using OsteoYoga.WebSite.Helpers;
 
 namespace OsteoYoga.Tests.Display.Controllers
 {

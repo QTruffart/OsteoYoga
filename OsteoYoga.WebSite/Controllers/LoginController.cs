@@ -1,9 +1,10 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper;
+using OsteoYoga.Helper.Helpers;
 using OsteoYoga.Repository.DAO;
 using OsteoYoga.Resource.Contact;
-using OsteoYoga.WebSite.Helpers;
 
 namespace OsteoYoga.WebSite.Controllers
 {
@@ -11,10 +12,13 @@ namespace OsteoYoga.WebSite.Controllers
     {
         public ContactRepository ContactRepository { get; set; }
         public OfficeRepository OfficeRepository { get; set; }
+        public ProfileRepository ProfileRepository { get; set; }
+
         public LoginController()
         {
             ContactRepository = new ContactRepository();
             OfficeRepository = new OfficeRepository();
+            ProfileRepository = new ProfileRepository();
         }
         
         public PartialViewResult Index()
@@ -44,6 +48,7 @@ namespace OsteoYoga.WebSite.Controllers
         {
             if (!ContactRepository.EmailAlreadyExists(contact.Mail))
             {
+                contact.Profile = ProfileRepository.GetByName(Constants.GetInstance().PatientProfile);
                 ContactRepository.Save(contact);
                 SessionHelper.GetInstance().CurrentUser = contact;
                 return PartialView("~/Views/RendezVous/Index.cshtml", OfficeRepository.GetAll());
@@ -84,6 +89,7 @@ namespace OsteoYoga.WebSite.Controllers
 
         public PartialViewResult PhoneSubscription(Contact contact)
         {
+            contact.Profile = ProfileRepository.GetByName(Constants.GetInstance().PatientProfile);
             ContactRepository.Save(contact);
             SessionHelper.GetInstance().CurrentUser = contact;
             return PartialView("~/Views/RendezVous/Index.cshtml", OfficeRepository.GetAll());

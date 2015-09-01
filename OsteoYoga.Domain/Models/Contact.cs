@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using OsteoYoga.Resource;
@@ -18,6 +19,9 @@ namespace OsteoYoga.Domain.Models
         [Required]
         [RegularExpression("\\(?\\d{3}\\)?-? *\\d{3}-? *-?\\d{4}", ErrorMessageResourceType = typeof(LoginResource), ErrorMessageResourceName = "PhoneFormat")]
         public virtual string Phone { get; set; }
+
+        // TODO : A faire évoluer en many to many
+        public virtual Profile Profile { get; set; }
 
         //todo à mettre en Enum
         public virtual string NetworkType { get; set; }

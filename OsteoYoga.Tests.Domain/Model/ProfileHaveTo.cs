@@ -4,7 +4,7 @@ using OsteoYoga.Domain.Models;
 namespace OsteoYoga.Tests.Domain.Model
 {
     [TestClass]
-    public class OfficeHaveTo
+    public class ProfileHaveTo
     {
 
         const string Name = "name";
@@ -12,11 +12,11 @@ namespace OsteoYoga.Tests.Domain.Model
         [TestMethod]
         public void InitializeCorrectlyInitialize()
         {
-            Office office = new Office
+            Profile profile = new Profile
                                     {
                                         Name = Name
                                     };
-            Assert.AreEqual(Name, office.Name);
+            Assert.AreEqual(Name, profile.Name);
         }
     }
 }

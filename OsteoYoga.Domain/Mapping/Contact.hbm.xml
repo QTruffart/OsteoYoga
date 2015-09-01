@@ -12,5 +12,6 @@
     <property name="Mail" column="Mail" not-null="true" />
     <property name="NetworkType" column="NetworkType" not-null="false" />
     <property name="NetworkId" column="NetworkId" not-null="false" />
+    <many-to-one name="Profile" column="ProfileId" class="Profile" foreign-key="FK_Contact_Profile" />
   </class>
 </hibernate-mapping>

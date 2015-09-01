@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using OsteoYoga.Domain.Models;
 
-namespace OsteoYoga.WebSite.Helpers
+namespace OsteoYoga.Helper.Helpers
 {
     public class SessionHelper
     {

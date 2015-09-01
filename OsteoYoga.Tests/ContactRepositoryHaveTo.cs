@@ -15,7 +15,7 @@ namespace OsteoYoga.Tests.DAO
                 Mail = "test@test.com",
                 Phone = "+33(0)556578996",
                 NetworkId = "NetworkId",
-                NetworkType = Constants.GetInstance().FacebookNetwork
+                NetworkType = Constants.GetInstance().FacebookNetwork,
                 
             };
 

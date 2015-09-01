@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace OsteoYoga.WebSite.Helpers
+namespace OsteoYoga.Helper.Helpers
 {
     public static class MenuExtensions
     {

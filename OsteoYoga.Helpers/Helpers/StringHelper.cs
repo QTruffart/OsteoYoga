@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace OsteoYoga.WebSite.Helpers
+namespace OsteoYoga.Helper.Helpers
 {
     public class StringHelper
     {

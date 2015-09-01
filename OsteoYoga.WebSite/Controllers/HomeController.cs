@@ -1,252 +1,123 @@
 ﻿using System;
 using System.Web.Mvc;
-using _5.OsteoYoga.Exception;
+using _5.OsteoYoga.Exception.Implements;
 
 namespace OsteoYoga.WebSite.Controllers
 {
     public class HomeController : BaseController.BaseController
     {
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "Index")]
         public ActionResult Index()
         {
-            try
-            {
-                return View();
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return View();
         }
+
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "About")]
         public ActionResult About()
         {
-            try
-            {
-                return View();
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return View();
         }
 
+        [ExceptionHandler(ExceptionType = typeof (Exception), View = "MeContacterABayonne")]
         public PartialViewResult MeContacterABayonne()
         {
-            try
-            {
-                return PartialView("MeContacterABayonne");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
-            
+            return PartialView("MeContacterABayonne");
         }
+
+        [ExceptionHandler(ExceptionType = typeof (Exception), View = "MeContacterARionDesLandes")]
         public PartialViewResult MeContacterARionDesLandes()
         {
-            try
-            {
-                return PartialView("MeContacterARionDesLandes");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("MeContacterARionDesLandes");
         }
 
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "Yogathérapie")]
         public PartialViewResult Yogathérapie()
         {
-            try
-            {
-                return PartialView("Yogathérapie");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("Yogathérapie");
         }
 
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "MaPratique")]
         public PartialViewResult MaPratique()
         {
-            try
-            {
-                return PartialView("MaPratique");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("MaPratique");
         }
 
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "Osthéopathie")]
         public PartialViewResult Osthéopathie()
         {
-            try
-            {
-                return PartialView("Osthéopathie");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("Osthéopathie");
         }
+
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "Partenaires")]
         public PartialViewResult Partenaires()
         {
-            try
-            {
-                return PartialView("Partenaires");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("Partenaires");
         }
+
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "Tarifs")]
         public PartialViewResult Tarifs()
         {
-            try
-            {
-                return PartialView("Tarifs");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("Tarifs");
         }
+
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "QuiSuisJe")]
         public PartialViewResult QuiSuisJe()
         {
-            try
-            {
-                return PartialView("QuiSuisJe");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("QuiSuisJe");
         }
 
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "MotifsCourants")]
         public PartialViewResult MotifsCourants()
         {
-            try
-            {
-                return PartialView("MotifsCourants");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("MotifsCourants");
         }
 
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "QuandConsulterBebe")]
         public PartialViewResult QuandConsulterBebe()
         {
-            try
-            {
-                return PartialView("QuandConsulterBebe");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("QuandConsulterBebe");
         }
 
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "MotifsMeconnus")]
         public PartialViewResult MotifsMeconnus()
         {
-            try
-            {
-                return PartialView("MotifsMeconnus");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("MotifsMeconnus");
         }
 
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "QuandConsulterGrossesse")]
         public PartialViewResult QuandConsulterGrossesse()
         {
-            try
-            {
-                return PartialView("QuandConsulterGrossesse");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("QuandConsulterGrossesse");
         }
 
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "QuestionsFrequentes")]
         public PartialViewResult QuestionsFrequentes()
         {
-            try
-            {
-                return PartialView("QuestionsFrequentes");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("QuestionsFrequentes");
         }
 
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "Certifications")]
         public PartialViewResult Certifications()
         {
-            try
-            {
-                return PartialView("Certifications");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("Certifications");
         }
 
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "CoursYoga")]
         public PartialViewResult CoursYoga()
         {
-            try
-            {
-                return PartialView("CoursYoga");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("CoursYoga");
         }
 
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "LiensDivers")]
         public PartialViewResult LiensDivers()
         {
-            try
-            {
-                return PartialView("LiensDivers");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("LiensDivers");
         }
 
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "Association")]
         public PartialViewResult Association()
         {
-            try
-            {
-                return PartialView("Association");
-            }
-            catch (Exception ex)
-            {
-                Logger.Error(ExceptionRes.ExceptionView, ex);
-            }
-            return PartialView("Error");
+            return PartialView("Association");
         }
     }
 }

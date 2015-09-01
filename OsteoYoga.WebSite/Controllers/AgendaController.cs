@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using OsteoYoga.Domain.Models;
+using OsteoYoga.Helper.Helpers;
 using OsteoYoga.Repository.DAO;
-using OsteoYoga.WebSite.Helpers;
 
 namespace OsteoYoga.WebSite.Controllers
 {

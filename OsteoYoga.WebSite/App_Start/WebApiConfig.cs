@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using log4net.Config;
 
 namespace OsteoYoga.WebSite
 {
@@ -6,6 +7,8 @@ namespace OsteoYoga.WebSite
     {
         public static void Register(HttpConfiguration config)
         {
+
+            XmlConfigurator.Configure();
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",

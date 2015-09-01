@@ -10,8 +10,6 @@ namespace OsteoYoga.WebSite.Controllers.BaseController
 
         protected BaseController()
         {
-            Logger = new Logger(GetType());
-            XmlConfigurator.Configure();
         }
     }
 }
