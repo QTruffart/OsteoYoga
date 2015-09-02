@@ -30,6 +30,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Bureau|AnyCPU'">
+    <OutputPath>bin\Bureau\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="System" />
@@ -48,8 +51,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Office.cs" />
+    <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Holiday.cs" />
     <Compile Include="Models\Date.cs" />
@@ -60,24 +63,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Mapping\TimeSlot.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Mapping\Contact.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mapping\Date.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OsteoYoga.Resource\2. OsteoYoga.Resource.csproj">
       <Project>{149B66BB-12EA-4A38-ACF9-8D712550E3FB}</Project>
       <Name>2. OsteoYoga.Resource</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Mapping\Holiday.hbm.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mapping\Office.hbm.xml">
