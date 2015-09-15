@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using log4net.Config;
+﻿using System.Web.Mvc;
 using _5.OsteoYoga.Exception.Interfaces;
 
 namespace _5.OsteoYoga.Exception.Implements
 {
+    //todo : A tester
     public class ExceptionHandler : HandleErrorAttribute, IExceptionHandler
     {
         public Logger Logger { get; set; }

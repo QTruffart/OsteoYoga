@@ -1,6 +1,6 @@
 ﻿@using OsteoYoga.Domain.Models
 @using OsteoYoga.Resource.RendezVous
-@model IList<OsteoYoga.Domain.Models.Office>
+@model Date
 <script src="@Url.Content("~/Theme/Scripts/jquery-1.9.1.js")" type="text/javascript" ></script>
 <script src="@Url.Content("~/Theme/Scripts/jquery-ui.min.js")" type="text/javascript" ></script>
 <script src="@Url.Content("~/Theme/Scripts/jquery.maskedinput.js")" type="text/javascript" ></script>
@@ -87,12 +87,7 @@
             </tr>
             <tr>
                 <td>
-                    <select name="listbox" id="listbox">
-                        @foreach (var item in Model)
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
-                    </select>
+                    @Model.Contact.FullName
                 </td>
             </tr>
         </table>

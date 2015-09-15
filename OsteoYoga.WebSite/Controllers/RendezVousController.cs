@@ -7,6 +7,7 @@ using OsteoYoga.Helper;
 using OsteoYoga.Helper.Helpers;
 using OsteoYoga.Repository.DAO;
 using OsteoYoga.Resource.RendezVous;
+using _5.OsteoYoga.Exception.Implements;
 
 namespace OsteoYoga.WebSite.Controllers
 {
@@ -25,15 +26,16 @@ namespace OsteoYoga.WebSite.Controllers
             HolidayRepository = new HolidayRepository();
         }
 
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "Index")]
         [HttpGet]
-        public PartialViewResult Index()
+        public PartialViewResult Index(Date date)
         {
             if (SessionHelper.GetInstance().CurrentUser != null)
             {
                 IList<Holiday> holidays = HolidayRepository.GetFutureHoliday(
                                                 new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day)
                                         );
-                return PartialView("Index", holidays);
+                return PartialView("Index");
             }
             return PartialView("/Views/Login/Index.cshtml");
         }
