@@ -1,12 +1,10 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using System.Web.Routing;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper;
 using OsteoYoga.Helper.Helpers;
 using OsteoYoga.Repository.DAO;
 using OsteoYoga.Resource.Contact;
-using _5.OsteoYoga.Exception.Implements;
 
 namespace OsteoYoga.WebSite.Controllers
 {
@@ -22,8 +20,7 @@ namespace OsteoYoga.WebSite.Controllers
             OfficeRepository = new OfficeRepository();
             ProfileRepository = new ProfileRepository();
         }
-
-        [ExceptionHandler(ExceptionType = typeof(Exception), View = "Index")]
+        
         public PartialViewResult Index()
         {
             if (SessionHelper.GetInstance().CurrentUser != null)
@@ -33,7 +30,6 @@ namespace OsteoYoga.WebSite.Controllers
             return PartialView("Index");    
         }
 
-        [ExceptionHandler(ExceptionType = typeof(Exception), View = "Login")]
         [HttpPost]
         public PartialViewResult Login(string email)
         {
@@ -47,7 +43,6 @@ namespace OsteoYoga.WebSite.Controllers
             return PartialView("Index", email);
         }
 
-        [ExceptionHandler(ExceptionType = typeof(Exception), View = "SignIn")]
         [HttpPost]
         public PartialViewResult SignIn(Contact contact)
         {
@@ -63,33 +58,24 @@ namespace OsteoYoga.WebSite.Controllers
         }
 
 
-        [ExceptionHandler(ExceptionType = typeof(Exception), View = "LoginWithFacebook")]
         [HttpPost]
-        public ActionResult LoginWithFacebook(string id, string mail, string name)
+        public PartialViewResult LoginWithFacebook(string id, string mail, string name)
         {
             return SocialNetworkLogin(id, mail, name, Constants.GetInstance().FacebookNetwork);
         }
-
-        [ExceptionHandler(ExceptionType = typeof(Exception), View = "LoginWithGoogle")]
+        
         [HttpPost]
-        public ActionResult LoginWithGoogle(string id, string mail, string name)
+        public PartialViewResult LoginWithGoogle(string id, string mail, string name)
         {
             return SocialNetworkLogin(id, mail, name, Constants.GetInstance().GoogleNetwork);
         }
 
-        public PartialViewResult SocialNetworkLogin(string id, string mail, string name, string networkType)
+        private PartialViewResult SocialNetworkLogin(string id, string mail, string name, string networkType)
         {
             if (ContactRepository.SocialNetworkEmailAlreadyExists(mail, id, networkType))
             {
                 SessionHelper.GetInstance().CurrentUser = ContactRepository.GetBySocialNetworkEmail(mail, id, networkType);
-                RouteValueDictionary routeValueDictionary = new RouteValueDictionary();
-                Date date = new Date()
-                {
-                    Contact = SessionHelper.GetInstance().CurrentUser
-                };
-                
-                //return new RedirectToRouteResult();  RedirectToAction("Index", "RendezVous",  new { date = date });
-                return PartialView("~/Views/RendezVous/Index.cshtml", date);
+                return PartialView("~/Views/RendezVous/Index.cshtml", OfficeRepository.GetAll());
             }
             Contact contact = new Contact()
             {
@@ -101,18 +87,12 @@ namespace OsteoYoga.WebSite.Controllers
             return PartialView("PhoneSubscription", contact);
         }
 
-        [ExceptionHandler(ExceptionType = typeof(Exception), View = "PhoneSubscription")]
-        [HttpPost]
-        public ActionResult PhoneSubscription(Contact contact)
+        public PartialViewResult PhoneSubscription(Contact contact)
         {
             contact.Profile = ProfileRepository.GetByName(Constants.GetInstance().PatientProfile);
             ContactRepository.Save(contact);
             SessionHelper.GetInstance().CurrentUser = contact;
-            Date date = new Date()
-            {
-                Contact = contact
-            };
-            return RedirectToAction("Index", "RendezVous", new {date = date});
+            return PartialView("~/Views/RendezVous/Index.cshtml", OfficeRepository.GetAll());
         }
     }
 }
