@@ -8,7 +8,7 @@ using OsteoYoga.Resource.Contact;
 
 namespace OsteoYoga.WebSite.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController.BaseController
     {
         public ContactRepository ContactRepository { get; set; }
         public OfficeRepository OfficeRepository { get; set; }
@@ -48,7 +48,7 @@ namespace OsteoYoga.WebSite.Controllers
         {
             if (!ContactRepository.EmailAlreadyExists(contact.Mail))
             {
-                contact.Profile = ProfileRepository.GetByName(Constants.GetInstance().PatientProfile);
+                contact.Profiles = new List<Profile>() { ProfileRepository.GetByName(Constants.GetInstance().PatientProfile) };
                 ContactRepository.Save(contact);
                 SessionHelper.GetInstance().CurrentUser = contact;
                 return PartialView("~/Views/RendezVous/Index.cshtml", OfficeRepository.GetAll());
@@ -90,7 +90,7 @@ namespace OsteoYoga.WebSite.Controllers
 
         public PartialViewResult PhoneSubscription(Contact contact)
         {
-            contact.Profile = ProfileRepository.GetByName(Constants.GetInstance().PatientProfile);
+            contact.Profiles = new List<Profile>(){ ProfileRepository.GetByName(Constants.GetInstance().PatientProfile) };
             ContactRepository.Save(contact);
             SessionHelper.GetInstance().CurrentUser = contact;
             return PartialView("~/Views/RendezVous/Index.cshtml", OfficeRepository.GetAll());

@@ -141,7 +141,7 @@ namespace OsteoYoga.Tests.Display.Controllers
                 contactRepositoryMock.Verify(crm => crm.Save(contact));
                 sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
                 Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);
-                Assert.AreEqual(profile, contact.Profile);
+                CollectionAssert.Contains(contact.Profiles.ToList(), profile);
                 Assert.AreEqual(offices, viewResult.Model);
             }
         #endregion
@@ -223,7 +223,7 @@ namespace OsteoYoga.Tests.Display.Controllers
             sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
             Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);
             Assert.AreEqual(offices, viewResult.Model);
-            Assert.AreEqual(profile, contact.Profile);
+            CollectionAssert.Contains(contact.Profiles.ToList(), profile);
         }
 
         #endregion

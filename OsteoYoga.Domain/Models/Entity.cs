@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using OsteoYoga.Domain.Models.Interface;
 
 namespace OsteoYoga.Domain.Models
 {

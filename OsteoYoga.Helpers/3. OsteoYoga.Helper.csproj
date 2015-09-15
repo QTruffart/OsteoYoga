@@ -120,7 +120,6 @@
     <Compile Include="Profile\AuthorizationAttribute.cs" />
     <Compile Include="Profile\AdministratorProfileAttribute.cs" />
     <Compile Include="Profile\PatientProfileAttribute.cs" />
-    <Compile Include="TimeSlotInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

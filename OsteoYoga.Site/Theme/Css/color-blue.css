@@ -1,0 +1,170 @@
+/*
+  black: 	231F20
+  red: 		D2232A
+  blue: 	6dd0f6
+*/
+
+body {
+  background-color: #f4fbfe;
+  color: #231F20;
+}
+.gradient {
+  background: #FFFFFF; /* Old browsers */
+  background: -moz-linear-gradient(top,  #f4fbfe 0%, #f4fbfe 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f4fbfe), color-stop(100%,#f4fbfe)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #f4fbfe 0%,#f4fbfe 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #f4fbfe 0%,#f4fbfe 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #f4fbfe 0%,#f4fbfe 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #f4fbfe 0%,#f4fbfe 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f4fbfe', endColorstr='#f4fbfe',GradientType=0 ); /* IE6-9 */
+}
+#top, #topLink, #mainFooter {  
+  background: #111;
+  color: #fff;
+}
+a, #mainFooter a:hover, .slideCaption a:hover, 
+.socialMedia li a:hover, 
+.navbar .nav > li > a:hover, .navbar .nav > li > a:focus, 
+.navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus,
+.projectMeta {
+  color: #D2232A;
+}
+a:hover, .subTitle {
+  color: #464646;
+}
+blockquote {
+  border-color: #231F20;
+}
+th {
+  color: #fff;
+  background-color: #231F20;
+}
+.brand,
+.socialMedia li a, 
+.navbar .nav > li > a  {
+  color: #231F20;
+}
+.dropdown-submenu > .dropdown-menu {
+  background-color: #231F20;
+  border-color: #231F20;
+}
+.dropdown-menu a {
+  border-bottom: 1px solid #231F20;
+  color: #fff;
+}
+.dropdown-menu li > a:hover, .dropdown-menu li > a:focus {
+  border-bottom: 1px solid #231F20;
+  color: #D2232A;
+} 
+#mainFooter a, 
+.slideCaption h2, .slideCaption a {
+  color: #6dd0f6;
+}
+.circle {
+  background-color: #231F20;
+  border-color: #231F20;
+  color: #FFFFFF;
+}
+.circleSlider,
+.rectSlider,
+.flex-direction-nav a {
+  /*background-color: #231F20;*/
+}
+.flex-direction-nav a:hover {
+  background-color: #6dd0f6;
+}
+.flex-control-paging li a.flex-active { 
+  background: #D2232A; 
+}
+/* Tabs */
+.nav-tabs li {  
+  border-bottom-color: #D2232A;
+}
+.nav-tabs li a {
+  color: #231F20;
+}
+.nav-tabs > .active > a,
+.nav.nav-tabs > .active > a:hover {
+  background-color: #D2232A;
+  color: #fff;
+}
+.nav-tabs li a {
+  color: #231F20;
+}
+.nav.nav-tabs > li > a:hover {
+  background-color: #231F20;
+  color: #fff;
+}
+.tab-content {
+  border-top-color: #D2232A;
+}
+/* Accordion */
+.accordion-heading {
+  background-color: #D2232A;
+}
+.accordion-heading:hover {
+  background-color: #231F20;
+}
+/* Buttons */
+.btn-custom {
+  background: #231F20;
+  color: #fff;
+}
+.btn-custom:hover {
+  background: #D2232A;
+  color: #fff;
+}
+.btn-primary {
+  color: #f4fbfe;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #D2232A;
+  background-image: -moz-linear-gradient(top, #D2232A, #ad1b21);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#D2232A), to(#ad1b21));
+  background-image: -webkit-linear-gradient(top, #D2232A, #ad1b21);
+  background-image: -o-linear-gradient(top, #D2232A, #ad1b21);
+  background-image: linear-gradient(to bottom, #D2232A, #ad1b21);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ffad1b21', GradientType=0);
+  border-color: #ad1b21 #ad1b21 #a21f24;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #ad1b21;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled] {
+  color: #f4fbfe;
+  background-color: #ad1b21;
+  *background-color: #ad1b21;
+}
+.btn-primary:active,
+.btn-primary.active {
+  background-color: #003399 \9;
+}
+/* Work */
+.workFilter a {
+  color: #231F20;
+}
+.workFilter a:hover, .workFilter a.selected {
+  color: #D2232A;
+}
+/* Form */
+#contactForm #submit:hover {
+  background: #D2232A;
+}
+.error {
+  color: #D2232A;
+  border-color: #D2232A;
+}
+#contactForm #submit {
+  color: #fff;
+  background: #231F20;
+}
+input:-moz-placeholder, textarea:-moz-placeholder {
+  color: #231F20;
+}
+.pageFeature {
+  background-color: #231F20;  
+}

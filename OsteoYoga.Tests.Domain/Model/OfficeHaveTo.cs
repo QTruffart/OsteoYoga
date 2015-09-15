@@ -9,7 +9,7 @@ namespace OsteoYoga.Tests.Domain.Model
     {
 
         const string Name = "name";
-        readonly IList<Duration> durations = new List<Duration>();
+        readonly IList<Date> dates = new List<Date>();
 
         [TestMethod]
         public void InitializeCorrectlyInitialize()
@@ -17,7 +17,7 @@ namespace OsteoYoga.Tests.Domain.Model
             Office office = new Office
             {
                 Name = Name,
-                Durations = durations
+                Dates = dates
             };
             Assert.AreEqual(Name, office.Name);
         }

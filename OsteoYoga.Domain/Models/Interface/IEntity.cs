@@ -1,4 +1,4 @@
-﻿namespace OsteoYoga.Domain.Models
+﻿namespace OsteoYoga.Domain.Models.Interface
 {
     public interface IEntity
     {

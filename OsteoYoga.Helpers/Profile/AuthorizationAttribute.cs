@@ -24,7 +24,7 @@ namespace OsteoYoga.Helper.Profile
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             Contact contact = SessionHelper.GetInstance().CurrentUser;
-            return contact != null && contact.Profile == ProfileRepository.GetByName(ProfileType);
+            return contact != null && contact.Profiles.Contains(ProfileRepository.GetByName(ProfileType));
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)

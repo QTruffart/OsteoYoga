@@ -11,7 +11,7 @@ namespace OsteoYoga.Tests.DAO
     [TestClass]
     public class RepositoryHaveTo : BaseTestsNHibernate
     {
-        IRepository<TimeSlot> repository = new Repository<TimeSlot>();
+        IRepository<Profile> repository = new Repository<Profile>();
 
         OfficeRepository officeRepository = new OfficeRepository();
 
@@ -31,7 +31,7 @@ namespace OsteoYoga.Tests.DAO
         [TestMethod]
         public void Save()
         {
-            TimeSlot entity = new TimeSlot();
+            Profile entity = new Profile();
 
             repository.Save(entity);
 
@@ -41,21 +41,21 @@ namespace OsteoYoga.Tests.DAO
         [TestMethod]
         public void Update()
         {
-            TimeSlot entity = new TimeSlot();
+            Profile entity = new Profile();
 
             repository.Save(entity);
 
-            entity.DayOfWeek = DayOfWeek.Saturday;
+            entity.Name = "NouveauNom";
 
             repository.Save(entity);
 
-            Assert.AreEqual(DayOfWeek.Saturday, entity.DayOfWeek);
+            Assert.AreEqual("NouveauNom", entity.Name);
         }
 
         [TestMethod]
         public void GetById()
         {
-            TimeSlot expectedEntity = new TimeSlot();
+            Profile expectedEntity = new Profile();
             repository.Save(expectedEntity);
 
             Entity resultEntity = repository.GetById(expectedEntity.Id);
@@ -83,7 +83,7 @@ namespace OsteoYoga.Tests.DAO
         public void Delete()
         {
 
-            TimeSlot expectedEntity1 = new TimeSlot();
+            Profile expectedEntity1 = new Profile();
             repository.Save(expectedEntity1);
 
             repository.Delete(expectedEntity1);
@@ -96,8 +96,8 @@ namespace OsteoYoga.Tests.DAO
         public void DeleteAll()
         {
 
-            TimeSlot expectedEntity1 = new TimeSlot();
-            TimeSlot expectedEntity2 = new TimeSlot();
+            Profile expectedEntity1 = new Profile();
+            Profile expectedEntity2 = new Profile();
             repository.Save(expectedEntity1);
             repository.Save(expectedEntity2);
             

@@ -11,12 +11,10 @@ using OsteoYoga.Resource.RendezVous;
 
 namespace OsteoYoga.WebSite.Controllers
 {
-    public class RendezVousController : Controller
+    public class RendezVousController : BaseController.BaseController
     {
-        public TimeSlotRepository SlotRepository { get; set; }
         public Repository<Contact> ContactRepository { get; set; }
-        public DateRepository DateRepository { get; set; }
-        public HolidayRepository HolidayRepository { get; set; }
+        public Repository<Date> DateRepository { get; set; }
         public OfficeRepository OfficeRepository { get; set; }
 
         public RendezVousController()
@@ -58,9 +56,9 @@ namespace OsteoYoga.WebSite.Controllers
             //                             {
             //                                 BeginHour =  new TimeSpan(int.Parse(patientBegin.Split(':')[0]), int.Parse(patientBegin.Split(':')[1]) ,0),
             //                                 EndHour=  new TimeSpan(int.Parse(patientEnd.Split(':')[0]), int.Parse(patientEnd.Split(':')[1]) ,0),
-            //                                 Date = patientDate
+            //                                 Dates = patientDate
             //                             };
-            //    IList<TimeSlot> timeSlots = SlotRepository.GetFreeTimeSlots(patient.Date);
+            //    IList<TimeSlot> timeSlots = SlotRepository.GetFreeTimeSlots(patient.Dates);
             //    timeSlots = timeSlots.Where(ts => ts.BeginHour >= patient.BeginHour && ts.EndHour <= patient.EndHour).ToList();
             //    if ( timeSlots.Count > 0)
             //    {
@@ -82,7 +80,7 @@ namespace OsteoYoga.WebSite.Controllers
             //    try
             //    {
             //        Guid confirmationId = Guid.NewGuid();
-            //        Date date = new Date{
+            //        Dates date = new Dates{
             //                             Contact = contact,
             //                             TimeSlot = timeSlot,
             //                             Day = dateTime, 
@@ -107,7 +105,7 @@ namespace OsteoYoga.WebSite.Controllers
         [HttpGet]
         public PartialViewResult Validate(string id)
         {
-            //Date date = DateRepository.Validate(id);
+            //Dates date = DateRepository.Validate(id);
             //Email.GetInstance().SendForPatientValidation(date);
             //Email.GetInstance().SendForAdminValidation(date);
             return PartialView("Validate");

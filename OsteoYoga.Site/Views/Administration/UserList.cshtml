@@ -1,0 +1,22 @@
+﻿@using OsteoYoga.Domain.Models
+@model IList<Contact>
+
+@{
+    ViewBag.Title = "title";
+}
+
+<table>
+    <tr>
+        <th>Nom/Prénom</th> 
+        <th>Email</th>
+        <th>Téléphone</th>
+    </tr>
+    @foreach (Contact contact in Model)
+    {
+        <tr>
+            <td>@contact.FullName</td>
+            <td>@contact.Mail</td>
+            <td>@contact.Phone</td>
+        </tr>
+    }
+</table>

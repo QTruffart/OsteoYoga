@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OsteoYoga.Domain.Models;
 
 namespace OsteoYoga.Tests.Domain.Model
@@ -8,13 +9,16 @@ namespace OsteoYoga.Tests.Domain.Model
     {
 
         const string Name = "name";
-        
+        readonly IList<Contact> contacts = new List<Contact>();
+
         [TestMethod]
         public void InitializeCorrectlyInitialize()
         {
+            
             Profile profile = new Profile
                                     {
-                                        Name = Name
+                                        Name = Name,
+                                        Contacts = contacts
                                     };
             Assert.AreEqual(Name, profile.Name);
         }

@@ -7,15 +7,13 @@ using OsteoYoga.Repository.DAO;
 
 namespace OsteoYoga.WebSite.Controllers
 {
-    public class AdministrationController : Controller
+    public class AdministrationController : BaseController.BaseController
     {
-        public TimeSlotRepository TimeSlotRepository { get; set; }
         public ContactRepository ContactRepository { get; set; }
 
 
         public AdministrationController()
         {
-            TimeSlotRepository = new TimeSlotRepository();
             ContactRepository = new ContactRepository();
         }
 
@@ -27,16 +25,6 @@ namespace OsteoYoga.WebSite.Controllers
             }
             return PartialView();
         }
-
-        public ActionResult InitializeTimeSlot()
-        {
-            TimeSlotRepository.DeleteAll();
-            TimeSlotInitializer timeSlotInitializer = new TimeSlotInitializer(TimeSlotRepository);
-            timeSlotInitializer.InitializeTimeSlots();
-            return null;
-        }
-
-        
 
         public PartialViewResult UserList()
         {

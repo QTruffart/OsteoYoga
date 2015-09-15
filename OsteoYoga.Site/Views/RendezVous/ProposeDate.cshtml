@@ -1,0 +1,46 @@
+﻿@model TimeSlot
+@using OsteoYoga.Domain.Models
+@using OsteoYoga.Resource.RendezVous
+@{
+    if(Model != null)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#validate").click(function () {
+                    CreateDate();
+                });
+            });
+
+            function CreateDate() {
+                ShowCaducet();
+                var data = { dateTime: $("#DatePicker").val(), timeSlotId: @Model.Id };
+                ajaxWithResultInModal('@Url.Action("CreateDate", "RendezVous")', data, "@DateResource.DatePropose", HideCaducet);
+            }
+
+            function HideCaducet() {
+                $("#result").html("");
+            }
+
+            function ShowCaducet() {
+                $("#result").html("<img src='@(Url.Content("~/Theme/Images/wait_gd.gif"))' alt='wait' title='wait' />");
+            }
+        </script>
+        <div id="result">
+            <div style="color: green; font-size: 14px">
+                @DateResource.DateMayBeTaken @(Model.ToString())
+            </div>
+            <p>
+                <br />
+                <button class="btn btn-primary" id="validate">
+                    @DateResource.TakeTheDate
+                </button>
+            </p>
+        </div>
+    }
+    else
+    {
+        <div style="color: red; font-size: 14px">
+            @ViewBag.ProposeError
+        </div>
+    }
+} 

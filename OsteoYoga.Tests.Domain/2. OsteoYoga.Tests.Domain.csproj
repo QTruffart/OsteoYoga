@@ -105,13 +105,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\DateHaveTo.cs" />
     <Compile Include="Model\DurationHaveTo.cs" />
     <Compile Include="Model\ProfileHaveTo.cs" />
     <Compile Include="Model\OfficeHaveTo.cs" />
     <Compile Include="test.cs" />
     <Compile Include="Model\ContactHaveTo.cs" />
-    <Compile Include="Model\HolidayHaveTo.cs" />
-    <Compile Include="Model\TimeSlotHaveTo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

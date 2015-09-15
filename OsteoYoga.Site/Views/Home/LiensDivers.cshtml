@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "Divers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Meta = "Le cabinet d'ostéopathie a plusieurs partenaires";
+}
+<div role="main" id="mainContent">
+    <h1>Divers</h1>
+    <section class="pageSection" style="text-align: justify">
+        <div class="row-fluid">
+
+            <div class="span3 sectionImg">
+                <div class="noTransition">
+                    <div class="centeringWrapper">
+                        <img src="@Url.Content("~/Theme/Images/KungFu.png")" alt="" style="width: 120px; height: 60px" />
+                    </div>
+                </div>
+            </div> <!-- Picture -->
+            <div class="span9 content">
+                <h3 id="1"><a href="http://www.tao-kung-fu.com/">Tao Kung Fu</a></h3>
+                <p><strong>Cours de Kung-fu Wushu</strong> animés par Lune Nguyet VU</p>
+                <p>4, bis rue Jorlis 64600 Anglet</p>
+            </div> <!-- Content -->
+        </div> <!-- end row-fluid -->
+        <div class="row-fluid">
+            <div class="span3 sectionImg">
+                <div class="noTransition">
+                    <div class="centeringWrapper">
+                        <img src="@Url.Content("~/Theme/Images/maison.jpg")" alt="" style="width: 120px; height: 80px" />
+                    </div>
+                </div>
+            </div> <!-- Picture -->
+            <div class="span9 content">
+                <h3 id="1"><a href="http://id-abitaconcept.fr/">id-abitaconcept conseil</a></h3>
+                <p><strong>Habitat écologique</strong>, Didier Crusener - Projeteur - Compositeur / maître d'oeuvre</p>
+                <p>39 Avenue Capitaine Resplandy F 64100 Bayonne</p>
+            </div> <!-- Content -->
+        </div> <!-- end row-fluid -->
+    </section>
+</div>

@@ -19,14 +19,13 @@ namespace OsteoYoga.Domain.Models
         [Required]
         [RegularExpression("\\(?\\d{3}\\)?-? *\\d{3}-? *-?\\d{4}", ErrorMessageResourceType = typeof(LoginResource), ErrorMessageResourceName = "PhoneFormat")]
         public virtual string Phone { get; set; }
-
-        // TODO : A faire évoluer en many to many
-        public virtual Profile Profile { get; set; }
-
+        
         //todo à mettre en Enum
         public virtual string NetworkType { get; set; }
 
         public virtual string NetworkId { get; set; }
+        public virtual IList<Date> Dates { get; set; }
+        public virtual IList<Profile> Profiles { get; set; }
 
         public override string ToString()
         {

@@ -1,0 +1,5 @@
+﻿@using OsteoYoga.Domain.Models
+@model IList<TimeSlot>
+@foreach(TimeSlot timeSlot in Model ){
+    <option value="@timeSlot.Id">@timeSlot.ToString()</option>
+}

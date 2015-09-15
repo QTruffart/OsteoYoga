@@ -37,6 +37,7 @@ namespace OsteoYoga.Tests.DAO
         {
             contactRepository.Save(contact);
             Assert.IsTrue(contactRepository.EmailAlreadyExists(contact.Mail));
+            
         }
 
         [TestMethod]

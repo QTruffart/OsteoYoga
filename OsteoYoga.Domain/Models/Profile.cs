@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace OsteoYoga.Domain.Models
 {
@@ -6,5 +7,7 @@ namespace OsteoYoga.Domain.Models
     {
         [Required]
         public virtual string Name { get; set; }
+
+        public virtual IList<Contact> Contacts { get; set; }
     }
 }

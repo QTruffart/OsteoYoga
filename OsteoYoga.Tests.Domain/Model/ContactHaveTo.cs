@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Resource;
 
@@ -7,7 +8,10 @@ namespace OsteoYoga.Tests.Domain.Model
     [TestClass]
     public class ContactHaveTo
     {
-
+        readonly IList<Date> dates = new List<Date>();
+        readonly IList<Profile> profiles = new List<Profile>();
+        const string NetworkType = "networkType";
+        const string NetworkId = "netWorkId";
         const string FullName = "name";
         const string Mail = "mail@domaine.com";
         const string Phone = "+33(0)612345678";
@@ -20,10 +24,19 @@ namespace OsteoYoga.Tests.Domain.Model
                                         FullName = FullName,
                                         Mail = Mail,
                                         Phone = Phone,
+                                        Dates = dates,
+                                        NetworkId = NetworkId,
+                                        NetworkType = NetworkType,
+                                        Profiles = profiles
                                     };
+
             Assert.AreEqual(FullName, contact.FullName);
             Assert.AreEqual(Mail, contact.Mail);
             Assert.AreEqual(Phone, contact.Phone);
+            Assert.AreEqual(dates, contact.Dates);
+            Assert.AreEqual(NetworkId, contact.NetworkId);
+            Assert.AreEqual(NetworkType, contact.NetworkType);
+            Assert.AreEqual(profiles, contact.Profiles);
         }
 
         [TestMethod]

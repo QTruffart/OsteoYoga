@@ -3,7 +3,7 @@ using OsteoYoga.Domain.Models;
 
 namespace OsteoYoga.WebSite.Controllers
 {
-    public class ContactController : Controller
+    public class ContactController : BaseController.BaseController
     {
         [HttpGet]
         public ViewResult Create()
