@@ -1,24 +1,17 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OsteoYoga.Domain.Models;
-using OsteoYoga.Resource;
-
 ﻿using System;
 using System.IO;
 using System.Threading;
-using System.Threading.Tasks;
-using Google.Apis.Auth;
 using Google.Apis.Auth.OAuth2;
-using Google.Apis.Auth.OAuth2.Flows;
-using Google.Apis.Auth.OAuth2.Requests;
-using Google.Apis.Auth.OAuth2.Responses;
 using Google.Apis.Calendar.v3;
 using Google.Apis.Calendar.v3.Data;
 using Google.Apis.Services;
 using Google.Apis.Util.Store;
-namespace OsteoYoga.Tests.Domain.Model
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace OsteoYoga.Tests.Domain
 {
     [TestClass]
-    public class TEsts
+    public class Tests
     {
         static string[] Scopes = { CalendarService.Scope.Calendar };
         static string ApplicationName = "Calendar API Quickstart";

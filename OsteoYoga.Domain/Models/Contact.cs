@@ -27,11 +27,11 @@ namespace OsteoYoga.Domain.Models
         public virtual string NetworkType { get; set; }
 
         public virtual string NetworkId { get; set; }
-        
-        //public override string ToString()
-        //{
-        //    return FullName + " ( " + ModelResource.Mail + ": " + Mail + " ; " + ModelResource.Phone + ": " + Phone + " )";
-        //}
+
+        public override string ToString()
+        {
+            return FullName + " ( " + ModelResource.Mail + ": " + Mail + " ; " + ModelResource.Phone + ": " + Phone + " )";
+        }
 
         public virtual bool IsValid()
         {

@@ -3,14 +3,10 @@
                    assembly="OsteoYoga.Domain"
                    namespace="OsteoYoga.Domain.Models">
 
-  <class name="Office" table="Office">
+  <class name="Duration" table="Duration">
     <id column="Id" name="Id" type="Int32" unsaved-value="0">
       <generator class="increment" />
     </id>
-    <property name="Name" column="Name" not-null="true" />
-    <bag name="Durations" table="OfficeDuration" inverse="true">
-      <key column="OfficeId"/>
-      <many-to-many class="Duration" column="DurationId"/>
-    </bag>
-  </class>  
+    <property name="Value" column="Value" not-null="true" />
+  </class>
 </hibernate-mapping>

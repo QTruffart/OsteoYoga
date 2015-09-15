@@ -5,21 +5,19 @@ using OsteoYoga.Domain.Models;
 namespace OsteoYoga.Tests.Domain.Model
 {
     [TestClass]
-    public class OfficeHaveTo
+    public class DurationHaveTo
     {
 
-        const string Name = "name";
-        readonly IList<Duration> durations = new List<Duration>();
+        const int Value = 45;
 
         [TestMethod]
         public void InitializeCorrectlyInitialize()
         {
-            Office office = new Office
+            Duration duration = new Duration()
             {
-                Name = Name,
-                Durations = durations
+                Value = Value
             };
-            Assert.AreEqual(Name, office.Name);
+            Assert.AreEqual(Value, duration.Value);
         }
     }
 }

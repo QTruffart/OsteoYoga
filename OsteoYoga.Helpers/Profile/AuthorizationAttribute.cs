@@ -30,7 +30,7 @@ namespace OsteoYoga.Helper.Profile
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
                 filterContext.Result = new RedirectToRouteResult(new
-                RouteValueDictionary(new { controller = "Home", action = "Index" }));
+                RouteValueDictionary(new { controller = "Login", action = "Index" }));
         }
     }
 }

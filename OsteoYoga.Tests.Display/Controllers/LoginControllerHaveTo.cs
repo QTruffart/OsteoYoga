@@ -158,8 +158,7 @@ namespace OsteoYoga.Tests.Display.Controllers
 
             contactRepositoryMock.Verify(crm => crm.SocialNetworkEmailAlreadyExists(Email, Id, faceBookNetwork), Times.Once());
             sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
-            Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);
-            Assert.AreEqual(offices, viewResult.Model);
+            Assert.AreEqual("~/Views/RendezVous/Index.cshtml",  viewResult.ViewName);
         }
 
 

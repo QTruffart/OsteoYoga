@@ -8,9 +8,9 @@
       <generator class="increment" />
     </id>
     <property name="Day" column="Day" not-null="true" />
-    <many-to-one name="TimeSlot" column="TimeSlotId" class="TimeSlot" foreign-key="FK_Date_TimeSlot" />
+    <many-to-one name="Office" column="OfficeId" class="Office" foreign-key="FK_Date_Office" />
     <many-to-one name="Contact" column="ContactId" class="Contact" foreign-key="FK_Date_Contact" />
-    <property name="IsConfirmed" column="IsConfirmed" />
-    <property name="ConfirmationId" column="ConfirmationId" />
+    <many-to-one name="Duration" column="DurationId" class="Duration" foreign-key="FK_Date_Duration" />
+    <many-to-one name="Contact" column="ContactId" class="Contact" foreign-key="FK_Date_Contact" />
   </class>
 </hibernate-mapping>

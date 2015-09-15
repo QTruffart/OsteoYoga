@@ -32,6 +32,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         private readonly Mock<SessionHelper> sessionHelperMock = new Mock<SessionHelper>();
         private readonly Mock<TimeSlotRepository> timeSlotRepoMock = new Mock<TimeSlotRepository>();
         private readonly Mock<HolidayRepository> holidayRepoMock = new Mock<HolidayRepository>();
+        private readonly Mock<OfficeRepository> officeRepositoryMock = new Mock<OfficeRepository>();
         private readonly Mock<Email> emailMock = new Mock<Email>();
         private readonly Mock<Constants> constantsMock = new Mock<Constants>();
         private RendezVousController Controller { get; set; }
@@ -41,27 +42,57 @@ namespace OsteoYoga.Tests.Display.Controllers
         {
             Controller = new RendezVousController
                 {
-                    SlotRepository = timeSlotRepoMock.Object,
-                    ContactRepository = contactSlotRepoMock.Object,
-                    DateRepository = dateRepoMock.Object,
-                    HolidayRepository = holidayRepoMock.Object,
-                };
+                    OfficeRepository = officeRepositoryMock.Object,
+                //SlotRepository = timeSlotRepoMock.Object,
+                //ContactRepository = contactSlotRepoMock.Object,
+                //DateRepository = dateRepoMock.Object,
+                //HolidayRepository = holidayRepoMock.Object,
+            };
             SessionHelper.Instance = sessionHelperMock.Object;
             sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(contact);
             Email.Instance = emailMock.Object;
             Constants.Instance = constantsMock.Object;
             constantsMock.Setup(cm => cm.ServerAddress(It.IsAny<HttpRequestBase>())).Returns(ServerAddress);
         }
-        
 
 
-        //[TestMethod]
-        //public void GoToLoginPageIfThereIsNoContactConnectedOnIndexAction()
-        //{
-        //    sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(null as Contact);
+        [TestMethod]
+        public void CorrectlyInitialize()
+        {
+            RendezVousController controller = new RendezVousController();
 
-        //    Assert.AreEqual(LoginPath, Controller.Index().ViewName);
-        //}
+            Assert.IsInstanceOfType(controller.OfficeRepository, typeof(OfficeRepository));
+        }
+
+        [TestMethod]
+        public void GoToIndexPageWithOfficeListModel()
+        {
+            List<Office> offices = new List<Office>();
+            officeRepositoryMock.Setup(o => o.GetAll()).Returns(offices);
+            
+            PartialViewResult viewResult = Controller.Index();
+            
+            Assert.AreEqual(offices, viewResult.Model);
+            Assert.AreEqual(IndexPath, viewResult.ViewName);
+        }
+
+        [TestMethod]
+        public void Propose_Durations_With_Office()
+        {
+            Office office = new Office();
+            officeRepositoryMock.Setup(o => o.GetAll()).Returns(offices);
+            Date date = new Date
+            {
+                Contact = contact
+            };
+
+            PartialViewResult viewResult = Controller.FillDate(office);
+
+            Assert.AreEqual(date, viewResult.Model);
+            Assert.AreEqual(IndexPath, viewResult.ViewName);
+        }
+
+
 
         //[TestMethod]
         //public void GoToIndexIfThereIsContactConnectedOnIndexAction()
@@ -174,7 +205,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         //public void CreateDateAndSendEmails()
         //{
         //    timeSlotRepoMock.Setup(tsrm => tsrm.GetById(TimeSlotId)).Returns(expectedTimeSlot);
-            
+
         //    PartialViewResult view =  Controller.CreateDate(dateTime, TimeSlotId);
 
         //    timeSlotRepoMock.Verify(tsrm => tsrm.GetById(TimeSlotId), Times.Once());
@@ -212,7 +243,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         //    dateRepoMock.Setup(drm => drm.Validate(id)).Returns(date);
 
         //    PartialViewResult view = Controller.Validate(id);
-            
+
         //    dateRepoMock.Verify(drm => drm.Validate(id), Times.Once());
         //    emailMock.Verify(em => em.SendForPatientValidation(date), Times.Once());
         //    emailMock.Verify(em => em.SendForAdminValidation(date), Times.Once());

@@ -1,4 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿#region
+
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+#endregion
 
 namespace OsteoYoga.Domain.Models
 {
@@ -6,5 +11,8 @@ namespace OsteoYoga.Domain.Models
     {
         [Required]
         public virtual string Name { get; set; }
+
+        [Required]
+        public virtual IList<Duration> Durations { get; set; }
     }
 }

@@ -75,6 +75,7 @@ namespace OsteoYoga.WebSite.Controllers
             if (ContactRepository.SocialNetworkEmailAlreadyExists(mail, id, networkType))
             {
                 SessionHelper.GetInstance().CurrentUser = ContactRepository.GetBySocialNetworkEmail(mail, id, networkType);
+
                 return PartialView("~/Views/RendezVous/Index.cshtml", OfficeRepository.GetAll());
             }
             Contact contact = new Contact()

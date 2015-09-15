@@ -1,4 +1,6 @@
-﻿namespace OsteoYoga.Domain.Models
+﻿using System.Web.Mvc;
+
+namespace OsteoYoga.Domain.Models
 {
     public class Entity : IEntity
     {
