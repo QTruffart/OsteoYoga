@@ -4,6 +4,8 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Repository.DAO;
+using OsteoYoga.Repository.DAO.Abstracts;
+using OsteoYoga.Repository.DAO.Implements;
 using OsteoYoga.Repository.DAO.Interfaces;
 
 namespace OsteoYoga.Tests.DAO
@@ -11,7 +13,7 @@ namespace OsteoYoga.Tests.DAO
     [TestClass]
     public class RepositoryHaveTo : BaseTestsNHibernate
     {
-        IRepository<Profile> repository = new Repository<Profile>();
+        IRepository<Profile> repository = new NHibernateRepository<Profile>();
 
         OfficeRepository officeRepository = new OfficeRepository();
 

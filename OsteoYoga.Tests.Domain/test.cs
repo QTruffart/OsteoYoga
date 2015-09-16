@@ -13,7 +13,8 @@ namespace OsteoYoga.Tests.Domain
     [TestClass]
     public class Tests
     {
-        static string[] Scopes = { CalendarService.Scope.Calendar };
+
+        static readonly string[] Scopes = { CalendarService.Scope.Calendar };
         static string ApplicationName = "Calendar API Quickstart";
 
         [TestMethod]

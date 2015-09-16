@@ -1,7 +1,6 @@
 ﻿@using System.Web.Mvc.Html
-@using OsteoYoga.Domain.Models
 @using OsteoYoga.Resource.RendezVous
-@model IList<OsteoYoga.Domain.Models.Office>
+@model OsteoYoga.Site.ViewResults.DateViewResult
 <script src="@Url.Content("~/Theme/Scripts/jquery-1.9.1.js")" type="text/javascript" ></script>
 <script src="@Url.Content("~/Theme/Scripts/jquery-ui.min.js")" type="text/javascript" ></script>
 <script src="@Url.Content("~/Theme/Scripts/jquery.maskedinput.js")" type="text/javascript" ></script>
@@ -28,38 +27,39 @@
                              }
                          }];
     $(document).ready(function () {
+        
+    });
+
+    
+
+    
+</script>*@
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#offices').change(function() {
+            SetFormValues();
+        });
+        $('#durations').change(function () {
+            SetFormValues();
+        });
         $("#DatesPicker").datepicker({
             minDates: +3,
-            beforeShowDay: disableSpecificDatess,
+            beforeShowDay: disableSpecificDates,
+            
             dateFormat: 'dd/mm/yy',
             onSelect: function (date) {
                 $("#timeSlotSelection").show();
                 $("#timeSlotSelectionValues").show();
-                getProposeDates(date);
+                //getProposeDates(date);
             }
         });
-        $("#selectedTimeSlot").change(function () {
-            getProposeDates($("#DatesPicker").val());
-        });
+        //$("#selectedTimeSlot").change(function () {
+        //    getProposeDates($("#DatesPicker").val());
+        //});
     });
 
-    function disableSpecificDatess(date) {
-        var month = date.getMonth();
-        var day = date.getDates();
-        var dayofWeek = date.getDay();
-        var year = date.getFullYear();
-        if (dayofWeek != 0 && dayofWeek != 3) {
-            for (var i = 0; i < daysToDisable.length; i++) {
-                if ($.inArray((month + 1) + '-' + day + '-' + year, daysToDisable) != -1) {
-                    return [false];
-                }
-            }
-            return [true];
-        }
-        return [false];
-    }
-
-    function getProposeDates(date) {
+    @*function getProposeDates(date) {
         $.ajax({
             url: '@Url.Action("ProposeDates", "RendezVous")',
             data: {
@@ -74,16 +74,30 @@
                 alert(errorThrown);
             }
         });
+    }*@
+    function disableSpecificDates(date) {
+        var month = date.getMonth();
+        var day = date.getDate();
+        var dayofWeek = date.getDay();
+        var year = date.getFullYear();
+        if (dayofWeek != 0 && dayofWeek != 3) {
+            if ($.inArray((month + 1) + '-' + day + '-' + year) != -1) {
+                return [false];
+            }
+            //for (var i = 0; i < daysToDisable.length; i++) {
+            //    if ($.inArray((month + 1) + '-' + day + '-' + year, daysToDisable) != -1) {
+            //        return [false];
+            //    }
+            //}
+            return [true];
+        }
+        return [false];
     }
-</script>*@
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#offices').change(function() {
-            alert($('#offices').val());
-        });
-    });
-    
+    function SetFormValues() {
+        $('#officeId').val($('#offices').val());
+        $('#durationId').val($('#durations').val());
+    }
     function replaceDurations(officeId) {
         $.ajax({
             url: '@Url.Action("ProposeDate", "RendezVous")',
@@ -118,33 +132,40 @@
             <tr>
                 <td>
                     <select name="offices" id="offices">
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.Offices)
                         {
                             <option value="@item.Id">@item.Name</option>
                         }
                     </select>
                 </td>
                 <td>
-                    <select name="durations" id="durations"></select>
+                    <select name="durations" id="durations">
+                        @foreach (var item in Model.Durations)
+                        {
+                            <option value="@item.Id">@item.Value</option>
+                        }
+                    </select>
                 </td>
 
-                //First simple dropdown
-                @using (Html.BeginForm("ProposeDate", "RendezVous", FormMethod.Post))
-                {
-                   
-                }
-            </tr>
-        </table>
 
-        @*<table >
+            </tr>
             <tr>
-                <th><h2>@DatesResource.DatesSelection</h2></th>
+                <th><h2>@DateResource.DateSelection</h2></th>
             </tr>
             <tr>
                 <td style="width:25%; vertical-align:top; background-color: transparent;">
                     <div align="center" id="DatesPicker" />
                 </td>
             </tr>
+        </table>
+
+        @using (Html.BeginForm("ProposeDate", "RendezVous", FormMethod.Post))
+        {
+            <input type="hidden" id="officeId" />
+            <input type="hidden" id="durationId" />
+        }
+        @*<table >
+            
             <tr hidden="hidden" id="timeSlotSelection">
                 <th><h2>@DatesResource.TimeSlotSelection</h2></th>
             </tr>
@@ -160,5 +181,5 @@
             </tr>
         </table>*@
         <div id="proposeDate"></div>
-    </fieldset>*
+    </fieldset>
 </div>

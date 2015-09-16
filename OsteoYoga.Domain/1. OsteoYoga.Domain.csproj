@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Duration.cs" />
+    <Compile Include="Models\Interface\IEntityGoogle.cs" />
     <Compile Include="Models\Mapping\ContactMap.cs" />
     <Compile Include="Models\Mapping\ProfileMap.cs" />
     <Compile Include="Models\Mapping\DateMap.cs" />

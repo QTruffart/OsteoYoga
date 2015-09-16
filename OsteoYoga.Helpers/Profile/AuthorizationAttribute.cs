@@ -5,6 +5,7 @@ using System.Web.Routing;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper.Helpers;
 using OsteoYoga.Repository.DAO;
+using OsteoYoga.Repository.DAO.Implements;
 
 namespace OsteoYoga.Helper.Profile
 {

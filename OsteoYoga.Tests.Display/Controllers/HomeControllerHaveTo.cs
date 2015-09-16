@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OsteoYoga.Site.Controllers;
 
-
 namespace OsteoYoga.Tests.Display.Controllers
 {
     [TestClass]

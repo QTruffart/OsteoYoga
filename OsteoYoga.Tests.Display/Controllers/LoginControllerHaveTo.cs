@@ -7,7 +7,9 @@ using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper;
 using OsteoYoga.Helper.Helpers;
 using OsteoYoga.Repository.DAO;
+using OsteoYoga.Repository.DAO.Implements;
 using OsteoYoga.Site.Controllers;
+using OsteoYoga.Site.ViewResults;
 
 namespace OsteoYoga.Tests.Display.Controllers
 {
@@ -22,9 +24,11 @@ namespace OsteoYoga.Tests.Display.Controllers
         readonly Contact currentContact = new Contact();
         readonly Profile profile = new Profile();
         readonly IList<Office> offices = new List<Office>();
+        readonly IList<Duration> durations = new List<Duration>();
         readonly Mock<ContactRepository> contactRepositoryMock = new Mock<ContactRepository>();
         readonly Mock<ProfileRepository> profileRepositoryMock = new Mock<ProfileRepository>();
         readonly Mock<OfficeRepository> officeRepositoryMock = new Mock<OfficeRepository>();
+        readonly Mock<DurationRepository> durationRepositoryMock = new Mock<DurationRepository>();
         readonly Mock<SessionHelper> sessionHelperMock = new Mock<SessionHelper>();
         private LoginController Controller { get; set; }
         [TestInitialize]
@@ -33,10 +37,12 @@ namespace OsteoYoga.Tests.Display.Controllers
             Controller = new LoginController { 
                 ContactRepository = contactRepositoryMock.Object,
                 OfficeRepository = officeRepositoryMock.Object,
+                DurationRepository = durationRepositoryMock.Object,
                 ProfileRepository = profileRepositoryMock.Object
             };
             sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(null as Contact);
             officeRepositoryMock.Setup(hrm => hrm.GetAll()).Returns(offices);
+            durationRepositoryMock.Setup(hrm => hrm.GetAll()).Returns(durations);
             SessionHelper.Instance = sessionHelperMock.Object;
         }
 
@@ -48,6 +54,7 @@ namespace OsteoYoga.Tests.Display.Controllers
             Assert.IsInstanceOfType(controller.ContactRepository, typeof(ContactRepository));
             Assert.IsInstanceOfType(controller.OfficeRepository, typeof(OfficeRepository));
             Assert.IsInstanceOfType(controller.ProfileRepository, typeof(ProfileRepository));
+            Assert.IsInstanceOfType(controller.DurationRepository, typeof(DurationRepository));
         }
 
         #region Utilisateur déjà connecté ?
@@ -59,7 +66,8 @@ namespace OsteoYoga.Tests.Display.Controllers
             PartialViewResult view = Controller.Index();
 
             Assert.AreEqual("~/Views/RendezVous/Index.cshtml", view.ViewName);
-            Assert.AreEqual(offices, view.Model);
+            Assert.AreEqual(offices, ((DateViewResult)view.Model).Offices);
+            Assert.AreEqual(durations, ((DateViewResult)view.Model).Durations);
         }
 
         [TestMethod]
@@ -90,7 +98,8 @@ namespace OsteoYoga.Tests.Display.Controllers
             contactRepositoryMock.Verify(crm => crm.EmailAlreadyExists(contact.Mail), Times.Once());
             sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
             Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);
-            Assert.AreEqual(offices, viewResult.Model);
+            Assert.AreEqual(offices, ((DateViewResult)viewResult.Model).Offices);
+            Assert.AreEqual(durations, ((DateViewResult)viewResult.Model).Durations);
         }
 
         [TestMethod]
@@ -110,40 +119,41 @@ namespace OsteoYoga.Tests.Display.Controllers
         #endregion
 
         #region Inscription classique
-            [TestMethod]
-            public void SignIn_Error_If_Email_Already_Exists()
+        [TestMethod]
+        public void SignIn_Error_If_Email_Already_Exists()
+        {
+            Contact contact = new Contact
             {
-                Contact contact = new Contact
-                {
-                    Mail = Email
-                };
-                contactRepositoryMock.Setup(crm => crm.EmailAlreadyExists(Email)).Returns(true);
+                Mail = Email
+            };
+            contactRepositoryMock.Setup(crm => crm.EmailAlreadyExists(Email)).Returns(true);
 
-                PartialViewResult viewResult = Controller.SignIn(contact);
+            PartialViewResult viewResult = Controller.SignIn(contact);
 
-                contactRepositoryMock.Verify(crm => crm.EmailAlreadyExists(Email), Times.Once());
-                Assert.AreEqual("SignIn", viewResult.ViewName);
-            }
+            contactRepositoryMock.Verify(crm => crm.EmailAlreadyExists(Email), Times.Once());
+            Assert.AreEqual("SignIn", viewResult.ViewName);
+        }
 
-            [TestMethod]
-            public void SignIn_Create_A_New_Contact()
+        [TestMethod]
+        public void SignIn_Create_A_New_Contact()
+        {
+            Contact contact = new Contact
             {
-                Contact contact = new Contact
-                {
-                    Mail = Email
-                };
-                contactRepositoryMock.Setup(crm => crm.EmailAlreadyExists(Email)).Returns(false);
-                profileRepositoryMock.Setup(prm => prm.GetByName(Constants.GetInstance().PatientProfile)).Returns(profile);
+                Mail = Email
+            };
+            contactRepositoryMock.Setup(crm => crm.EmailAlreadyExists(Email)).Returns(false);
+            profileRepositoryMock.Setup(prm => prm.GetByName(Constants.GetInstance().PatientProfile)).Returns(profile);
 
-                PartialViewResult viewResult = Controller.SignIn(contact);
+            PartialViewResult viewResult = Controller.SignIn(contact);
 
-                contactRepositoryMock.Verify(crm => crm.EmailAlreadyExists(Email), Times.Once());
-                contactRepositoryMock.Verify(crm => crm.Save(contact));
-                sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
-                Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);
-                CollectionAssert.Contains(contact.Profiles.ToList(), profile);
-                Assert.AreEqual(offices, viewResult.Model);
-            }
+            contactRepositoryMock.Verify(crm => crm.EmailAlreadyExists(Email), Times.Once());
+            contactRepositoryMock.Verify(crm => crm.Save(contact));
+            sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
+            Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);
+            CollectionAssert.Contains(contact.Profiles.ToList(), profile);
+            Assert.AreEqual(offices, ((DateViewResult)viewResult.Model).Offices);
+            Assert.AreEqual(durations, ((DateViewResult)viewResult.Model).Durations);
+        }
         #endregion
         
         #region Connexion avec les réseaux sociaux
@@ -190,7 +200,8 @@ namespace OsteoYoga.Tests.Display.Controllers
             contactRepositoryMock.Verify(crm => crm.SocialNetworkEmailAlreadyExists(Email, Id, googleNetwork), Times.Once());
             sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
             Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);
-            Assert.AreEqual(offices, viewResult.Model);
+            Assert.AreEqual(offices, ((DateViewResult)viewResult.Model).Offices);
+            Assert.AreEqual(durations, ((DateViewResult)viewResult.Model).Durations);
         }
 
         [TestMethod]
@@ -222,7 +233,8 @@ namespace OsteoYoga.Tests.Display.Controllers
             contactRepositoryMock.Verify(crm => crm.Save(contact));
             sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
             Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);
-            Assert.AreEqual(offices, viewResult.Model);
+            Assert.AreEqual(offices, ((DateViewResult)viewResult.Model).Offices);
+            Assert.AreEqual(durations, ((DateViewResult)viewResult.Model).Durations);
             CollectionAssert.Contains(contact.Profiles.ToList(), profile);
         }
 

@@ -8,6 +8,8 @@ using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper;
 using OsteoYoga.Helper.Helpers;
 using OsteoYoga.Repository.DAO;
+using OsteoYoga.Repository.DAO.Abstracts;
+using OsteoYoga.Repository.DAO.Implements;
 using OsteoYoga.Site.Controllers;
 
 namespace OsteoYoga.Tests.Display.Controllers
@@ -23,7 +25,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         private const string CreateDatePath = "CreateDate";
         private const string ValidatePath = "Validate";
         private readonly Contact contact = new Contact();
-        private readonly Mock<Repository<Contact>> contactSlotRepoMock = new Mock<Repository<Contact>>();
+        private readonly Mock<NHibernateRepository<Contact>> contactSlotRepoMock = new Mock<NHibernateRepository<Contact>>();
         private readonly DateTime dateTime = new DateTime(2013, 07, 11);
         private readonly Mock<SessionHelper> sessionHelperMock = new Mock<SessionHelper>();
         private readonly Mock<OfficeRepository> officeRepositoryMock = new Mock<OfficeRepository>();

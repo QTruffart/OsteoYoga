@@ -53,10 +53,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="OsteoYoga.Helper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\OsteoYoga.Helper.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -175,8 +171,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\BaseController\BaseController.cs" />
-    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\Interface\IController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RendezVousController.cs" />
     <Compile Include="Global.asax.cs">
@@ -184,6 +180,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewResults\DateViewResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />

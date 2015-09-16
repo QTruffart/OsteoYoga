@@ -4,7 +4,10 @@ using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper;
 using OsteoYoga.Helper.Helpers;
 using OsteoYoga.Repository.DAO;
+using OsteoYoga.Repository.DAO.Implements;
+using OsteoYoga.Repository.DAO.Interfaces;
 using OsteoYoga.Resource.Contact;
+using OsteoYoga.Site.ViewResults;
 
 namespace OsteoYoga.Site.Controllers
 {
@@ -12,12 +15,14 @@ namespace OsteoYoga.Site.Controllers
     {
         public ContactRepository ContactRepository { get; set; }
         public OfficeRepository OfficeRepository { get; set; }
+        public DurationRepository DurationRepository { get; set; }
         public ProfileRepository ProfileRepository { get; set; }
 
         public LoginController()
         {
             ContactRepository = new ContactRepository();
             OfficeRepository = new OfficeRepository();
+            DurationRepository = new DurationRepository();
             ProfileRepository = new ProfileRepository();
         }
         
@@ -25,9 +30,19 @@ namespace OsteoYoga.Site.Controllers
         {
             if (SessionHelper.GetInstance().CurrentUser != null)
             {
-                return PartialView("~/Views/RendezVous/Index.cshtml", OfficeRepository.GetAll());
+                return GoTorendezVousPage();
             }
             return PartialView("Index");    
+        }
+
+        private PartialViewResult GoTorendezVousPage()
+        {
+            DateViewResult dateViewResult = new DateViewResult()
+            {
+                Offices = OfficeRepository.GetAll(),
+                Durations = DurationRepository.GetAll()
+            };
+            return PartialView("~/Views/RendezVous/Index.cshtml", dateViewResult);
         }
 
         [HttpPost]
@@ -36,7 +51,7 @@ namespace OsteoYoga.Site.Controllers
             if (ContactRepository.EmailAlreadyExists(email))
             {
                 SessionHelper.GetInstance().CurrentUser = ContactRepository.GetByEmail(email);
-                return PartialView("~/Views/RendezVous/Index.cshtml", OfficeRepository.GetAll());
+                return GoTorendezVousPage();
             }
 
             ViewBag.Errors = LoginResource.UnknownEmail;
@@ -51,7 +66,7 @@ namespace OsteoYoga.Site.Controllers
                 contact.Profiles = new List<Profile>() { ProfileRepository.GetByName(Constants.GetInstance().PatientProfile) };
                 ContactRepository.Save(contact);
                 SessionHelper.GetInstance().CurrentUser = contact;
-                return PartialView("~/Views/RendezVous/Index.cshtml", OfficeRepository.GetAll());
+                return GoTorendezVousPage();
             }
             ViewBag.SignInError = SignInResource.EmailAlreadyExists;
             return PartialView("SignIn", contact);
@@ -75,10 +90,9 @@ namespace OsteoYoga.Site.Controllers
             if (ContactRepository.SocialNetworkEmailAlreadyExists(mail, id, networkType))
             {
                 SessionHelper.GetInstance().CurrentUser = ContactRepository.GetBySocialNetworkEmail(mail, id, networkType);
-
-                return PartialView("~/Views/RendezVous/Index.cshtml", OfficeRepository.GetAll());
+                return GoTorendezVousPage();
             }
-            Contact contact = new Contact()
+            Contact contact = new Contact
             {
                 Mail = mail,
                 FullName = name,
@@ -93,7 +107,7 @@ namespace OsteoYoga.Site.Controllers
             contact.Profiles = new List<Profile>(){ ProfileRepository.GetByName(Constants.GetInstance().PatientProfile) };
             ContactRepository.Save(contact);
             SessionHelper.GetInstance().CurrentUser = contact;
-            return PartialView("~/Views/RendezVous/Index.cshtml", OfficeRepository.GetAll());
+            return GoTorendezVousPage();
         }
     }
 }

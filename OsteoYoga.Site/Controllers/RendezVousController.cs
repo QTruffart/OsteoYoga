@@ -3,13 +3,15 @@ using System.Web.Mvc;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper.Profile;
 using OsteoYoga.Repository.DAO;
+using OsteoYoga.Repository.DAO.Abstracts;
+using OsteoYoga.Repository.DAO.Implements;
 
 namespace OsteoYoga.Site.Controllers
 {
     public class RendezVousController : BaseController.BaseController
     {
-        public Repository<Contact> ContactRepository { get; set; }
-        public Repository<Date> DateRepository { get; set; }
+        public NHibernateRepository<Contact> ContactRepository { get; set; }
+        public NHibernateRepository<Date> DateRepository { get; set; }
         public OfficeRepository OfficeRepository { get; set; }
 
         public RendezVousController()

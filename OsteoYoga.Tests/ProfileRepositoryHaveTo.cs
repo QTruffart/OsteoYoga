@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper;
 using OsteoYoga.Repository.DAO;
+using OsteoYoga.Repository.DAO.Implements;
 
 namespace OsteoYoga.Tests.DAO
 {
