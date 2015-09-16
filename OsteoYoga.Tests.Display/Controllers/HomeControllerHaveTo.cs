@@ -1,5 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OsteoYoga.WebSite.Controllers;
+using OsteoYoga.Site.Controllers;
 
 
 namespace OsteoYoga.Tests.Display.Controllers

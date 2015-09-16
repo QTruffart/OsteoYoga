@@ -1,10 +1,9 @@
 ﻿using System.Web.Mvc;
 using OsteoYoga.Domain.Models;
-using OsteoYoga.Site.Controllers.BaseController;
 
-namespace OsteoYoga.WebSite.Controllers
+namespace OsteoYoga.Site.Controllers
 {
-    public class ContactController : BaseController
+    public class ContactController : BaseController.BaseController
     {
         [HttpGet]
         public ViewResult Create()

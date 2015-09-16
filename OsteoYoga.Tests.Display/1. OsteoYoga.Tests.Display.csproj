@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OsteoYoga.Tests.Display</RootNamespace>
     <AssemblyName>OsteoYoga.Tests.Display</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -79,7 +79,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\AdministrationControllerHaveTo.cs" />
     <Compile Include="Controllers\HomeControllerHaveTo.cs" />
     <Compile Include="Controllers\LoginControllerHaveTo.cs" />
     <Compile Include="Controllers\RendezVousControllerHaveTo.cs" />
@@ -102,9 +101,9 @@
       <Project>{149B66BB-12EA-4A38-ACF9-8D712550E3FB}</Project>
       <Name>2. OsteoYoga.Resource</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OsteoYoga.WebSite\OsteoYoga.WebSite.csproj">
-      <Project>{14d1b8d4-ef6c-403e-b7f4-a9c3f47b1aa8}</Project>
-      <Name>OsteoYoga.WebSite</Name>
+    <ProjectReference Include="..\OsteoYoga.Site\OsteoYoga.Site.csproj">
+      <Project>{0f84e376-4578-4ac9-afcf-29a19598bdae}</Project>
+      <Name>OsteoYoga.Site</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

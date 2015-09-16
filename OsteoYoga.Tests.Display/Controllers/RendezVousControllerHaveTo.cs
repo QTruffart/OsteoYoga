@@ -8,8 +8,7 @@ using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper;
 using OsteoYoga.Helper.Helpers;
 using OsteoYoga.Repository.DAO;
-using OsteoYoga.Resource.RendezVous;
-using OsteoYoga.WebSite.Controllers;
+using OsteoYoga.Site.Controllers;
 
 namespace OsteoYoga.Tests.Display.Controllers
 {

@@ -174,7 +174,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AdministrationController.cs" />
     <Compile Include="Controllers\BaseController\BaseController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -381,6 +380,9 @@
     <Content Include="Theme\Css\Fonts\fontawesome-webfont.eot" />
     <Content Include="Theme\Css\Fonts\fontawesome-webfont.ttf" />
     <Content Include="Theme\Css\Fonts\fontawesome-webfont.woff" />
+    <None Include="Web.Bureau.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -406,7 +408,7 @@
       <Name>1. OsteoYoga.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\OsteoYoga.Helpers\3. OsteoYoga.Helper.csproj">
-      <Project>{ad42cf25-232d-482b-84fe-ce92efc31c66}</Project>
+      <Project>{AD42CF25-232D-482B-84FE-CE92EFC31C66}</Project>
       <Name>3. OsteoYoga.Helper</Name>
     </ProjectReference>
     <ProjectReference Include="..\OsteoYoga.Resource\2. OsteoYoga.Resource.csproj">
@@ -417,6 +419,9 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Bureau|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

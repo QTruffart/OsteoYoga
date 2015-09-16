@@ -5,11 +5,10 @@ using OsteoYoga.Helper;
 using OsteoYoga.Helper.Helpers;
 using OsteoYoga.Repository.DAO;
 using OsteoYoga.Resource.Contact;
-using OsteoYoga.Site.Controllers.BaseController;
 
-namespace OsteoYoga.WebSite.Controllers
+namespace OsteoYoga.Site.Controllers
 {
-    public class LoginController : BaseController
+    public class LoginController : BaseController.BaseController
     {
         public ContactRepository ContactRepository { get; set; }
         public OfficeRepository OfficeRepository { get; set; }

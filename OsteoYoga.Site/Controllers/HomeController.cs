@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Web.Mvc;
-using OsteoYoga.Site.Controllers.BaseController;
 using _5.OsteoYoga.Exception.Implements;
 
-namespace OsteoYoga.WebSite.Controllers
+namespace OsteoYoga.Site.Controllers
 {
-    public class HomeController : BaseController
+    public class HomeController : BaseController.BaseController
     {
         [ExceptionHandler(ExceptionType = typeof(Exception), View = "Index")]
         public ActionResult Index()
