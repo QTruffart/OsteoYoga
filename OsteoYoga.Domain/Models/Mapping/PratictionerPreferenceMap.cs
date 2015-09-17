@@ -8,7 +8,9 @@ namespace OsteoYoga.Domain.Models.Mapping
         {
             Id(x => x.Id);
             Map(x => x.Reminder);
-            Map(x => x.DateInterval);
+            Map(x => x.DateWaiting);
+            Map(x => x.MaxInterval);
+            Map(x => x.MaxInterval);
 
             References(x => x.Contact).Column("ContactId");
 

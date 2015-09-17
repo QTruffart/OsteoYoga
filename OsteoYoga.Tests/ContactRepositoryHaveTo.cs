@@ -11,14 +11,13 @@ namespace OsteoYoga.Tests.DAO
     public class ContactRepositoryHaveTo : BaseTestsNHibernate
     {
         private readonly Contact contact = new Contact
-            {
-                FullName = "test",
-                Mail = "test@test.com",
-                Phone = "+33(0)556578996",
-                NetworkId = "NetworkId",
-                NetworkType = Constants.GetInstance().FacebookNetwork,
-                
-            };
+        {
+            FullName = "test",
+            Mail = "test@test.com",
+            Phone = "+33(0)556578996",
+            NetworkId = "NetworkId",
+            NetworkType = Constants.GetInstance().FacebookNetwork,
+        };
 
         private readonly ContactRepository contactRepository = new ContactRepository();
 
@@ -38,7 +37,6 @@ namespace OsteoYoga.Tests.DAO
         {
             contactRepository.Save(contact);
             Assert.IsTrue(contactRepository.EmailAlreadyExists(contact.Mail));
-            
         }
 
         [TestMethod]
