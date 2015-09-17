@@ -8,6 +8,7 @@ namespace OsteoYoga.Domain.Models.Mapping
         {
             Id(x => x.Id);
             Map(x => x.Name);
+            Map(x => x.Adress);
             
             HasMany(x => x.Dates).Inverse();
 

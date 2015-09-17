@@ -14,8 +14,30 @@ namespace OsteoYoga.Tests.DAO
     [TestClass]
     public class GoogleRepositoryHaveTo
     {
+        readonly IGoogleRepository<Event> googleRepository = new GoogleRepository();
 
-        IGoogleRepository<Event> googleRepository = new GoogleRepository();
+        readonly PratictionerPreference pratictionerPreference = new PratictionerPreference() {Contact = new Contact(), DateInterval = 30, Reminder = 45};
+        readonly PratictionerPreference pratictionerPreference2 = new PratictionerPreference() { Contact = new Contact(), DateInterval = 40, Reminder = 30 };
+
+        readonly Date date1 = new Date()
+        {
+            Contact = new Contact() { FullName = "fullName", Mail = "padbox@gmail.com" },
+            Duration = new Duration() { Value = 45 },
+            Office = new Office { Adress = "461 avenue de Verdun Mérignac 33700" },
+            Begin = DateTime.Now.Add(new TimeSpan(1, 1, 0))
+        };
+
+        readonly Date date2 = new Date()
+        {
+            Contact = new Contact(){FullName = "fullName2",Mail = "yopex24@hotmail.fr"},
+            Duration = new Duration(){Value = 30},
+            Office = new Office { Adress = "14 rue Richard Wagner 33700 Mérignac" },
+            Begin = DateTime.Now.Add(new TimeSpan(2, 1, 0)),
+        };
+    
+        const string Description = "description";
+        const string Summary = "summary";
+
 
         [TestInitialize]
         public  void Initialize()
@@ -30,81 +52,96 @@ namespace OsteoYoga.Tests.DAO
         [TestMethod]
         public void Save()
         {
-            DateTime begin = DateTime.Now.Add(new TimeSpan(1, 1, 0));
-            DateTime end = DateTime.Now.Add(new TimeSpan(1, 1, 0));
 
-            Event entity = googleRepository.Save(begin, end, "summary", "description");
+            Event entity = googleRepository.Save(date1, Summary, Description, pratictionerPreference);
+
+
+            Assert.AreEqual(date1.Office.Adress, entity.Location);
+            Assert.AreEqual(date1.Begin.ToString("ddMMyyyyHHmm"), ((DateTime)entity.Start.DateTime).ToString("ddMMyyyyHHmm"));
+            Assert.AreEqual(date1.Begin.AddMinutes(date1.Duration.Value).ToString("ddMMyyyyHHmm"), ((DateTime)entity.End.DateTime).ToString("ddMMyyyyHHmm"));
+            CollectionAssert.Contains(entity.Reminders.Overrides.Select(o => o.Minutes).ToList(), pratictionerPreference.Reminder);
+            Assert.AreEqual(Summary, entity.Summary);
+            Assert.AreEqual(Description, entity.Description);
+            CollectionAssert.Contains(entity.Attendees.Select(a => a.Email).ToList(), date1.Contact.Mail);
+            CollectionAssert.Contains(entity.Attendees.Select(a => a.DisplayName).ToList(), date1.Contact.FullName);
+
 
             Assert.IsNotNull(entity.Id);
+
+            //Test CleanUp
+            googleRepository.Delete(entity.Id);
         }
 
         [TestMethod]
         public void Update()
         {
-            //Profile entity = new Profile();
+            Event entity = googleRepository.Save(date1, Summary, Description, pratictionerPreference);
 
-            //repository.Save(entity);
+            Event eventToUpdate = googleRepository.GetById(entity.Id);
+            
+            googleRepository.Update(eventToUpdate.Id, date2, "summary updated", "description updated", pratictionerPreference2);
+            Event eventToCompare = googleRepository.GetById(eventToUpdate.Id);
 
-            //entity.Name = "NouveauNom";
+            Assert.AreEqual(date2.Office.Adress, eventToCompare.Location);
+            Assert.AreEqual(date2.Begin.ToString("ddMMyyyyHHmm"), ((DateTime)eventToCompare.Start.DateTime).ToString("ddMMyyyyHHmm"));
+            Assert.AreEqual(date2.Begin.AddMinutes(date2.Duration.Value).ToString("ddMMyyyyHHmm"), ((DateTime)eventToCompare.End.DateTime).ToString("ddMMyyyyHHmm"));
+            Assert.AreEqual("summary updated", eventToCompare.Summary);
+            Assert.AreEqual("description updated", eventToCompare.Description);
+            CollectionAssert.Contains(eventToCompare.Attendees.Select(a => a.Email).ToList(), date2.Contact.Mail);
+            CollectionAssert.Contains(eventToCompare.Attendees.Select(a => a.DisplayName).ToList(), date2.Contact.FullName);
 
-            //repository.Save(entity);
-
-            //Assert.AreEqual("NouveauNom", entity.Name);
+            //Test CleanUp
+            googleRepository.Delete(entity.Id);
         }
 
         [TestMethod]
         public void GetById()
         {
-            //Profile expectedEntity = new Profile();
-            //repository.Save(expectedEntity);
 
-            //Entity resultEntity = repository.GetById(expectedEntity.Id);
+            Event entity = googleRepository.Save(date1, Summary, Description, pratictionerPreference);
 
-            //Assert.AreEqual(expectedEntity, resultEntity);
+
+            Event toCompare = googleRepository.GetById(entity.Id);
+
+            Assert.AreEqual(date1.Office.Adress, toCompare.Location);
+            Assert.AreEqual(date1.Begin.ToString("ddMMyyyyHHmm"), ((DateTime)toCompare.Start.DateTime).ToString("ddMMyyyyHHmm"));
+            Assert.AreEqual(date1.Begin.AddMinutes(date1.Duration.Value).ToString("ddMMyyyyHHmm"), ((DateTime)toCompare.End.DateTime).ToString("ddMMyyyyHHmm"));
+            CollectionAssert.Contains(toCompare.Reminders.Overrides.Select(o => o.Minutes).ToList(), pratictionerPreference.Reminder);
+            Assert.AreEqual(Summary, toCompare.Summary);
+            Assert.AreEqual(Description, entity.Description);
+            CollectionAssert.Contains(toCompare.Attendees.Select(a => a.Email).ToList(), date1.Contact.Mail);
+            CollectionAssert.Contains(toCompare.Attendees.Select(a => a.DisplayName).ToList(), date1.Contact.FullName);
+
+            //Test CleanUp
+            googleRepository.Delete(entity.Id);
         }
 
         [TestMethod]
         public void GetAll()
         {
+            Event entity1 = googleRepository.Save(date1, "summary1", "description1", pratictionerPreference);
+            Event entity2 = googleRepository.Save(date2, "summary2", "description2", pratictionerPreference);
 
-            //Office officeEntity1 = new Office(){Name = "Name1"};
-            //Office officeEntity2 = new Office() { Name = "Name2" };
-            //officeRepository.Save(officeEntity1);
-            //officeRepository.Save(officeEntity2);
+            IList<Event> events = googleRepository.GetAll();
 
-            //IList<Office> resultEntities = officeRepository.GetAll().ToList();
-
-            //Assert.AreEqual(2, resultEntities.Count);
-            //CollectionAssert.Contains(resultEntities.ToList(), officeEntity1);
-            //CollectionAssert.Contains(resultEntities.ToList(), officeEntity2);
+            CollectionAssert.Contains(events.Select(e => e.Id).ToList(), entity1.Id );
+            CollectionAssert.Contains(events.Select(e => e.Id).ToList(), entity2.Id );
+            
+            //Test CleanUp
+            googleRepository.Delete(entity1.Id);
+            googleRepository.Delete(entity2.Id);
         }
 
         [TestMethod]
         public void Delete()
         {
 
-            //Profile expectedEntity1 = new Profile();
-            //repository.Save(expectedEntity1);
+            Event entity = googleRepository.Save(date1, Summary, Description, pratictionerPreference);
+            googleRepository.Delete(entity.Id);
 
-            //repository.Delete(expectedEntity1);
+            IList<Event> events = googleRepository.GetAll();
 
-            //IList<Entity> resultEntities = repository.GetAll().ToList<Entity>();
-            //Assert.AreEqual(0, resultEntities.Count);
-        }
-
-        [TestMethod]
-        public void DeleteAll()
-        {
-
-            //Profile expectedEntity1 = new Profile();
-            //Profile expectedEntity2 = new Profile();
-            //repository.Save(expectedEntity1);
-            //repository.Save(expectedEntity2);
-            
-            //repository.DeleteAll();
-
-            //IList<Entity> resultEntities = repository.GetAll().ToList<Entity>();
-            //Assert.AreEqual(0, resultEntities.Count);
+            CollectionAssert.DoesNotContain(events.Select(e => e.Id).ToList(), entity.Id);
         }
     }
 }

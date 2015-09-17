@@ -14,8 +14,7 @@ namespace OsteoYoga.Tests.DAO
     public class RepositoryHaveTo : BaseTestsNHibernate
     {
         IRepository<Profile> repository = new NHibernateRepository<Profile>();
-
-        OfficeRepository officeRepository = new OfficeRepository();
+        IRepository<Office> officeRepository = new NHibernateRepository<Office>();
 
         [TestInitialize]
         public override void Initialize()
@@ -26,7 +25,7 @@ namespace OsteoYoga.Tests.DAO
         [TestCleanup]
         public override void CleanUp()
         {
-            //repository.DeleteAll();
+            repository.DeleteAll();
             officeRepository.DeleteAll();
         }
 

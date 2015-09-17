@@ -161,7 +161,6 @@
     <Compile Include="Abstracts\NHibernateRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="client_secret.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
