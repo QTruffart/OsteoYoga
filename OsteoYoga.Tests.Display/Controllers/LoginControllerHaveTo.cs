@@ -1,15 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper;
-using OsteoYoga.Helper.Helpers;
-using OsteoYoga.Repository.DAO;
+using OsteoYoga.Helper.Helpers.Implements;
 using OsteoYoga.Repository.DAO.Implements;
 using OsteoYoga.Site.Controllers;
-using OsteoYoga.Site.ViewResults;
 
 namespace OsteoYoga.Tests.Display.Controllers
 {
@@ -23,12 +20,8 @@ namespace OsteoYoga.Tests.Display.Controllers
         readonly string faceBookNetwork = Constants.GetInstance().FacebookNetwork;
         readonly Contact currentContact = new Contact();
         readonly Profile profile = new Profile();
-        readonly IList<Office> offices = new List<Office>();
-        readonly IList<Duration> durations = new List<Duration>();
         readonly Mock<ContactRepository> contactRepositoryMock = new Mock<ContactRepository>();
         readonly Mock<ProfileRepository> profileRepositoryMock = new Mock<ProfileRepository>();
-        readonly Mock<OfficeRepository> officeRepositoryMock = new Mock<OfficeRepository>();
-        readonly Mock<DurationRepository> durationRepositoryMock = new Mock<DurationRepository>();
         readonly Mock<SessionHelper> sessionHelperMock = new Mock<SessionHelper>();
         private LoginController Controller { get; set; }
         [TestInitialize]
@@ -36,13 +29,9 @@ namespace OsteoYoga.Tests.Display.Controllers
         {
             Controller = new LoginController { 
                 ContactRepository = contactRepositoryMock.Object,
-                OfficeRepository = officeRepositoryMock.Object,
-                DurationRepository = durationRepositoryMock.Object,
                 ProfileRepository = profileRepositoryMock.Object
             };
             sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(null as Contact);
-            officeRepositoryMock.Setup(hrm => hrm.GetAll()).Returns(offices);
-            durationRepositoryMock.Setup(hrm => hrm.GetAll()).Returns(durations);
             SessionHelper.Instance = sessionHelperMock.Object;
         }
 
@@ -52,9 +41,7 @@ namespace OsteoYoga.Tests.Display.Controllers
             LoginController controller= new LoginController();
 
             Assert.IsInstanceOfType(controller.ContactRepository, typeof(ContactRepository));
-            Assert.IsInstanceOfType(controller.OfficeRepository, typeof(OfficeRepository));
             Assert.IsInstanceOfType(controller.ProfileRepository, typeof(ProfileRepository));
-            Assert.IsInstanceOfType(controller.DurationRepository, typeof(DurationRepository));
         }
 
         #region Utilisateur déjà connecté ?
@@ -63,11 +50,10 @@ namespace OsteoYoga.Tests.Display.Controllers
         {
             sessionHelperMock.SetupGet(shm => shm.CurrentUser).Returns(currentContact);
 
-            PartialViewResult view = Controller.Index();
+            ActionResult viewResult = Controller.Index();
 
-            Assert.AreEqual("~/Views/RendezVous/Index.cshtml", view.ViewName);
-            Assert.AreEqual(offices, ((DateViewResult)view.Model).Offices);
-            Assert.AreEqual(durations, ((DateViewResult)view.Model).Durations);
+            Assert.AreEqual("RendezVous", ((RedirectToRouteResult)viewResult).RouteValues["controller"]);
+            Assert.AreEqual("Index", ((RedirectToRouteResult)viewResult).RouteValues["action"]);
         }
 
         [TestMethod]
@@ -75,9 +61,9 @@ namespace OsteoYoga.Tests.Display.Controllers
         {
             sessionHelperMock.SetupGet(shm => shm.CurrentUser).Returns((Contact) null);
 
-            PartialViewResult view = Controller.Index();
+            ActionResult view = Controller.Index();
 
-            Assert.AreEqual("Index", view.ViewName);
+            Assert.AreEqual("Index", ((PartialViewResult)view).ViewName);
         }
         #endregion
         
@@ -93,13 +79,12 @@ namespace OsteoYoga.Tests.Display.Controllers
             contactRepositoryMock.Setup(crm => crm.EmailAlreadyExists(contact.Mail)).Returns(true);
             contactRepositoryMock.Setup(crm => crm.GetByEmail(contact.Mail)).Returns(contact);
 
-            PartialViewResult viewResult = Controller.Login(Email);
+            ActionResult viewResult = Controller.Login(Email);
 
             contactRepositoryMock.Verify(crm => crm.EmailAlreadyExists(contact.Mail), Times.Once());
             sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
-            Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);
-            Assert.AreEqual(offices, ((DateViewResult)viewResult.Model).Offices);
-            Assert.AreEqual(durations, ((DateViewResult)viewResult.Model).Durations);
+            Assert.AreEqual("RendezVous", ((RedirectToRouteResult)viewResult).RouteValues["controller"]);
+            Assert.AreEqual("Index", ((RedirectToRouteResult)viewResult).RouteValues["action"]);
         }
 
         [TestMethod]
@@ -111,10 +96,10 @@ namespace OsteoYoga.Tests.Display.Controllers
             };
             contactRepositoryMock.Setup(crm => crm.EmailAlreadyExists(contact.Mail)).Returns(false);
             
-            PartialViewResult viewResult = Controller.Login(Email);
+            ActionResult viewResult = Controller.Login(Email);
 
             contactRepositoryMock.Verify(crm => crm.EmailAlreadyExists(contact.Mail), Times.Once());
-            Assert.AreEqual("Index", viewResult.ViewName);
+            Assert.AreEqual("Index", ((PartialViewResult)viewResult).ViewName);
         }
         #endregion
 
@@ -128,10 +113,10 @@ namespace OsteoYoga.Tests.Display.Controllers
             };
             contactRepositoryMock.Setup(crm => crm.EmailAlreadyExists(Email)).Returns(true);
 
-            PartialViewResult viewResult = Controller.SignIn(contact);
+            ActionResult viewResult = Controller.SignIn(contact);
 
             contactRepositoryMock.Verify(crm => crm.EmailAlreadyExists(Email), Times.Once());
-            Assert.AreEqual("SignIn", viewResult.ViewName);
+            Assert.AreEqual("SignIn", ((PartialViewResult)viewResult).ViewName);
         }
 
         [TestMethod]
@@ -144,15 +129,16 @@ namespace OsteoYoga.Tests.Display.Controllers
             contactRepositoryMock.Setup(crm => crm.EmailAlreadyExists(Email)).Returns(false);
             profileRepositoryMock.Setup(prm => prm.GetByName(Constants.GetInstance().PatientProfile)).Returns(profile);
 
-            PartialViewResult viewResult = Controller.SignIn(contact);
+            ActionResult viewResult = Controller.SignIn(contact);
 
             contactRepositoryMock.Verify(crm => crm.EmailAlreadyExists(Email), Times.Once());
             contactRepositoryMock.Verify(crm => crm.Save(contact));
             sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
-            Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);
+            
             CollectionAssert.Contains(contact.Profiles.ToList(), profile);
-            Assert.AreEqual(offices, ((DateViewResult)viewResult.Model).Offices);
-            Assert.AreEqual(durations, ((DateViewResult)viewResult.Model).Durations);
+
+            Assert.AreEqual("RendezVous", ((RedirectToRouteResult)viewResult).RouteValues["controller"]);
+            Assert.AreEqual("Index", ((RedirectToRouteResult)viewResult).RouteValues["action"]);
         }
         #endregion
         
@@ -164,11 +150,12 @@ namespace OsteoYoga.Tests.Display.Controllers
             contactRepositoryMock.Setup(crm => crm.SocialNetworkEmailAlreadyExists(Email, Id, faceBookNetwork)).Returns(true);
             contactRepositoryMock.Setup(crm => crm.GetBySocialNetworkEmail(Email, Id, faceBookNetwork)).Returns(contact);
 
-            PartialViewResult viewResult = Controller.LoginWithFacebook(Id, Email, Name);
+            ActionResult viewResult = Controller.LoginWithFacebook(Id, Email, Name);
 
             contactRepositoryMock.Verify(crm => crm.SocialNetworkEmailAlreadyExists(Email, Id, faceBookNetwork), Times.Once());
             sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
-            Assert.AreEqual("~/Views/RendezVous/Index.cshtml",  viewResult.ViewName);
+            Assert.AreEqual("RendezVous", ((RedirectToRouteResult)viewResult).RouteValues["controller"]);
+            Assert.AreEqual("Index", ((RedirectToRouteResult)viewResult).RouteValues["action"]);
         }
 
 
@@ -177,14 +164,14 @@ namespace OsteoYoga.Tests.Display.Controllers
         {
             contactRepositoryMock.Setup(crm => crm.SocialNetworkEmailAlreadyExists(Email, Id, faceBookNetwork)).Returns(false);
 
-            PartialViewResult viewResult = Controller.LoginWithFacebook(Id, Email, Name);
+            ActionResult viewResult = Controller.LoginWithFacebook(Id, Email, Name);
 
             contactRepositoryMock.Verify(crm => crm.SocialNetworkEmailAlreadyExists(Email, Id, faceBookNetwork), Times.Once());
-            Assert.AreEqual("PhoneSubscription", viewResult.ViewName);
-            Assert.AreEqual(Id, ((Contact)viewResult.Model).NetworkId);
-            Assert.AreEqual(faceBookNetwork, ((Contact)viewResult.Model).NetworkType);
-            Assert.AreEqual(Email, ((Contact)viewResult.Model).Mail);
-            Assert.AreEqual(Name, ((Contact)viewResult.Model).FullName);
+            Assert.AreEqual(Id, ((Contact)((PartialViewResult)viewResult).Model).NetworkId);
+            Assert.AreEqual(faceBookNetwork, ((Contact)((PartialViewResult)viewResult).Model).NetworkType);
+            Assert.AreEqual(Email, ((Contact)((PartialViewResult)viewResult).Model).Mail);
+            Assert.AreEqual(Name, ((Contact)((PartialViewResult)viewResult).Model).FullName);
+            Assert.AreEqual("PhoneSubscription", ((PartialViewResult)viewResult).ViewName);
         }
 
 
@@ -195,13 +182,12 @@ namespace OsteoYoga.Tests.Display.Controllers
             contactRepositoryMock.Setup(crm => crm.SocialNetworkEmailAlreadyExists(Email, Id, googleNetwork)).Returns(true);
             contactRepositoryMock.Setup(crm => crm.GetBySocialNetworkEmail(Email, Id, googleNetwork)).Returns(contact);
 
-            PartialViewResult viewResult = Controller.LoginWithGoogle(Id, Email, Name);
+            ActionResult viewResult = Controller.LoginWithGoogle(Id, Email, Name);
 
             contactRepositoryMock.Verify(crm => crm.SocialNetworkEmailAlreadyExists(Email, Id, googleNetwork), Times.Once());
             sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
-            Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);
-            Assert.AreEqual(offices, ((DateViewResult)viewResult.Model).Offices);
-            Assert.AreEqual(durations, ((DateViewResult)viewResult.Model).Durations);
+            Assert.AreEqual("RendezVous", ((RedirectToRouteResult)viewResult).RouteValues["controller"]);
+            Assert.AreEqual("Index", ((RedirectToRouteResult)viewResult).RouteValues["action"]);
         }
 
         [TestMethod]
@@ -209,14 +195,14 @@ namespace OsteoYoga.Tests.Display.Controllers
         {
             contactRepositoryMock.Setup(crm => crm.SocialNetworkEmailAlreadyExists(Email, Id, googleNetwork)).Returns(false);
 
-            PartialViewResult viewResult = Controller.LoginWithGoogle(Id, Email, Name);
+            ActionResult viewResult = Controller.LoginWithGoogle(Id, Email, Name);
 
             contactRepositoryMock.Verify(crm => crm.SocialNetworkEmailAlreadyExists(Email, Id, googleNetwork), Times.Once());
-            Assert.AreEqual("PhoneSubscription", viewResult.ViewName);
-            Assert.AreEqual(Id, ((Contact)viewResult.Model).NetworkId);
-            Assert.AreEqual(googleNetwork, ((Contact)viewResult.Model).NetworkType);
-            Assert.AreEqual(Email, ((Contact)viewResult.Model).Mail);
-            Assert.AreEqual(Name, ((Contact)viewResult.Model).FullName);
+            Assert.AreEqual(Id, ((Contact)((PartialViewResult)viewResult).Model).NetworkId);
+            Assert.AreEqual(googleNetwork, ((Contact)((PartialViewResult)viewResult).Model).NetworkType);
+            Assert.AreEqual(Email, ((Contact)((PartialViewResult)viewResult).Model).Mail);
+            Assert.AreEqual(Name, ((Contact)((PartialViewResult)viewResult).Model).FullName);
+            Assert.AreEqual("PhoneSubscription", ((PartialViewResult)viewResult).ViewName);
         }
         #endregion
         
@@ -228,14 +214,13 @@ namespace OsteoYoga.Tests.Display.Controllers
             Contact contact = new Contact();
             profileRepositoryMock.Setup(prm => prm.GetByName(Constants.GetInstance().PatientProfile)).Returns(profile);
 
-            PartialViewResult viewResult = Controller.PhoneSubscription(contact);
+            ActionResult viewResult = Controller.PhoneSubscription(contact);
 
             contactRepositoryMock.Verify(crm => crm.Save(contact));
             sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
-            Assert.AreEqual("~/Views/RendezVous/Index.cshtml", viewResult.ViewName);
-            Assert.AreEqual(offices, ((DateViewResult)viewResult.Model).Offices);
-            Assert.AreEqual(durations, ((DateViewResult)viewResult.Model).Durations);
             CollectionAssert.Contains(contact.Profiles.ToList(), profile);
+            Assert.AreEqual("RendezVous", ((RedirectToRouteResult)viewResult).RouteValues["controller"]);
+            Assert.AreEqual("Index", ((RedirectToRouteResult)viewResult).RouteValues["action"]);
         }
 
         #endregion

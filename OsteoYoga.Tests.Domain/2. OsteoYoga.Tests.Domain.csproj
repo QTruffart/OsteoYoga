@@ -108,9 +108,9 @@
     <Compile Include="Model\PratictionerPreferenceHaveTo.cs" />
     <Compile Include="Model\DateHaveTo.cs" />
     <Compile Include="Model\DurationHaveTo.cs" />
+    <Compile Include="Model\FreeSlotHaveTo.cs" />
     <Compile Include="Model\ProfileHaveTo.cs" />
     <Compile Include="Model\OfficeHaveTo.cs" />
-    <Compile Include="test.cs" />
     <Compile Include="Model\ContactHaveTo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

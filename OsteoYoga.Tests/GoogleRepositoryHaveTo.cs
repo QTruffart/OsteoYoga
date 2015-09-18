@@ -70,12 +70,9 @@ namespace OsteoYoga.Tests.DAO
 
 
             Assert.AreEqual(date1.Office.Adress, entity.Location);
-            Assert.AreEqual(date1.Begin.ToString("ddMMyyyyHHmm"),
-                ((DateTime) entity.Start.DateTime).ToString("ddMMyyyyHHmm"));
-            Assert.AreEqual(date1.Begin.AddMinutes(date1.Duration.Value).ToString("ddMMyyyyHHmm"),
-                ((DateTime) entity.End.DateTime).ToString("ddMMyyyyHHmm"));
-            CollectionAssert.Contains(entity.Reminders.Overrides.Select(o => o.Minutes).ToList(),
-                pratictionerPreference.Reminder);
+            Assert.AreEqual(date1.Begin.ToString("ddMMyyyyHHmm"), ((DateTime) entity.Start.DateTime).ToString("ddMMyyyyHHmm"));
+            Assert.AreEqual(date1.Begin.AddMinutes(date1.Duration.Value).ToString("ddMMyyyyHHmm"), ((DateTime) entity.End.DateTime).ToString("ddMMyyyyHHmm"));
+            CollectionAssert.Contains(entity.Reminders.Overrides.Select(o => o.Minutes).ToList(), pratictionerPreference.Reminder);
             Assert.AreEqual(Summary, entity.Summary);
             Assert.AreEqual(Description, entity.Description);
             CollectionAssert.Contains(entity.Attendees.Select(a => a.Email).ToList(), date1.Contact.Mail);
@@ -95,20 +92,16 @@ namespace OsteoYoga.Tests.DAO
 
             Event eventToUpdate = googleRepository.GetById(entity.Id);
 
-            googleRepository.Update(eventToUpdate.Id, date2, "summary updated", "description updated",
-                pratictionerPreference2);
+            googleRepository.Update(eventToUpdate.Id, date2, "summary updated", "description updated", pratictionerPreference2);
             Event eventToCompare = googleRepository.GetById(eventToUpdate.Id);
 
             Assert.AreEqual(date2.Office.Adress, eventToCompare.Location);
-            Assert.AreEqual(date2.Begin.ToString("ddMMyyyyHHmm"),
-                ((DateTime) eventToCompare.Start.DateTime).ToString("ddMMyyyyHHmm"));
-            Assert.AreEqual(date2.Begin.AddMinutes(date2.Duration.Value).ToString("ddMMyyyyHHmm"),
-                ((DateTime) eventToCompare.End.DateTime).ToString("ddMMyyyyHHmm"));
+            Assert.AreEqual(date2.Begin.ToString("ddMMyyyyHHmm"), ((DateTime) eventToCompare.Start.DateTime).ToString("ddMMyyyyHHmm"));
+            Assert.AreEqual(date2.Begin.AddMinutes(date2.Duration.Value).ToString("ddMMyyyyHHmm"), ((DateTime) eventToCompare.End.DateTime).ToString("ddMMyyyyHHmm"));
             Assert.AreEqual("summary updated", eventToCompare.Summary);
             Assert.AreEqual("description updated", eventToCompare.Description);
             CollectionAssert.Contains(eventToCompare.Attendees.Select(a => a.Email).ToList(), date2.Contact.Mail);
-            CollectionAssert.Contains(eventToCompare.Attendees.Select(a => a.DisplayName).ToList(),
-                date2.Contact.FullName);
+            CollectionAssert.Contains(eventToCompare.Attendees.Select(a => a.DisplayName).ToList(), date2.Contact.FullName);
 
             //Test CleanUp
             googleRepository.Delete(entity.Id);
@@ -158,7 +151,6 @@ namespace OsteoYoga.Tests.DAO
         [TestMethod]
         public void Delete()
         {
-
             Event entity = googleRepository.Save(date1, Summary, Description, pratictionerPreference);
             googleRepository.Delete(entity.Id);
 

@@ -10,7 +10,7 @@ namespace OsteoYoga.Domain.Models
         public virtual int MinInterval { get; set; }
         public virtual int MaxInterval { get; set; }
 
-        public DateTime MinDateInterval
+        public virtual DateTime MinDateInterval
         {
             get
             {
@@ -19,7 +19,7 @@ namespace OsteoYoga.Domain.Models
             } 
         }
 
-        public DateTime MaxDateInterval
+        public virtual DateTime MaxDateInterval
         {
             get
             {

@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
+using Google.Apis.Calendar.v3.Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper;
 using OsteoYoga.Helper.Helpers;
+using OsteoYoga.Helper.Helpers.Implements;
+using OsteoYoga.Helper.Helpers.Interfaces;
 using OsteoYoga.Repository.DAO;
 using OsteoYoga.Repository.DAO.Abstracts;
 using OsteoYoga.Repository.DAO.Implements;
+using OsteoYoga.Repository.DAO.Interfaces;
 using OsteoYoga.Site.Controllers;
 
 namespace OsteoYoga.Tests.Display.Controllers
@@ -17,18 +21,19 @@ namespace OsteoYoga.Tests.Display.Controllers
     [TestClass]
     public class RendezVousControllerHaveTo
     {
-        private const string PatientHours = "14:00-18:00";
         private const string ServerAddress = "http://osteoyoga.fr";
-        private const string IndexPath = "Index";
-        private const string LoginPath = "/Views/Login/Index.cshtml";
-        private const string ProposeDatePath = "ProposeDate";
-        private const string CreateDatePath = "CreateDate";
-        private const string ValidatePath = "Validate";
         private readonly Contact contact = new Contact();
-        private readonly Mock<NHibernateRepository<Contact>> contactSlotRepoMock = new Mock<NHibernateRepository<Contact>>();
-        private readonly DateTime dateTime = new DateTime(2013, 07, 11);
         private readonly Mock<SessionHelper> sessionHelperMock = new Mock<SessionHelper>();
         private readonly Mock<OfficeRepository> officeRepositoryMock = new Mock<OfficeRepository>();
+        private readonly Mock<DurationRepository> durationRepositoryMock = new Mock<DurationRepository>();
+        private readonly Mock<IGoogleRepository<Event>> googleRepositoryMock = new Mock<IGoogleRepository<Event>>();
+        private readonly Mock<IFreeSlotHelper> freeSlotHelperMock = new Mock<IFreeSlotHelper>();
+
+        private readonly IList<Duration> durations = new List<Duration>();
+        private readonly IList<Office> offices = new List<Office>();
+        private readonly IList<Event> events = new List<Event>();
+        private readonly IList<FreeSlot> freeSlots = new List<FreeSlot>();
+
         private readonly Mock<Email> emailMock = new Mock<Email>();
         private readonly Mock<Constants> constantsMock = new Mock<Constants>();
         private RendezVousController Controller { get; set; }
@@ -37,12 +42,11 @@ namespace OsteoYoga.Tests.Display.Controllers
         public void Initialize()
         {
             Controller = new RendezVousController
-                {
+            {
                     OfficeRepository = officeRepositoryMock.Object,
-                //SlotRepository = timeSlotRepoMock.Object,
-                //ContactRepository = contactSlotRepoMock.Object,
-                //DateRepository = dateRepoMock.Object,
-                //HolidayRepository = holidayRepoMock.Object,
+                    GoogleRepository = googleRepositoryMock.Object,
+                    DurationRepository = durationRepositoryMock.Object,
+                    FreeSlotHelper = freeSlotHelperMock.Object
             };
             SessionHelper.Instance = sessionHelperMock.Object;
             sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(contact);
@@ -57,20 +61,35 @@ namespace OsteoYoga.Tests.Display.Controllers
         {
             RendezVousController controller = new RendezVousController();
 
+            Assert.IsInstanceOfType(controller.DurationRepository, typeof(DurationRepository));
+            Assert.IsInstanceOfType(controller.GoogleRepository, typeof(GoogleRepository));
             Assert.IsInstanceOfType(controller.OfficeRepository, typeof(OfficeRepository));
         }
 
         [TestMethod]
-        public void GoToIndexPageWithOfficeListModel()
+        public void GoToIndexPageWithParameter()
         {
-            List<Office> offices = new List<Office>();
-            officeRepositoryMock.Setup(o => o.GetAll()).Returns(offices);
+            //arrange
+            //durationRepositoryMock.Setup(drm => drm.GetAll()).Returns()
+
+            //act
             
-            PartialViewResult viewResult = Controller.Index();
-            
-            Assert.AreEqual(offices, viewResult.Model);
-            Assert.AreEqual(IndexPath, viewResult.ViewName);
+
+            //assert
         }
+
+
+        //[TestMethod]
+        //public void GoToIndexPageWithOfficeListModel()
+        //{
+        //    List<Office> offices = new List<Office>();
+        //    officeRepositoryMock.Setup(o => o.GetAll()).Returns(offices);
+            
+        //    PartialViewResult viewResult = Controller.Index();
+            
+        //    Assert.AreEqual(offices, viewResult.Model);
+        //    Assert.AreEqual(IndexPath, viewResult.ViewName);
+        //}
 
         [TestMethod]
         public void Propose_Durations_With_Office()

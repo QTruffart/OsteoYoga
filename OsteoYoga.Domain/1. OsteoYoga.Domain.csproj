@@ -71,6 +71,7 @@
     <Compile Include="Models\Mapping\OfficeMap.cs" />
     <Compile Include="Models\Office.cs" />
     <Compile Include="Models\PratictionerPreference.cs" />
+    <Compile Include="Models\FreeSlot.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Date.cs" />

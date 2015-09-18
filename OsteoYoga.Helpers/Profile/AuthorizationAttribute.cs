@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper.Helpers;
+using OsteoYoga.Helper.Helpers.Implements;
 using OsteoYoga.Repository.DAO;
 using OsteoYoga.Repository.DAO.Implements;
 

@@ -1,40 +1,47 @@
 ﻿using System;
 using System.Web.Mvc;
+using Google.Apis.Calendar.v3.Data;
 using OsteoYoga.Domain.Models;
+using OsteoYoga.Helper.Helpers.Implements;
+using OsteoYoga.Helper.Helpers.Interfaces;
 using OsteoYoga.Helper.Profile;
 using OsteoYoga.Repository.DAO;
 using OsteoYoga.Repository.DAO.Abstracts;
 using OsteoYoga.Repository.DAO.Implements;
+using OsteoYoga.Repository.DAO.Interfaces;
+using OsteoYoga.Site.Controllers.Interface;
+using OsteoYoga.Site.ViewResults;
 
 namespace OsteoYoga.Site.Controllers
 {
-    public class RendezVousController : BaseController.BaseController
+    public class RendezVousController : BaseController.BaseController , IRendezVousController
     {
-        public NHibernateRepository<Contact> ContactRepository { get; set; }
-        public NHibernateRepository<Date> DateRepository { get; set; }
-        public OfficeRepository OfficeRepository { get; set; }
+        public IOfficeRepository OfficeRepository { get; set; }
+        public DurationRepository DurationRepository { get; set; }
+        public IGoogleRepository<Event> GoogleRepository { get; set; }
+        public IFreeSlotHelper FreeSlotHelper { get; set; }
 
         public RendezVousController()
         {
             OfficeRepository = new OfficeRepository();
-            //SlotRepository = new TimeSlotRepository();
-            //ContactRepository = new Repository<Contact>();
-            //DateRepository = new DateRepository();
-            //HolidayRepository = new HolidayRepository();
+            DurationRepository = new DurationRepository();
+            GoogleRepository = new GoogleRepository();
+            FreeSlotHelper = new FreeSlotHelper();
         }
 
         [HttpGet]
         [PatientProfile]
         public PartialViewResult Index()
         {
-            return PartialView("Index", OfficeRepository.GetAll());
+            throw  new NotImplementedException();
+            //return PartialView("Index", OfficeRepository.GetAll());
         }
 
-
-        [HttpPost]
-        public PartialViewResult Test(Date date)
+        [HttpGet]
+        [PatientProfile]
+        public PartialViewResult Index(DateViewResult dateViewResult)
         {
-            return new PartialViewResult();
+            throw new NotImplementedException();
         }
 
         [HttpPost]
