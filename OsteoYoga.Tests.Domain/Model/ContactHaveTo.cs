@@ -5,6 +5,10 @@ using OsteoYoga.Resource;
 
 namespace OsteoYoga.Tests.Domain.Model
 {
+
+    public class StubContact : Contact
+    {}
+
     [TestClass]
     public class ContactHaveTo
     {
@@ -19,12 +23,12 @@ namespace OsteoYoga.Tests.Domain.Model
         [TestMethod]
         public void InitializeCorrectlyInitialize()
         {
-            Contact contact = new Contact
-                                    {
+            Contact contact = new StubContact
+            {
                                         FullName = FullName,
                                         Mail = Mail,
                                         Phone = Phone,
-                                        Dates = dates,
+                                        //Dates = dates,
                                         NetworkId = NetworkId,
                                         NetworkType = NetworkType,
                                         Profiles = profiles
@@ -33,7 +37,7 @@ namespace OsteoYoga.Tests.Domain.Model
             Assert.AreEqual(FullName, contact.FullName);
             Assert.AreEqual(Mail, contact.Mail);
             Assert.AreEqual(Phone, contact.Phone);
-            Assert.AreEqual(dates, contact.Dates);
+            //Assert.AreEqual(dates, contact.Dates);
             Assert.AreEqual(NetworkId, contact.NetworkId);
             Assert.AreEqual(NetworkType, contact.NetworkType);
             Assert.AreEqual(profiles, contact.Profiles);
@@ -42,8 +46,8 @@ namespace OsteoYoga.Tests.Domain.Model
         [TestMethod]
         public void RenderToString()
         {
-            Contact contact = new Contact
-                {
+            Contact contact = new StubContact
+            {
                     FullName = FullName,
                     Mail = Mail,
                     Phone = Phone,
@@ -61,7 +65,7 @@ namespace OsteoYoga.Tests.Domain.Model
             const string incorrectMail4 = "m\\ail@dom8/aine.com";
             const string correctMail = "mail@domaine.com";
 
-            Contact contact = new Contact()
+            Contact contact = new StubContact()
             {
                 FullName = FullName,
                 Phone = Phone,
@@ -87,16 +91,16 @@ namespace OsteoYoga.Tests.Domain.Model
         public void KnowIfContactIsValid()
         {
 
-            Contact contact = new Contact { FullName = FullName, Phone = Phone, Mail = Mail };
+            Contact contact = new StubContact { FullName = FullName, Phone = Phone, Mail = Mail };
             Assert.IsTrue(contact.IsValid());
 
-            contact = new Contact { FullName = FullName, Phone = Phone };
+            contact = new StubContact { FullName = FullName, Phone = Phone };
             Assert.IsFalse(contact.IsValid());
 
-            contact = new Contact { FullName = FullName, Mail = Mail };
+            contact = new StubContact { FullName = FullName, Mail = Mail };
             Assert.IsFalse(contact.IsValid());
 
-            contact = new Contact { Phone = Phone, Mail = Mail };
+            contact = new StubContact { Phone = Phone, Mail = Mail };
             Assert.IsFalse(contact.IsValid());
         }
 

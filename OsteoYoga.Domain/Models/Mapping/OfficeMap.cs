@@ -10,7 +10,7 @@ namespace OsteoYoga.Domain.Models.Mapping
             Map(x => x.Name);
             Map(x => x.Adress);
             
-            HasMany(x => x.Dates).Inverse();
+            HasMany(x => x.PratictionerPreference).Cascade.SaveUpdate();
 
             Table("Office");
         }

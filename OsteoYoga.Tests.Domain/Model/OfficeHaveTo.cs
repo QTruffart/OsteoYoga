@@ -9,17 +9,21 @@ namespace OsteoYoga.Tests.Domain.Model
     {
 
         const string Name = "name";
-        readonly IList<Date> dates = new List<Date>();
+        const string Adress = "adress";
 
         [TestMethod]
         public void InitializeCorrectlyInitialize()
         {
+            IList<PratictionerPreference> pratictionerPreference = new List<PratictionerPreference>();
             Office office = new Office
             {
                 Name = Name,
-                Dates = dates
+                Adress = Adress,
+                PratictionerPreference = pratictionerPreference
             };
             Assert.AreEqual(Name, office.Name);
+            Assert.AreEqual(Adress, office.Adress);
+            Assert.AreEqual(pratictionerPreference, office.PratictionerPreference);
         }
     }
 }

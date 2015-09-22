@@ -7,7 +7,7 @@ namespace OsteoYoga.Repository.DAO.Factory
     public class Repositories
     {
         /*
-        public static ITimeSlotRepository TimeSlot()
+        public static ITimeSlotRepository WorkTimeSlot()
         {
             return new TimeSlotRepository();
         }*/

@@ -61,22 +61,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Duration.cs" />
-    <Compile Include="Models\Interface\IEntityGoogle.cs" />
+    <Compile Include="Models\Date.cs" />
     <Compile Include="Models\Mapping\ContactMap.cs" />
-    <Compile Include="Models\Mapping\PratictionerPreferenceMap.cs" />
-    <Compile Include="Models\Mapping\ProfileMap.cs" />
     <Compile Include="Models\Mapping\DateMap.cs" />
     <Compile Include="Models\Mapping\DurationMap.cs" />
     <Compile Include="Models\Mapping\OfficeMap.cs" />
+    <Compile Include="Models\Mapping\PatientMap.cs" />
+    <Compile Include="Models\Mapping\PractitionerMap.cs" />
+    <Compile Include="Models\Mapping\PratictionerPreferenceMap.cs" />
+    <Compile Include="Models\Mapping\ProfileMap.cs" />
+    <Compile Include="Models\Mapping\WorkTimeSlotMap.cs" />
+    <Compile Include="Models\Patient.cs" />
+    <Compile Include="Models\Pratictioner.cs" />
+    <Compile Include="Models\Duration.cs" />
+    <Compile Include="Models\Interface\IEntityGoogle.cs" />
     <Compile Include="Models\Office.cs" />
     <Compile Include="Models\PratictionerPreference.cs" />
     <Compile Include="Models\FreeSlot.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Contact.cs" />
-    <Compile Include="Models\Date.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\Interface\IEntity.cs" />
+    <Compile Include="Models\WorkTimeSlot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

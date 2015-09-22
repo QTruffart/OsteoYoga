@@ -8,7 +8,7 @@ namespace OsteoYoga.Helper.Helpers.Implements
 {
     public class FreeSlotHelper: IFreeSlotHelper
     {
-        public IList<FreeSlot> CalculateFreeSlotBetweenTwoDays(IList<Event> events, DateTime begin, DateTime end, PratictionerPreference preference)
+        public IList<FreeSlot> CalculateFreeSlotBetweenTwoDays(IList<Event> events, PratictionerPreference preference)
         {
             throw new NotImplementedException();
         }

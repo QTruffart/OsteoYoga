@@ -12,7 +12,11 @@ namespace OsteoYoga.Domain.Models.Mapping
             Map(x => x.MinInterval);
             Map(x => x.MaxInterval);
 
-            References(x => x.Contact).Column("ContactId");
+            References(x => x.Office).Cascade.SaveUpdate();
+            References(x => x.Pratictioner).Cascade.SaveUpdate();
+
+            HasMany(x => x.Durations).Cascade.SaveUpdate();
+            //HasMany(x => x.TimeSlots).Cascade.SaveUpdate();
 
             Table("PratictionerPreference");
         }

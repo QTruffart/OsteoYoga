@@ -3040,7 +3040,7 @@ jQuery.Callbacks = function( options ) {
 		memory,
 		// Flag to know if list was already fired
 		fired,
-		// End of the loop when firing
+		// EndTime of the loop when firing
 		firingLength,
 		// Index of currently firing callback (modified by remove if needed)
 		firingIndex,

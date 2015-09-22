@@ -12,17 +12,18 @@ namespace OsteoYoga.Tests.Domain.Model
         public void InitializeCorrectlyInitialize()
         {
 
-            TimeSpan beginHour = new TimeSpan(0, 9, 30, 0);
-            TimeSpan endHour = new TimeSpan(0, 10, 30, 0);
-            TimeSlot timeSlot = new TimeSlot()
+            DateTime begin = new DateTime();
+            DateTime end = new DateTime();
+            PratictionerPreference preference = new PratictionerPreference();
+            WorkTimeSlot workTimeSlot = new WorkTimeSlot()
                                     {
-                                        BeginHour = beginHour,
-                                        EndHour = endHour,
-                                        DayOfWeek = DayOfWeek.Monday,
+                                        BeginTime = begin,
+                                        EndTime = end,
+                                        //PratictionerPreference = preference
                                     };
-            Assert.AreEqual(beginHour, timeSlot.BeginHour);
-            Assert.AreEqual(endHour, timeSlot.EndHour);
-            Assert.AreEqual(DayOfWeek.Monday, timeSlot.DayOfWeek);
+            Assert.AreEqual(begin, workTimeSlot.BeginTime);
+            Assert.AreEqual(end, workTimeSlot.EndTime);
+            //Assert.AreEqual(preference, WorkTimeSlot.PratictionerPreference);
         }
     }
 }

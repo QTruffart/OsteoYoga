@@ -15,6 +15,7 @@ using OsteoYoga.Repository.DAO.Abstracts;
 using OsteoYoga.Repository.DAO.Implements;
 using OsteoYoga.Repository.DAO.Interfaces;
 using OsteoYoga.Site.Controllers;
+using OsteoYoga.Site.ViewResults;
 
 namespace OsteoYoga.Tests.Display.Controllers
 {
@@ -22,13 +23,15 @@ namespace OsteoYoga.Tests.Display.Controllers
     public class RendezVousControllerHaveTo
     {
         private const string ServerAddress = "http://osteoyoga.fr";
-        private readonly Contact contact = new Contact();
+        private readonly Patient patient = new Patient();
         private readonly Mock<SessionHelper> sessionHelperMock = new Mock<SessionHelper>();
         private readonly Mock<OfficeRepository> officeRepositoryMock = new Mock<OfficeRepository>();
         private readonly Mock<DurationRepository> durationRepositoryMock = new Mock<DurationRepository>();
         private readonly Mock<IGoogleRepository<Event>> googleRepositoryMock = new Mock<IGoogleRepository<Event>>();
         private readonly Mock<IFreeSlotHelper> freeSlotHelperMock = new Mock<IFreeSlotHelper>();
 
+        private readonly PratictionerPreference preference = new PratictionerPreference();
+        
         private readonly IList<Duration> durations = new List<Duration>();
         private readonly IList<Office> offices = new List<Office>();
         private readonly IList<Event> events = new List<Event>();
@@ -49,7 +52,7 @@ namespace OsteoYoga.Tests.Display.Controllers
                     FreeSlotHelper = freeSlotHelperMock.Object
             };
             SessionHelper.Instance = sessionHelperMock.Object;
-            sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(contact);
+            sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(patient);
             Email.Instance = emailMock.Object;
             Constants.Instance = constantsMock.Object;
             constantsMock.Setup(cm => cm.ServerAddress(It.IsAny<HttpRequestBase>())).Returns(ServerAddress);
@@ -64,18 +67,27 @@ namespace OsteoYoga.Tests.Display.Controllers
             Assert.IsInstanceOfType(controller.DurationRepository, typeof(DurationRepository));
             Assert.IsInstanceOfType(controller.GoogleRepository, typeof(GoogleRepository));
             Assert.IsInstanceOfType(controller.OfficeRepository, typeof(OfficeRepository));
+            Assert.IsInstanceOfType(controller.FreeSlotHelper, typeof(FreeSlotHelper));
+
         }
 
         [TestMethod]
         public void GoToIndexPageWithParameter()
         {
             //arrange
-            //durationRepositoryMock.Setup(drm => drm.GetAll()).Returns()
-
-            //act
+            durationRepositoryMock.Setup(drm => drm.GetAll()).Returns(durations);
+            officeRepositoryMock.Setup(orm => orm.GetAll()).Returns(offices);
+            googleRepositoryMock.Setup(grm => grm.GetAllForPractionerInterval(It.IsAny<PratictionerPreference>())).Returns(events);
+            freeSlotHelperMock.Setup(fsm => fsm.CalculateFreeSlotBetweenTwoDays(events, It.IsAny<PratictionerPreference>())).Returns(freeSlots);
             
+            //act
+            PartialViewResult result = Controller.Index();
 
             //assert
+            Assert.AreEqual(offices, ((DateViewResult)result.Model).Offices );
+            Assert.AreEqual(durations, ((DateViewResult)result.Model).Durations );
+            Assert.AreEqual(freeSlots, ((DateViewResult)result.Model).FreeSlots);
+            Assert.AreEqual("Index", result.ViewName);
         }
 
 
@@ -94,11 +106,13 @@ namespace OsteoYoga.Tests.Display.Controllers
         [TestMethod]
         public void Propose_Durations_With_Office()
         {
+
+
             //Office office = new Office();
             //officeRepositoryMock.Setup(o => o.GetAll()).Returns(offices);
             //Dates date = new Dates
             //{
-            //    Contact = contact
+            //    Patient = contact
             //};
 
             //PartialViewResult viewResult = Controller.FillDate(office);
@@ -125,7 +139,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         //[TestMethod]
         //public void GoToLoginPageIfThereIsNoContactConnectedOnProposeDateAction()
         //{
-        //    sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(null as Contact);
+        //    sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(null as Patient);
 
         //    Assert.AreEqual(LoginPath, Controller.ProposeDate(DateTime.Now, string.Empty).ViewName);
         //}
@@ -133,7 +147,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         //[TestMethod]
         //public void GoToLoginPageIfThereIsNoContactConnectedOnCreateDateAction()
         //{
-        //    sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(null as Contact);
+        //    sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(null as Patient);
 
         //    Assert.AreEqual(LoginPath, Controller.CreateDate(DateTime.Now, 0).ViewName);
         //}
@@ -141,8 +155,8 @@ namespace OsteoYoga.Tests.Display.Controllers
         //[TestMethod]
         //public void TimeSlotInPatientHours()
         //{
-        //    TimeSlot expectedTimeSlot = InitTimeSlot(dateTime, 14, 15);
-        //    IList<TimeSlot> timeSlots = new List<TimeSlot>
+        //    WorkTimeSlot expectedTimeSlot = InitTimeSlot(dateTime, 14, 15);
+        //    IList<WorkTimeSlot> timeSlots = new List<WorkTimeSlot>
         //        {
         //            expectedTimeSlot
         //        };
@@ -158,17 +172,17 @@ namespace OsteoYoga.Tests.Display.Controllers
         //[TestMethod]
         //public void PatientHoursInTimeSlot()
         //{
-        //    TimeSlot timeSlot1 = InitTimeSlot(dateTime, 13, 18);
+        //    WorkTimeSlot timeSlot1 = InitTimeSlot(dateTime, 13, 18);
         //    ProposeDateHaveToReturnAnErrorMessage(timeSlot1, Times.Once());
-        //    TimeSlot timeSlot2 = InitTimeSlot(dateTime, 12, 13);
+        //    WorkTimeSlot timeSlot2 = InitTimeSlot(dateTime, 12, 13);
         //    ProposeDateHaveToReturnAnErrorMessage(timeSlot2, Times.Exactly(2));
-        //    TimeSlot timeSlot3 = InitTimeSlot(dateTime, 12, 15);
+        //    WorkTimeSlot timeSlot3 = InitTimeSlot(dateTime, 12, 15);
         //    ProposeDateHaveToReturnAnErrorMessage(timeSlot3, Times.Exactly(3));
         //}
 
-        //private void ProposeDateHaveToReturnAnErrorMessage(TimeSlot timeSlot, Times times)
+        //private void ProposeDateHaveToReturnAnErrorMessage(WorkTimeSlot timeSlot, Times times)
         //{
-        //    IList<TimeSlot> timeSlots = new List<TimeSlot>
+        //    IList<WorkTimeSlot> timeSlots = new List<WorkTimeSlot>
         //        {
         //            timeSlot
         //        };
@@ -185,10 +199,10 @@ namespace OsteoYoga.Tests.Display.Controllers
         //[TestMethod]
         //public void ProposeMinFreeTimeSlotCorrespondingWithPatientHours()
         //{
-        //    TimeSlot timeSlot1 = InitTimeSlot(dateTime, 15, 16);
-        //    TimeSlot timeSlot2 = InitTimeSlot(dateTime, 16, 17);
-        //    TimeSlot timeSlotMin = InitTimeSlot(dateTime, 14, 15);
-        //    IList<TimeSlot> timeSlots = new List<TimeSlot>
+        //    WorkTimeSlot timeSlot1 = InitTimeSlot(dateTime, 15, 16);
+        //    WorkTimeSlot timeSlot2 = InitTimeSlot(dateTime, 16, 17);
+        //    WorkTimeSlot timeSlotMin = InitTimeSlot(dateTime, 14, 15);
+        //    IList<WorkTimeSlot> timeSlots = new List<WorkTimeSlot>
         //        {
         //            timeSlot1,
         //            timeSlot2,
@@ -206,7 +220,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         //[TestMethod]
         //public void ReturnAnErrorMessageIfThereAreNoTimeSlotFreeCorrespondingWithPatientDateTime()
         //{
-        //    timeSlotRepoMock.Setup(tsr => tsr.GetFreeTimeSlots(dateTime)).Returns(new List<TimeSlot>());
+        //    timeSlotRepoMock.Setup(tsr => tsr.GetFreeTimeSlots(dateTime)).Returns(new List<WorkTimeSlot>());
 
         //    PartialViewResult view = Controller.ProposeDate(dateTime, PatientHours);
 
@@ -225,14 +239,14 @@ namespace OsteoYoga.Tests.Display.Controllers
 
         //    timeSlotRepoMock.Verify(tsrm => tsrm.GetById(TimeSlotId), Times.Once());
         //    dateRepoMock.Verify(drm => drm.Save(It.Is<Dates>(d => d.Day == dateTime &&
-        //                                                         d.Contact == contact &&
+        //                                                         d.Patient == contact &&
         //                                                         d.IsConfirmed == false &&
-        //                                                         d.TimeSlot == expectedTimeSlot)));
+        //                                                         d.WorkTimeSlot == expectedTimeSlot)));
         //    emailMock.Verify(em => em.SendForAdminPropose(It.IsAny<Dates>()));
         //    emailMock.Verify(em => em.SendForPatientPropose(It.Is<Dates>(d => d.Day == dateTime && 
-        //                                                                     d.Contact == contact && 
+        //                                                                     d.Patient == contact && 
         //                                                                     d.IsConfirmed == false && 
-        //                                                                     d.TimeSlot == expectedTimeSlot),
+        //                                                                     d.WorkTimeSlot == expectedTimeSlot),
         //                                                    It.IsAny<string>()));
         //    Assert.AreEqual(CreateDatePath, view.ViewName);
         //}
@@ -265,9 +279,9 @@ namespace OsteoYoga.Tests.Display.Controllers
         //    Assert.AreEqual(ValidatePath, view.ViewName);
         //}
 
-        //private static TimeSlot InitTimeSlot(DateTime date, int beginHour, int endHour)
+        //private static WorkTimeSlot InitTimeSlot(DateTime date, int beginHour, int endHour)
         //{
-        //    return new TimeSlot
+        //    return new WorkTimeSlot
         //        {
         //            BeginHour = new TimeSpan(beginHour, 00, 00),
         //            DayOfWeek = date.DayOfWeek,

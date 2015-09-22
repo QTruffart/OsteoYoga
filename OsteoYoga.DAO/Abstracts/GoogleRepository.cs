@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Remoting.Messaging;
 using System.Threading;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Calendar.v3;
@@ -80,7 +81,7 @@ namespace OsteoYoga.Repository.DAO.Abstracts
                 End = new EventDateTime { DateTime = date.Begin.AddMinutes(date.Duration.Value) },
                 Reminders = remaRemindersData,
                 Location = date.Office.Adress,
-                Attendees = new List<EventAttendee> { new EventAttendee() { Email = date.Contact.Mail, DisplayName = date.Contact.FullName, ResponseStatus = "needsAction" } },
+                Attendees = new List<EventAttendee> { new EventAttendee() { Email = date.Patient.Mail, DisplayName = date.Patient.FullName, ResponseStatus = "needsAction" } },
             };
             return Service.Events.Insert(eventToAdd, "primary").Execute();
         }
@@ -95,7 +96,7 @@ namespace OsteoYoga.Repository.DAO.Abstracts
             toUpdate.Summary = summary;
             toUpdate.Description = description;
             toUpdate.Location = date.Office.Adress;
-            toUpdate.Attendees = new List<EventAttendee> { new EventAttendee() { Email = date.Contact.Mail, DisplayName = date.Contact.FullName } };
+            toUpdate.Attendees = new List<EventAttendee> { new EventAttendee() { Email = date.Patient.Mail, DisplayName = date.Patient.FullName } };
 
             return Service.Events.Update(toUpdate, "primary", eventId).Execute();
         }
@@ -112,7 +113,7 @@ namespace OsteoYoga.Repository.DAO.Abstracts
 
         public virtual IList<Event> GetAll()
         {
-            return Service.Events.List("primary").Execute().Items;
+            return  Service.Events.List("primary").Execute().Items;
         }
 
         public IList<Event> GetAllForPractionerInterval(PratictionerPreference pratictionerPreference)

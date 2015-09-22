@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OsteoYoga.Domain.Models;
-using OsteoYoga.Resource;
 
 namespace OsteoYoga.Tests.Domain.Model
 {
@@ -14,21 +13,29 @@ namespace OsteoYoga.Tests.Domain.Model
         [TestMethod]
         public void InitializeCorrectlyInitialize()
         {
-            Contact contact = new Contact();
+
+            Pratictioner practitioner = new Pratictioner();
+            Office office = new Office();
+            IList<Duration> durations = new List<Duration>();
+            IList<WorkTimeSlot> timeSlots = new List<WorkTimeSlot>();
+
 
             PratictionerPreference pratictionerPreference = new PratictionerPreference()
             {
-               Contact = contact,
-               Reminder = 30,
-               DateWaiting = 50,
-               MinInterval = 3,
-               MaxInterval = 45,
+                Pratictioner = practitioner,
+                Office = office,
+                Durations = durations,
+                TimeSlots = timeSlots,
+                Reminder = 30,
+                DateWaiting = 50,
+                MinInterval = 3,
+                MaxInterval = 45,
             };
 
-            Assert.AreEqual(contact, pratictionerPreference.Contact);
+            Assert.AreEqual(practitioner, pratictionerPreference.Pratictioner);
             Assert.AreEqual(30, pratictionerPreference.Reminder);
             Assert.AreEqual(50, pratictionerPreference.DateWaiting);
-            Assert.AreEqual(3, pratictionerPreference.MinInterval);
+            Assert.AreEqual(3,  pratictionerPreference.MinInterval);
             Assert.AreEqual(45, pratictionerPreference.MaxInterval);
         }
 

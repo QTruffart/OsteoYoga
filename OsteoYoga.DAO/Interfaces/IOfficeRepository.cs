@@ -4,7 +4,7 @@ using OsteoYoga.Domain.Models;
 
 namespace OsteoYoga.Repository.DAO.Interfaces
 {
-    public interface IOfficeRepository
+    public interface IOfficeRepository : IRepository<Office>
     {
     }
 }

@@ -5,7 +5,7 @@ using OsteoYoga.Repository.DAO.Interfaces;
 
 namespace OsteoYoga.Repository.DAO.Implements
 {
-    public class ContactRepository : NHibernateRepository<Contact>, IContactRepository
+    public class PatientRepository : NHibernateRepository<Patient>, IContactRepository
     {
         public virtual bool EmailAlreadyExists(string mail)
         {

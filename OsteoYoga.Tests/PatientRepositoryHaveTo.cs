@@ -8,9 +8,9 @@ using OsteoYoga.Repository.DAO.Implements;
 namespace OsteoYoga.Tests.DAO
 {
     [TestClass]
-    public class ContactRepositoryHaveTo : BaseTestsNHibernate
+    public class PatientRepositoryHaveTo : BaseTestsNHibernate
     {
-        private readonly Contact contact = new Contact
+        private readonly Patient contact = new Patient
         {
             FullName = "test",
             Mail = "test@test.com",
@@ -19,7 +19,7 @@ namespace OsteoYoga.Tests.DAO
             NetworkType = Constants.GetInstance().FacebookNetwork,
         };
 
-        private readonly ContactRepository contactRepository = new ContactRepository();
+        private readonly PatientRepository contactRepository = new PatientRepository();
 
         [TestInitialize]
         public override void Initialize()

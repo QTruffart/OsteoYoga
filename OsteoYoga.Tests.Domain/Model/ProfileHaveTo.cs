@@ -21,6 +21,7 @@ namespace OsteoYoga.Tests.Domain.Model
                                         Contacts = contacts
                                     };
             Assert.AreEqual(Name, profile.Name);
+            Assert.AreEqual(contacts, profile.Contacts);
         }
     }
 }

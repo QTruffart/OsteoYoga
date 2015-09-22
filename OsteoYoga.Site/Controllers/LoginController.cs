@@ -1,28 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper;
-using OsteoYoga.Helper.Helpers;
 using OsteoYoga.Helper.Helpers.Implements;
-using OsteoYoga.Repository.DAO;
 using OsteoYoga.Repository.DAO.Implements;
-using OsteoYoga.Repository.DAO.Interfaces;
 using OsteoYoga.Resource.Contact;
-using OsteoYoga.Site.ViewResults;
+using _5.OsteoYoga.Exception.Implements;
 
 namespace OsteoYoga.Site.Controllers
 {
     public class LoginController : BaseController.BaseController
     {
-        public ContactRepository ContactRepository { get; set; }
+        public PatientRepository ContactRepository { get; set; }
         public ProfileRepository ProfileRepository { get; set; }
 
         public LoginController()
         {
-            ContactRepository = new ContactRepository();
+            ContactRepository = new PatientRepository();
             ProfileRepository = new ProfileRepository();
         }
-        
+
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "Index")]
         public ActionResult Index()
         {
             if (SessionHelper.GetInstance().CurrentUser != null)
@@ -34,6 +33,7 @@ namespace OsteoYoga.Site.Controllers
         
 
         [HttpPost]
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "Login")]
         public ActionResult Login(string email)
         {
             if (ContactRepository.EmailAlreadyExists(email))
@@ -47,27 +47,30 @@ namespace OsteoYoga.Site.Controllers
         }
 
         [HttpPost]
-        public ActionResult SignIn(Contact contact)
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "SignIn")]
+        public ActionResult SignIn(Patient patient)
         {
-            if (!ContactRepository.EmailAlreadyExists(contact.Mail))
+            if (!ContactRepository.EmailAlreadyExists(patient.Mail))
             {
-                contact.Profiles = new List<Profile>() { ProfileRepository.GetByName(Constants.GetInstance().PatientProfile) };
-                ContactRepository.Save(contact);
-                SessionHelper.GetInstance().CurrentUser = contact;
+                patient.Profiles = new List<Profile>() { ProfileRepository.GetByName(Constants.GetInstance().PatientProfile) };
+                ContactRepository.Save(patient);
+                SessionHelper.GetInstance().CurrentUser = patient;
                 return RedirectToAction("Index", "RendezVous");
             }
             ViewBag.SignInError = SignInResource.EmailAlreadyExists;
-            return PartialView("SignIn", contact);
+            return PartialView("SignIn", patient);
         }
 
 
         [HttpPost]
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "LoginWithFacebook")]
         public ActionResult LoginWithFacebook(string id, string mail, string name)
         {
             return SocialNetworkLogin(id, mail, name, Constants.GetInstance().FacebookNetwork);
         }
         
         [HttpPost]
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "LoginWithGoogle")]
         public ActionResult LoginWithGoogle(string id, string mail, string name)
         {
             return SocialNetworkLogin(id, mail, name, Constants.GetInstance().GoogleNetwork);
@@ -80,7 +83,7 @@ namespace OsteoYoga.Site.Controllers
                 SessionHelper.GetInstance().CurrentUser = ContactRepository.GetBySocialNetworkEmail(mail, id, networkType);
                 return RedirectToAction("Index", "RendezVous");
             }
-            Contact contact = new Contact
+            Patient contact = new Patient()
             {
                 Mail = mail,
                 FullName = name,
@@ -90,11 +93,11 @@ namespace OsteoYoga.Site.Controllers
             return PartialView("PhoneSubscription", contact);
         }
 
-        public ActionResult PhoneSubscription(Contact contact)
+        public ActionResult PhoneSubscription(Patient patient)
         {
-            contact.Profiles = new List<Profile>(){ ProfileRepository.GetByName(Constants.GetInstance().PatientProfile) };
-            ContactRepository.Save(contact);
-            SessionHelper.GetInstance().CurrentUser = contact;
+            patient.Profiles = new List<Profile>(){ ProfileRepository.GetByName(Constants.GetInstance().PatientProfile) };
+            ContactRepository.Save(patient);
+            SessionHelper.GetInstance().CurrentUser = patient;
             return RedirectToAction("Index", "RendezVous");
         }
     }

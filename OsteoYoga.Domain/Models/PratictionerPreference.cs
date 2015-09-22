@@ -1,14 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace OsteoYoga.Domain.Models
 {
     public class PratictionerPreference : Entity
     {
-        public virtual Contact Contact { get; set; }
+        public virtual Pratictioner Pratictioner { get; set; }
+        public virtual Office Office { get; set; }
         public virtual int Reminder { get; set; }
         public virtual int DateWaiting { get; set; }
         public virtual int MinInterval { get; set; }
         public virtual int MaxInterval { get; set; }
+        public virtual IList<Duration> Durations { get; set; }
+        public virtual IList<WorkTimeSlot> TimeSlots { get; set; }
+
 
         public virtual DateTime MinDateInterval
         {
@@ -27,5 +32,7 @@ namespace OsteoYoga.Domain.Models
                 return  new DateTime(now.Year, now.Month, now.Day);
             } 
         }
+
+        
     }
 }

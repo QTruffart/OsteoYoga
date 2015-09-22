@@ -18,9 +18,9 @@ namespace OsteoYoga.Tests.Display.Controllers
         const string Id = "id";
         readonly string googleNetwork = Constants.GetInstance().GoogleNetwork;
         readonly string faceBookNetwork = Constants.GetInstance().FacebookNetwork;
-        readonly Contact currentContact = new Contact();
+        readonly Patient currentPatient = new Patient();
         readonly Profile profile = new Profile();
-        readonly Mock<ContactRepository> contactRepositoryMock = new Mock<ContactRepository>();
+        readonly Mock<PatientRepository> contactRepositoryMock = new Mock<PatientRepository>();
         readonly Mock<ProfileRepository> profileRepositoryMock = new Mock<ProfileRepository>();
         readonly Mock<SessionHelper> sessionHelperMock = new Mock<SessionHelper>();
         private LoginController Controller { get; set; }
@@ -40,7 +40,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         {
             LoginController controller= new LoginController();
 
-            Assert.IsInstanceOfType(controller.ContactRepository, typeof(ContactRepository));
+            Assert.IsInstanceOfType(controller.ContactRepository, typeof(PatientRepository));
             Assert.IsInstanceOfType(controller.ProfileRepository, typeof(ProfileRepository));
         }
 
@@ -48,7 +48,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         [TestMethod]
         public void Load_RendezVous_Index_Page_If_The_Contact_Is_Connected()
         {
-            sessionHelperMock.SetupGet(shm => shm.CurrentUser).Returns(currentContact);
+            sessionHelperMock.SetupGet(shm => shm.CurrentUser).Returns(currentPatient);
 
             ActionResult viewResult = Controller.Index();
 
@@ -72,7 +72,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         [TestMethod]
         public void Login_Get_Existing_Contact()
         {
-            Contact contact = new Contact
+            Contact contact = new Patient
             {
                 Mail = Email
             };
@@ -90,7 +90,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         [TestMethod]
         public void Login_Throw_To_The_Same_Page()
         {
-            Contact contact = new Contact
+            Contact contact = new Patient
             {
                 Mail = Email
             };
@@ -107,13 +107,13 @@ namespace OsteoYoga.Tests.Display.Controllers
         [TestMethod]
         public void SignIn_Error_If_Email_Already_Exists()
         {
-            Contact contact = new Contact
+            Patient patient = new Patient
             {
                 Mail = Email
             };
             contactRepositoryMock.Setup(crm => crm.EmailAlreadyExists(Email)).Returns(true);
 
-            ActionResult viewResult = Controller.SignIn(contact);
+            ActionResult viewResult = Controller.SignIn(patient);
 
             contactRepositoryMock.Verify(crm => crm.EmailAlreadyExists(Email), Times.Once());
             Assert.AreEqual("SignIn", ((PartialViewResult)viewResult).ViewName);
@@ -122,7 +122,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         [TestMethod]
         public void SignIn_Create_A_New_Contact()
         {
-            Contact contact = new Contact
+            Patient contact = new Patient
             {
                 Mail = Email
             };
@@ -146,7 +146,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         [TestMethod]
         public void Login_With_Facebook_Get_Existing_Contact()
         {
-            Contact contact = new Contact();
+            Contact contact = new Patient();
             contactRepositoryMock.Setup(crm => crm.SocialNetworkEmailAlreadyExists(Email, Id, faceBookNetwork)).Returns(true);
             contactRepositoryMock.Setup(crm => crm.GetBySocialNetworkEmail(Email, Id, faceBookNetwork)).Returns(contact);
 
@@ -178,7 +178,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         [TestMethod]
         public void Login_With_Google_Get_Existing_Contact()
         {
-            Contact contact = new Contact();
+            Contact contact = new Patient();
             contactRepositoryMock.Setup(crm => crm.SocialNetworkEmailAlreadyExists(Email, Id, googleNetwork)).Returns(true);
             contactRepositoryMock.Setup(crm => crm.GetBySocialNetworkEmail(Email, Id, googleNetwork)).Returns(contact);
 
@@ -211,14 +211,14 @@ namespace OsteoYoga.Tests.Display.Controllers
         [TestMethod]
         public void PhoneSubscription_Save_Contact()
         {
-            Contact contact = new Contact();
+            Patient patient = new Patient();
             profileRepositoryMock.Setup(prm => prm.GetByName(Constants.GetInstance().PatientProfile)).Returns(profile);
 
-            ActionResult viewResult = Controller.PhoneSubscription(contact);
+            ActionResult viewResult = Controller.PhoneSubscription(patient);
 
-            contactRepositoryMock.Verify(crm => crm.Save(contact));
-            sessionHelperMock.VerifySet(shm => shm.CurrentUser = contact, Times.Once());
-            CollectionAssert.Contains(contact.Profiles.ToList(), profile);
+            contactRepositoryMock.Verify(crm => crm.Save(patient));
+            sessionHelperMock.VerifySet(shm => shm.CurrentUser = patient, Times.Once());
+            CollectionAssert.Contains(patient.Profiles.ToList(), profile);
             Assert.AreEqual("RendezVous", ((RedirectToRouteResult)viewResult).RouteValues["controller"]);
             Assert.AreEqual("Index", ((RedirectToRouteResult)viewResult).RouteValues["action"]);
         }

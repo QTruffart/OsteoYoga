@@ -142,11 +142,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstracts\GoogleRepository.cs" />
+    <Compile Include="Implements\PatientRepository.cs" />
     <Compile Include="Interfaces\IProfileRepository.cs" />
     <Compile Include="Implements\DurationRepository.cs" />
     <Compile Include="Implements\ProfileRepository.cs" />
     <Compile Include="Implements\OfficeRepository.cs" />
-    <Compile Include="Implements\ContactRepository.cs" />
+    <Compile Include="Implements\PratictionerRepository.cs" />
     <Compile Include="Interfaces\IOfficeRepository.cs" />
     <Compile Include="Interfaces\IDateRepository.cs" />
     <Compile Include="Interfaces\IContactRepository.cs" />

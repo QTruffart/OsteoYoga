@@ -9,8 +9,7 @@ namespace OsteoYoga.Domain.Models.Mapping
             Id(x => x.Id);
 
             Map(x => x.Value);
- 
-            HasMany(x => x.Dates).Inverse();
+            References(x => x.PratictionerPreference).Cascade.SaveUpdate();
 
             Table("Duration");
         }

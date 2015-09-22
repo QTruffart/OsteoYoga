@@ -956,7 +956,7 @@ window.Modernizr = (function( window, document, undefined ) {
     /*>>webforms*/
 
 
-    // End of test definitions
+    // EndTime of test definitions
     // -----------------------
 
 

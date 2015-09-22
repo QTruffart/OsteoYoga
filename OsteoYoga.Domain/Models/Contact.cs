@@ -7,7 +7,7 @@ using OsteoYoga.Resource.Contact;
 
 namespace OsteoYoga.Domain.Models
 {
-    public class Contact : Entity
+    public abstract class Contact : Entity
     {
         [Required]
         public virtual string FullName { get; set; }
@@ -22,9 +22,7 @@ namespace OsteoYoga.Domain.Models
         
         //todo à mettre en Enum
         public virtual string NetworkType { get; set; }
-
         public virtual string NetworkId { get; set; }
-        public virtual IList<Date> Dates { get; set; }
         public virtual IList<Profile> Profiles { get; set; }
 
         public override string ToString()

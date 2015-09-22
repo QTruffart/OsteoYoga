@@ -18,10 +18,10 @@
 @*<script type="text/javascript">
     var compteurId = 0;
     var ids = new Array();
-    //var dayHours = '@Constants.GetInstance().AMBegin()-@Constants.GetInstance().PMEnd()';
+    //var dayHours = '@Constants.GetInstance().AMBegin()-@Constants.GetInstance().PMToto()';
     var daysToDisable = [@foreach (Holiday holiday in Model)
                          {
-                             if (holiday.BeginHour <= Constants.GetInstance().AMBegin() && holiday.EndHour == Constants.GetInstance().PMEnd() )
+                             if (holiday.BeginHour <= Constants.GetInstance().AMBegin() && holiday.TotoHour == Constants.GetInstance().PMToto() )
                              {
                                 <text>'@(holiday.Day.Month)-@(holiday.Day.Day)-@(holiday.Day.Year)',</text>
                              }
@@ -36,28 +36,28 @@
 </script>*@
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#offices').change(function() {
-            SetFormValues();
-        });
-        $('#durations').change(function () {
-            SetFormValues();
-        });
-        $("#DatesPicker").datepicker({
-            minDates: +3,
-            beforeShowDay: disableSpecificDates,
+    //$(document).ready(function() {
+    //    $('#offices').change(function() {
+    //        SetFormValues();
+    //    });
+    //    $('#durations').change(function () {
+    //        SetFormValues();
+    //    });
+    //    $("#DatesPicker").datepicker({
+    //        minDates: +3,
+    //        beforeShowDay: disableSpecificDates,
             
-            dateFormat: 'dd/mm/yy',
-            onSelect: function (date) {
-                $("#timeSlotSelection").show();
-                $("#timeSlotSelectionValues").show();
-                //getProposeDates(date);
-            }
-        });
-        //$("#selectedTimeSlot").change(function () {
-        //    getProposeDates($("#DatesPicker").val());
-        //});
-    });
+    //        dateFormat: 'dd/mm/yy',
+    //        onSelect: function (date) {
+    //            $("#timeSlotSelection").show();
+    //            $("#timeSlotSelectionValues").show();
+    //            //getProposeDates(date);
+    //        }
+    //    });
+    //    //$("#selectedTimeSlot").change(function () {
+    //    //    getProposeDates($("#DatesPicker").val());
+    //    //});
+    //});
 
     @*function getProposeDates(date) {
         $.ajax({
@@ -75,7 +75,7 @@
             }
         });
     }*@
-    function disableSpecificDates(date) {
+    @*function disableSpecificDates(date) {
         var month = date.getMonth();
         var day = date.getDate();
         var dayofWeek = date.getDay();
@@ -112,7 +112,7 @@
                 alert(errorThrown);
             }
         });
-    }
+    }*@
 
 
 </script>
@@ -172,9 +172,9 @@
             <tr hidden="hidden" id="timeSlotSelectionValues">
                 <td style="width:75%; text-align:center; vertical-align:top; background-color: transparent;">
                     <select id="selectedTimeSlot">
-                        <option value="@Constants.GetInstance().AMBegin()-@Constants.GetInstance().PMEnd()" selected="selected">@DatesResource.AllTheDay</option>
-                        <option value="@Constants.GetInstance().AMBegin()-@Constants.GetInstance().AMEnd()">@DatesResource.AM</option>
-                        <option value="@Constants.GetInstance().PMBegin()-@Constants.GetInstance().PMEnd()">@DatesResource.PM</option>
+                        <option value="@Constants.GetInstance().AMBegin()-@Constants.GetInstance().PMToto()" selected="selected">@DatesResource.AllTheDay</option>
+                        <option value="@Constants.GetInstance().AMBegin()-@Constants.GetInstance().AMToto()">@DatesResource.AM</option>
+                        <option value="@Constants.GetInstance().PMBegin()-@Constants.GetInstance().PMToto()">@DatesResource.PM</option>
                     </select>
                     <div id="customTimeSLot"></div>
                 </td>

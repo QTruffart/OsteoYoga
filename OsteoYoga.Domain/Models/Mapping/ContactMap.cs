@@ -7,17 +7,26 @@ namespace OsteoYoga.Domain.Models.Mapping
        //Constructor
         public ContactMap()
         {
-            Id(x => x.Id);
+            UseUnionSubclassForInheritanceMapping();
+
+            Id(x => x.Id)
+                .Column("Id")
+                .CustomType("Int32")
+                .Access.Property()
+                .CustomSqlType("int")
+                .Not.Nullable()
+                .Precision(10)
+                .GeneratedBy.Assigned();
+
             Map(x => x.FullName);
             Map(x => x.Mail);
             Map(x => x.NetworkId);
             Map(x => x.NetworkType);
             Map(x => x.Phone);
 
-            HasMany(x => x.Dates).Inverse();
             HasManyToMany(x => x.Profiles).Cascade.All().Table("ContactProfile");
 
-            Table("Contact");
+            Table("Patient");
         }
     }
 }

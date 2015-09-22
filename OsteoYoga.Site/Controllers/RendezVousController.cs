@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Google.Apis.Calendar.v3.Data;
 using OsteoYoga.Domain.Models;
@@ -11,13 +13,14 @@ using OsteoYoga.Repository.DAO.Implements;
 using OsteoYoga.Repository.DAO.Interfaces;
 using OsteoYoga.Site.Controllers.Interface;
 using OsteoYoga.Site.ViewResults;
+using _5.OsteoYoga.Exception.Implements;
 
 namespace OsteoYoga.Site.Controllers
 {
     public class RendezVousController : BaseController.BaseController , IRendezVousController
     {
         public IOfficeRepository OfficeRepository { get; set; }
-        public DurationRepository DurationRepository { get; set; }
+        public IRepository<Duration> DurationRepository { get; set; }
         public IGoogleRepository<Event> GoogleRepository { get; set; }
         public IFreeSlotHelper FreeSlotHelper { get; set; }
 
@@ -31,14 +34,34 @@ namespace OsteoYoga.Site.Controllers
 
         [HttpGet]
         [PatientProfile]
+        [AdministratorProfile]
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "RendezVous")]
         public PartialViewResult Index()
         {
-            throw  new NotImplementedException();
-            //return PartialView("Index", OfficeRepository.GetAll());
+            //TODO : A gérer en base avec praticien courant
+            PratictionerPreference preference = new PratictionerPreference()
+            {
+                DateWaiting = 5,
+                MaxInterval = 30,
+                MinInterval = 3,
+                Reminder = 30
+            };
+            IList<Event> events = GoogleRepository.GetAllForPractionerInterval(preference);
+
+            DateViewResult model = new DateViewResult()
+            {
+                Offices = OfficeRepository.GetAll(),
+                Durations = DurationRepository.GetAll(),
+                FreeSlots = FreeSlotHelper.CalculateFreeSlotBetweenTwoDays(events, preference)
+            };
+
+            return PartialView("Index", model);
         }
 
         [HttpGet]
         [PatientProfile]
+        [AdministratorProfile]
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "RendezVous")]
         public PartialViewResult Index(DateViewResult dateViewResult)
         {
             throw new NotImplementedException();
@@ -46,6 +69,8 @@ namespace OsteoYoga.Site.Controllers
 
         [HttpPost]
         [PatientProfile]
+        [AdministratorProfile]
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "ProposeDate")]
         public PartialViewResult ProposeDate(Date date)
         {
 
@@ -62,7 +87,7 @@ namespace OsteoYoga.Site.Controllers
             //                                 EndHour=  new TimeSpan(int.Parse(patientEnd.Split(':')[0]), int.Parse(patientEnd.Split(':')[1]) ,0),
             //                                 Dates = patientDate
             //                             };
-            //    IList<TimeSlot> timeSlots = SlotRepository.GetFreeTimeSlots(patient.Dates);
+            //    IList<WorkTimeSlot> timeSlots = SlotRepository.GetFreeTimeSlots(patient.Dates);
             //    timeSlots = timeSlots.Where(ts => ts.BeginHour >= patient.BeginHour && ts.EndHour <= patient.EndHour).ToList();
             //    if ( timeSlots.Count > 0)
             //    {
@@ -74,19 +99,22 @@ namespace OsteoYoga.Site.Controllers
             return PartialView("/Views/Login/Index.cshtml");
         }
 
+        [PatientProfile]
+        [AdministratorProfile]
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "CreateDate")]
         public PartialViewResult CreateDate(DateTime dateTime, int timeSlotId)
         {
-            //Contact contact = SessionHelper.GetInstance().CurrentUser;
+            //Patient contact = SessionHelper.GetInstance().CurrentUser;
             //if (contact != null)
             //{
-            //    TimeSlot timeSlot = SlotRepository.GetById(timeSlotId);
+            //    WorkTimeSlot timeSlot = SlotRepository.GetById(timeSlotId);
 
             //    try
             //    {
             //        Guid confirmationId = Guid.NewGuid();
             //        Dates date = new Dates{
-            //                             Contact = contact,
-            //                             TimeSlot = timeSlot,
+            //                             Patient = contact,
+            //                             WorkTimeSlot = timeSlot,
             //                             Day = dateTime, 
             //                             IsConfirmed = false,
             //                             ConfirmationId = confirmationId.ToString()

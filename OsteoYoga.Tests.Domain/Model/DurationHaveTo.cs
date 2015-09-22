@@ -9,8 +9,7 @@ namespace OsteoYoga.Tests.Domain.Model
     {
 
         const int Value = 45;
-        IList<Date> dates = new List<Date>();
-        IList<Office> offices = new List<Office>();
+        PratictionerPreference preference = new PratictionerPreference();
 
         [TestMethod]
         public void InitializeCorrectlyInitialize()
@@ -19,12 +18,12 @@ namespace OsteoYoga.Tests.Domain.Model
             Duration duration = new Duration()
             {
                 Value = Value,
-                Dates = dates,
-                Offices = offices
+                PratictionerPreference = preference
+                //Dates = dates,
             };
             Assert.AreEqual(Value, duration.Value);
-            Assert.AreEqual(dates, duration.Dates);
-            Assert.AreEqual(offices, duration.Offices);
+            //Assert.AreEqual(dates, duration.Dates);
+            Assert.AreEqual(preference, duration.PratictionerPreference);
         }
     }
 }

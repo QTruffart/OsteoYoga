@@ -27,9 +27,9 @@ namespace OsteoYoga.Helper
 
         //public virtual void SendForPatientPropose(Dates date, string serverAddress)
         //{
-        //    var toAddress = new MailAddress(date.Contact.Mail, date.Contact.FullName);
+        //    var toAddress = new MailAddress(date.Patient.Mail, date.Patient.FullName);
 
-        //    string body = string.Format("<html><head></head><body>Bonjour, <br /><br />Votre demande a été proposée. Vous devez cliquer sur le lien suivant pour valider votre rendez-vous : <br /><a href='{0}/RendezVous/Validate?id={1}'>Lien Ici !</a> <br /><br />" + "Resumé du rendez-vous : " + "Dates : {2}<br />" + "Horaire : {3} <br />" + "Patient : {4} <br /><br /> Cordialement,<br />Nicolas Truffart</body></html>", serverAddress, date.ConfirmationId, date.Day.ToString("dd/MM/yyyy"), date.TimeSlot, date.Contact);
+        //    string body = string.Format("<html><head></head><body>Bonjour, <br /><br />Votre demande a été proposée. Vous devez cliquer sur le lien suivant pour valider votre rendez-vous : <br /><a href='{0}/RendezVous/Validate?id={1}'>Lien Ici !</a> <br /><br />" + "Resumé du rendez-vous : " + "Dates : {2}<br />" + "Horaire : {3} <br />" + "Patient : {4} <br /><br /> Cordialement,<br />Nicolas Truffart</body></html>", serverAddress, date.ConfirmationId, date.Day.ToString("dd/MM/yyyy"), date.WorkTimeSlot, date.Patient);
 
         //    var smtp = new SmtpClient
         //    {
@@ -53,9 +53,9 @@ namespace OsteoYoga.Helper
 
         //public virtual void SendForPatientValidation(Dates date)
         //{
-        //    var toAddress = new MailAddress(date.Contact.Mail, date.Contact.FullName);
+        //    var toAddress = new MailAddress(date.Patient.Mail, date.Patient.FullName);
 
-        //    string body = string.Format("<html><head></head><body>Bonjour, <br /><br />Votre demande de rendez-vous a été validée. <br /><br />" + "Resumé du rendez-vous : " + "Dates : {0}<br />" + "Horaire : {1} <br />" + "Patient : {2} <br /><br /> Cordialement,<br />Nicolas Truffart</body></html>", date.Day.ToString("dd/MM/yyyy"), date.TimeSlot, date.Contact);
+        //    string body = string.Format("<html><head></head><body>Bonjour, <br /><br />Votre demande de rendez-vous a été validée. <br /><br />" + "Resumé du rendez-vous : " + "Dates : {0}<br />" + "Horaire : {1} <br />" + "Patient : {2} <br /><br /> Cordialement,<br />Nicolas Truffart</body></html>", date.Day.ToString("dd/MM/yyyy"), date.WorkTimeSlot, date.Patient);
 
         //    var smtp = new SmtpClient
         //    {
@@ -81,7 +81,7 @@ namespace OsteoYoga.Helper
         //{
         //    var toAddress = new MailAddress(Constants.GetInstance().MailNico, Constants.GetInstance().NomNico);
 
-        //    string body = string.Format("<html><head></head><body>Bonjour, <br /><br />Une demande de rendez-vous a été proposée.<br /> En attente de validation du patient <br /><br />" + "Resumé du rendez-vous : " + "Dates : {0}<br />" + "Horaire : {1} <br />" + "Patient : {2} </body></html>", date.Day.ToString("dd/MM/yyyy"), date.TimeSlot, date.Contact);
+        //    string body = string.Format("<html><head></head><body>Bonjour, <br /><br />Une demande de rendez-vous a été proposée.<br /> En attente de validation du patient <br /><br />" + "Resumé du rendez-vous : " + "Dates : {0}<br />" + "Horaire : {1} <br />" + "Patient : {2} </body></html>", date.Day.ToString("dd/MM/yyyy"), date.WorkTimeSlot, date.Patient);
 
         //    var smtp = new SmtpClient
         //    {
@@ -108,7 +108,7 @@ namespace OsteoYoga.Helper
         //    var toAddress = new MailAddress(Constants.GetInstance().MailNico, Constants.GetInstance().NomNico);
             
 
-        //    string body = string.Format("<html><head></head><body>Bonjour, <br /><br />La demande de rendez-vous a été validée <br /><br />" + "Resumé du rendez-vous : " + "Dates : {0}<br />" + "Horaire : {1} <br />" + "Patient : {2}</body></html>", date.Day.ToString("dd/MM/yyyy"), date.TimeSlot, date.Contact);
+        //    string body = string.Format("<html><head></head><body>Bonjour, <br /><br />La demande de rendez-vous a été validée <br /><br />" + "Resumé du rendez-vous : " + "Dates : {0}<br />" + "Horaire : {1} <br />" + "Patient : {2}</body></html>", date.Day.ToString("dd/MM/yyyy"), date.WorkTimeSlot, date.Patient);
 
         //    var smtp = new SmtpClient
         //    {

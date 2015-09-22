@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OsteoYoga.Domain.Models;
-using OsteoYoga.Repository.DAO;
 using OsteoYoga.Repository.DAO.Abstracts;
-using OsteoYoga.Repository.DAO.Implements;
 using OsteoYoga.Repository.DAO.Interfaces;
 
 namespace OsteoYoga.Tests.DAO

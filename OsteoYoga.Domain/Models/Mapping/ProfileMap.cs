@@ -9,7 +9,7 @@ namespace OsteoYoga.Domain.Models.Mapping
             Id(x => x.Id);
             Map(x => x.Name);
 
-            HasManyToMany(x => x.Contacts).Cascade.All().Table("ContactProfile");
+            HasManyToMany(x => x.Contacts).Cascade.All().Table("ContactProfile").Cascade.SaveUpdate();
 
             Table("Profile");
         }

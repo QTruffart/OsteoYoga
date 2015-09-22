@@ -1238,7 +1238,7 @@ intellisense.annotate(jQuery.fn, {
     /// <summary>Selects all elements that are enabled.</summary>
   },
   'end': function() {
-    /// <summary>End the most recent filtering operation in the current chain and return the set of matched elements to its previous state.</summary>
+    /// <summary>EndTime the most recent filtering operation in the current chain and return the set of matched elements to its previous state.</summary>
     /// <returns type="jQuery" />
   },
   'eq': function() {
