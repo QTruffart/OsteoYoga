@@ -7,11 +7,11 @@ namespace OsteoYoga.Repository.DAO.Interfaces
 {
     public interface IGoogleRepository<T>
     {
-        Event Save(Date date, string summary, string description, PratictionerPreference preference);
-        Event Update(string eventId, Date date, string summary, string description, PratictionerPreference preference);
+        Event Save(Date date, string summary, string description, PratictionerOffice office);
+        Event Update(string eventId, Date date, string summary, string description, PratictionerOffice office);
         void Delete(string toDelete);
         Event GetById(string id);
         IList<Event> GetAll();
-        IList<Event> GetAllForPractionerInterval(PratictionerPreference pratictionerPreference);
+        IList<Event> GetAllForPractionerInterval(PratictionerOffice pratictionerOffice);
     }
 }

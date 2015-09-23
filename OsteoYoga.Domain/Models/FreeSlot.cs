@@ -6,7 +6,7 @@ namespace OsteoYoga.Domain.Models
     {
         public virtual DateTime Begin { get; set; }
         public virtual DateTime End { get; set; }
-        public virtual PratictionerPreference Preference { get; set; }
+        public virtual PratictionerOffice Office { get; set; }
 
         public virtual double Duration => (End - Begin).TotalMinutes;
     }

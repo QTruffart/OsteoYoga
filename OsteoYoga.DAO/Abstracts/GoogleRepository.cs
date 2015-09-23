@@ -53,7 +53,7 @@ namespace OsteoYoga.Repository.DAO.Abstracts
         }
 
 
-        public virtual Event Save(Date date, string summary, string description, PratictionerPreference preference)
+        public virtual Event Save(Date date, string summary, string description, PratictionerOffice office)
         {
             Event.RemindersData remaRemindersData = new Event.RemindersData
             {
@@ -61,12 +61,12 @@ namespace OsteoYoga.Repository.DAO.Abstracts
                     new EventReminder
                     {
                         Method = "email",
-                        Minutes = preference.Reminder
+                        Minutes = office.Reminder
                     },
                      new EventReminder
                     {
                         Method = "popup",
-                        Minutes = preference.Reminder
+                        Minutes = office.Reminder
                     }
                 },
                 UseDefault = false
@@ -77,8 +77,8 @@ namespace OsteoYoga.Repository.DAO.Abstracts
                 Description = description,
                 Summary = summary,
                 Created = DateTime.Now,
-                Start = new EventDateTime { DateTime = date.Begin },
-                End = new EventDateTime { DateTime = date.Begin.AddMinutes(date.Duration.Value) },
+                Start = new EventDateTime { DateTime = date.BeginTime },
+                End = new EventDateTime { DateTime = date.BeginTime.AddMinutes(date.Duration.Value) },
                 Reminders = remaRemindersData,
                 Location = date.Office.Adress,
                 Attendees = new List<EventAttendee> { new EventAttendee() { Email = date.Patient.Mail, DisplayName = date.Patient.FullName, ResponseStatus = "needsAction" } },
@@ -86,11 +86,11 @@ namespace OsteoYoga.Repository.DAO.Abstracts
             return Service.Events.Insert(eventToAdd, "primary").Execute();
         }
 
-        public Event Update(string eventId, Date date, string summary, string description, PratictionerPreference pratictionerPreference)
+        public Event Update(string eventId, Date date, string summary, string description, PratictionerOffice pratictionerOffice)
         {
             Event toUpdate = Service.Events.Get("primary", eventId).Execute();
-            EventDateTime beginTime = new EventDateTime {DateTime = date.Begin};
-            EventDateTime endTime = new EventDateTime {DateTime = date.Begin.AddMinutes(date.Duration.Value) };
+            EventDateTime beginTime = new EventDateTime {DateTime = date.BeginTime};
+            EventDateTime endTime = new EventDateTime {DateTime = date.BeginTime.AddMinutes(date.Duration.Value) };
             toUpdate.Start = beginTime;
             toUpdate.End = endTime;
             toUpdate.Summary = summary;
@@ -116,12 +116,12 @@ namespace OsteoYoga.Repository.DAO.Abstracts
             return  Service.Events.List("primary").Execute().Items;
         }
 
-        public IList<Event> GetAllForPractionerInterval(PratictionerPreference pratictionerPreference)
+        public IList<Event> GetAllForPractionerInterval(PratictionerOffice pratictionerOffice)
         {
             EventsResource.ListRequest request = Service.Events.List("primary");
             
-            request.TimeMin = pratictionerPreference.MinDateInterval;
-            request.TimeMax = pratictionerPreference.MaxDateInterval;
+            request.TimeMin = pratictionerOffice.MinDateInterval;
+            request.TimeMax = pratictionerOffice.MaxDateInterval;
             
             return request.Execute().Items;
         }

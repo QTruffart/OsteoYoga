@@ -2,9 +2,9 @@
 
 namespace OsteoYoga.Domain.Models.Mapping
 {
-    public class PratictionerPreferenceMap : ClassMap<PratictionerPreference>
+    public class PratictionerOfficeMap : ClassMap<PratictionerOffice>
     {
-        public PratictionerPreferenceMap()
+        public PratictionerOfficeMap()
         {
             Id(x => x.Id);
             Map(x => x.Reminder);
@@ -18,7 +18,7 @@ namespace OsteoYoga.Domain.Models.Mapping
             HasMany(x => x.Durations).Cascade.SaveUpdate();
             //HasMany(x => x.TimeSlots).Cascade.SaveUpdate();
 
-            Table("PratictionerPreference");
+            Table("PratictionerOffice");
         }
     }
 }

@@ -6,6 +6,7 @@ namespace OsteoYoga.Site.Controllers.Interface
 {
     public interface IRendezVousController
     {
-        PartialViewResult Index(DateViewResult dateViewResult);
+        PartialViewResult Index();
+        //PartialViewResult Index(DateViewResult dateViewResult);
     }
 }

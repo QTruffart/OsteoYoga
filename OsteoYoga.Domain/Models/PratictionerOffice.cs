@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OsteoYoga.Domain.Models
 {
-    public class PratictionerPreference : Entity
+    public class PratictionerOffice : Entity
     {
         public virtual Pratictioner Pratictioner { get; set; }
         public virtual Office Office { get; set; }

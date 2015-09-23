@@ -6,9 +6,10 @@ namespace OsteoYoga.Domain.Models.Mapping
     {
         public PatientMap()
         {
+            DiscriminatorValue(@"Patient");
             Map(x => x.History);
-            Abstract();
-            Table("Patient");
+            //Abstract();
+            //Table("Patient");
         }
     }
 }

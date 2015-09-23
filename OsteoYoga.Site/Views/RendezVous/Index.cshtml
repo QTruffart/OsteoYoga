@@ -36,6 +36,45 @@
 </script>*@
 
 <script type="text/javascript">
+    (function ($) {
+        $.fn.cascade = function (options) {
+            var defaults = {};
+            var opts = $.extend(defaults, options);
+
+            return this.each(function () {
+                $(this).change(function () {
+                    var selectedValue = $(this).val();
+                    var params = {};
+                    params[opts.paramName] = selectedValue;
+                    $.getJSON(opts.url, params, function (items) {
+                        opts.childSelect.empty();
+                        $.each(items, function (index, item) {
+                            opts.childSelect.append($('<option/>').attr('value', item.Id).text(item.Name));
+                            opts.childSelect.change();
+                        });
+                    });
+                });
+            });
+        };
+    })(jQuery);
+
+    $(function () {
+        $('#SelectedOfficeId').cascade({
+            url: '@Url.Action("Pratictioners")',
+            paramName: 'officeId',
+            childSelect: $('#SelectedPratictionerId')
+        });
+
+        $('#SelectedPratictionerId').cascade({
+            url: '@Url.Action("Durations")',
+            paramName: 'pratictionnerOfficeId',
+            childSelect: $('#SelectedPratictionerId')
+        });
+    });
+    $(document).ready(function () {
+        $('#SelectedOfficeId').change();
+    });
+
     //$(document).ready(function() {
     //    $('#offices').change(function() {
     //        SetFormValues();
@@ -126,26 +165,25 @@
                     <h2>@DateResource.OfficeList</h2>
                 </th>
                 <th>
-                    <h2>Durée</h2>
+                    <h2>Ostéopathe</h2>
                 </th>
             </tr>
             <tr>
                 <td>
-                    <select name="offices" id="offices">
-                        @foreach (var item in Model.Offices)
-                        {
-                            <option value="@item.Id">@item.Name</option>
-                        }
-                    </select>
+                    @Html.DropDownListFor(x => x.SelectedOfficeId, new SelectList(Model.Offices, "Id", "Name"))
                 </td>
+
                 <td>
+                    @Html.DropDownListFor(x => x.SelectedPratictionerId, Enumerable.Empty<SelectListItem>())
+                </td>
+                @*<td>
                     <select name="durations" id="durations">
                         @foreach (var item in Model.Durations)
                         {
                             <option value="@item.Id">@item.Value</option>
                         }
                     </select>
-                </td>
+                </td>*@
 
 
             </tr>
@@ -159,11 +197,11 @@
             </tr>
         </table>
 
-        @using (Html.BeginForm("ProposeDate", "RendezVous", FormMethod.Post))
+        @*@using (Html.BeginForm("ProposeDate", "RendezVous", FormMethod.Post))
         {
             <input type="hidden" id="officeId" />
             <input type="hidden" id="durationId" />
-        }
+        }*@
         @*<table >
             
             <tr hidden="hidden" id="timeSlotSelection">

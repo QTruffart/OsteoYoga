@@ -13,6 +13,7 @@ namespace OsteoYoga.Domain.Models
         public virtual string Name { get; set; }
         [Required]
         public virtual string Adress { get; set; }
-        public virtual IList<PratictionerPreference> PratictionerPreference { get; set; }
+        public virtual IList<PratictionerOffice> PratictionerPreference { get; set; }
+        public virtual IList<Pratictioner> Pratictioners { get; set; }
     }
 }

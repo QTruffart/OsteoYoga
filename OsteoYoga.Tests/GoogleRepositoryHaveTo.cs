@@ -14,7 +14,7 @@ namespace OsteoYoga.Tests.DAO
     {
         private readonly IGoogleRepository<Event> googleRepository = new GoogleRepository();
 
-        private readonly PratictionerPreference pratictionerPreference = new PratictionerPreference()
+        private readonly PratictionerOffice pratictionerOffice = new PratictionerOffice()
         {
             Pratictioner = new Pratictioner(),
             Office = new Office(),
@@ -25,7 +25,7 @@ namespace OsteoYoga.Tests.DAO
             MaxInterval = 15
         };
 
-        private readonly PratictionerPreference pratictionerPreference2 = new PratictionerPreference()
+        private readonly PratictionerOffice pratictionerPreference2 = new PratictionerOffice()
         {
             Pratictioner = new Pratictioner(),
             TimeSlots = new List<WorkTimeSlot>(),
@@ -39,7 +39,7 @@ namespace OsteoYoga.Tests.DAO
             Patient = new Patient {FullName = "fullName", Mail = "padbox@gmail.com"},
             Duration = new Duration {Value = 45},
             Office = new Office {Adress = "461 avenue de Verdun Mérignac 33700"},
-            Begin = DateTime.Now.Add(new TimeSpan(1, 1, 0))
+            BeginTime = DateTime.Now.Add(new TimeSpan(1, 1, 0))
         };
 
         private readonly Date date2 = new Date()
@@ -47,7 +47,7 @@ namespace OsteoYoga.Tests.DAO
             Patient = new Patient {FullName = "fullName2", Mail = "yopex24@hotmail.fr"},
             Duration = new Duration {Value = 30},
             Office = new Office {Adress = "14 rue Richard Wagner 33700 Mérignac"},
-            Begin = DateTime.Now.Add(new TimeSpan(2, 1, 0)),
+            BeginTime = DateTime.Now.Add(new TimeSpan(2, 1, 0)),
         };
 
         private const string Description = "description";
@@ -68,13 +68,13 @@ namespace OsteoYoga.Tests.DAO
         public void Save()
         {
 
-            Event entity = googleRepository.Save(date1, Summary, Description, pratictionerPreference);
+            Event entity = googleRepository.Save(date1, Summary, Description, pratictionerOffice);
 
 
             Assert.AreEqual(date1.Office.Adress, entity.Location);
-            Assert.AreEqual(date1.Begin.ToString("ddMMyyyyHHmm"), ((DateTime) entity.Start.DateTime).ToString("ddMMyyyyHHmm"));
-            Assert.AreEqual(date1.Begin.AddMinutes(date1.Duration.Value).ToString("ddMMyyyyHHmm"), ((DateTime) entity.End.DateTime).ToString("ddMMyyyyHHmm"));
-            CollectionAssert.Contains(entity.Reminders.Overrides.Select(o => o.Minutes).ToList(), pratictionerPreference.Reminder);
+            Assert.AreEqual(date1.BeginTime.ToString("ddMMyyyyHHmm"), ((DateTime) entity.Start.DateTime).ToString("ddMMyyyyHHmm"));
+            Assert.AreEqual(date1.BeginTime.AddMinutes(date1.Duration.Value).ToString("ddMMyyyyHHmm"), ((DateTime) entity.End.DateTime).ToString("ddMMyyyyHHmm"));
+            CollectionAssert.Contains(entity.Reminders.Overrides.Select(o => o.Minutes).ToList(), pratictionerOffice.Reminder);
             Assert.AreEqual(Summary, entity.Summary);
             Assert.AreEqual(Description, entity.Description);
             CollectionAssert.Contains(entity.Attendees.Select(a => a.Email).ToList(), date1.Patient.Mail);
@@ -90,7 +90,7 @@ namespace OsteoYoga.Tests.DAO
         [TestMethod]
         public void Update()
         {
-            Event entity = googleRepository.Save(date1, Summary, Description, pratictionerPreference);
+            Event entity = googleRepository.Save(date1, Summary, Description, pratictionerOffice);
 
             Event eventToUpdate = googleRepository.GetById(entity.Id);
 
@@ -98,8 +98,8 @@ namespace OsteoYoga.Tests.DAO
             Event eventToCompare = googleRepository.GetById(eventToUpdate.Id);
 
             Assert.AreEqual(date2.Office.Adress, eventToCompare.Location);
-            Assert.AreEqual(date2.Begin.ToString("ddMMyyyyHHmm"), ((DateTime) eventToCompare.Start.DateTime).ToString("ddMMyyyyHHmm"));
-            Assert.AreEqual(date2.Begin.AddMinutes(date2.Duration.Value).ToString("ddMMyyyyHHmm"), ((DateTime) eventToCompare.End.DateTime).ToString("ddMMyyyyHHmm"));
+            Assert.AreEqual(date2.BeginTime.ToString("ddMMyyyyHHmm"), ((DateTime) eventToCompare.Start.DateTime).ToString("ddMMyyyyHHmm"));
+            Assert.AreEqual(date2.BeginTime.AddMinutes(date2.Duration.Value).ToString("ddMMyyyyHHmm"), ((DateTime) eventToCompare.End.DateTime).ToString("ddMMyyyyHHmm"));
             Assert.AreEqual("summary updated", eventToCompare.Summary);
             Assert.AreEqual("description updated", eventToCompare.Description);
             CollectionAssert.Contains(eventToCompare.Attendees.Select(a => a.Email).ToList(), date2.Patient.Mail);
@@ -113,18 +113,18 @@ namespace OsteoYoga.Tests.DAO
         public void GetById()
         {
 
-            Event entity = googleRepository.Save(date1, Summary, Description, pratictionerPreference);
+            Event entity = googleRepository.Save(date1, Summary, Description, pratictionerOffice);
 
 
             Event toCompare = googleRepository.GetById(entity.Id);
 
             Assert.AreEqual(date1.Office.Adress, toCompare.Location);
-            Assert.AreEqual(date1.Begin.ToString("ddMMyyyyHHmm"),
+            Assert.AreEqual(date1.BeginTime.ToString("ddMMyyyyHHmm"),
                 ((DateTime) toCompare.Start.DateTime).ToString("ddMMyyyyHHmm"));
-            Assert.AreEqual(date1.Begin.AddMinutes(date1.Duration.Value).ToString("ddMMyyyyHHmm"),
+            Assert.AreEqual(date1.BeginTime.AddMinutes(date1.Duration.Value).ToString("ddMMyyyyHHmm"),
                 ((DateTime) toCompare.End.DateTime).ToString("ddMMyyyyHHmm"));
             CollectionAssert.Contains(toCompare.Reminders.Overrides.Select(o => o.Minutes).ToList(),
-                pratictionerPreference.Reminder);
+                pratictionerOffice.Reminder);
             Assert.AreEqual(Summary, toCompare.Summary);
             Assert.AreEqual(Description, entity.Description);
             CollectionAssert.Contains(toCompare.Attendees.Select(a => a.Email).ToList(), date1.Patient.Mail);
@@ -140,8 +140,8 @@ namespace OsteoYoga.Tests.DAO
         [Ignore] // Rouge étant donné que google limite le nombre résultat
         public void GetAll()
         {
-            Event entity1 = googleRepository.Save(date1, "summary1", "description1", pratictionerPreference);
-            Event entity2 = googleRepository.Save(date2, "summary2", "description2", pratictionerPreference);
+            Event entity1 = googleRepository.Save(date1, "summary1", "description1", pratictionerOffice);
+            Event entity2 = googleRepository.Save(date2, "summary2", "description2", pratictionerOffice);
 
             IList<Event> events = googleRepository.GetAll();
 
@@ -156,7 +156,7 @@ namespace OsteoYoga.Tests.DAO
         [TestMethod]
         public void Delete()
         {
-            Event entity = googleRepository.Save(date1, Summary, Description, pratictionerPreference);
+            Event entity = googleRepository.Save(date1, Summary, Description, pratictionerOffice);
             googleRepository.Delete(entity.Id);
 
             IList<Event> events = googleRepository.GetAll();
@@ -173,7 +173,7 @@ namespace OsteoYoga.Tests.DAO
                 Patient = new Patient() {FullName = "fullName", Mail = "padbox@gmail.com"},
                 Duration = new Duration() {Value = 45},
                 Office = new Office {Adress = "461 avenue de Verdun Mérignac 33700"},
-                Begin = DateTime.Now.AddDays(14)
+                BeginTime = DateTime.Now.AddDays(14)
             };
 
             Date dateIntoInterval2 = new Date()
@@ -181,7 +181,7 @@ namespace OsteoYoga.Tests.DAO
                 Patient = new Patient() {FullName = "fullName", Mail = "padbox@gmail.com"},
                 Duration = new Duration() {Value = 45},
                 Office = new Office {Adress = "461 avenue de Verdun Mérignac 33700"},
-                Begin = DateTime.Now.AddDays(3)
+                BeginTime = DateTime.Now.AddDays(3)
             };
 
             Date dateBeforeInterval = new Date()
@@ -189,7 +189,7 @@ namespace OsteoYoga.Tests.DAO
                 Patient = new Patient() {FullName = "fullName", Mail = "padbox@gmail.com"},
                 Duration = new Duration() {Value = 45},
                 Office = new Office {Adress = "461 avenue de Verdun Mérignac 33700"},
-                Begin = DateTime.Now.AddDays(1)
+                BeginTime = DateTime.Now.AddDays(1)
             };
 
             Date dateAfterInterval = new Date()
@@ -197,17 +197,17 @@ namespace OsteoYoga.Tests.DAO
                 Patient = new Patient() {FullName = "fullName", Mail = "padbox@gmail.com"},
                 Duration = new Duration() {Value = 45},
                 Office = new Office {Adress = "461 avenue de Verdun Mérignac 33700"},
-                Begin = DateTime.Now.AddDays(15)
+                BeginTime = DateTime.Now.AddDays(15)
             };
 
-            Event entityIntoInterval1 = googleRepository.Save(dateIntoInterval1, Summary, Description,pratictionerPreference);
-            Event entityIntoInterval2 = googleRepository.Save(dateIntoInterval2, Summary, Description,pratictionerPreference);
-            Event entityBeforeInterval = googleRepository.Save(dateBeforeInterval, Summary, Description,pratictionerPreference);
-            Event entityAfterInterval = googleRepository.Save(dateAfterInterval, Summary, Description,pratictionerPreference);
+            Event entityIntoInterval1 = googleRepository.Save(dateIntoInterval1, Summary, Description,pratictionerOffice);
+            Event entityIntoInterval2 = googleRepository.Save(dateIntoInterval2, Summary, Description,pratictionerOffice);
+            Event entityBeforeInterval = googleRepository.Save(dateBeforeInterval, Summary, Description,pratictionerOffice);
+            Event entityAfterInterval = googleRepository.Save(dateAfterInterval, Summary, Description,pratictionerOffice);
 
             //act
 
-            IList<Event> events = googleRepository.GetAllForPractionerInterval(pratictionerPreference);
+            IList<Event> events = googleRepository.GetAllForPractionerInterval(pratictionerOffice);
 
             //assert
             CollectionAssert.Contains(events.Select( e => e.Id).ToList(), entityIntoInterval1.Id);

@@ -10,7 +10,8 @@ namespace OsteoYoga.Tests.DAO
     [TestClass]
     public class RepositoryHaveTo : BaseTestsNHibernate
     {
-        IRepository<Profile> repository = new NHibernateRepository<Profile>();
+        IRepository<Contact> contactRepository = new NHibernateRepository<Contact>();
+        IRepository<Profile> profileRepository = new NHibernateRepository<Profile>();
         IRepository<Office> officeRepository = new NHibernateRepository<Office>();
 
         [TestInitialize]
@@ -22,16 +23,17 @@ namespace OsteoYoga.Tests.DAO
         [TestCleanup]
         public override void CleanUp()
         {
-            repository.DeleteAll();
+            contactRepository.DeleteAll();
+            profileRepository.DeleteAll();
             officeRepository.DeleteAll();
         }
 
         [TestMethod]
         public void Save()
         {
-            Profile entity = new Profile();
+            Contact entity = new Patient();
 
-            repository.Save(entity);
+            contactRepository.Save(entity);
 
             Assert.IsNotNull(entity.Id);
         }
@@ -39,24 +41,24 @@ namespace OsteoYoga.Tests.DAO
         [TestMethod]
         public void Update()
         {
-            Profile entity = new Profile();
+            Contact entity = new Patient();
 
-            repository.Save(entity);
+            contactRepository.Save(entity);
 
-            entity.Name = "NouveauNom";
+            entity.FullName = "NouveauNom";
 
-            repository.Save(entity);
+            contactRepository.Save(entity);
 
-            Assert.AreEqual("NouveauNom", entity.Name);
+            Assert.AreEqual("NouveauNom", entity.FullName);
         }
 
         [TestMethod]
         public void GetById()
         {
-            Profile expectedEntity = new Profile();
-            repository.Save(expectedEntity);
+            Contact expectedEntity = new Pratictioner();
+            contactRepository.Save(expectedEntity);
 
-            Entity resultEntity = repository.GetById(expectedEntity.Id);
+            Entity resultEntity = contactRepository.GetById(expectedEntity.Id);
 
             Assert.AreEqual(expectedEntity, resultEntity);
         }
@@ -82,11 +84,11 @@ namespace OsteoYoga.Tests.DAO
         {
 
             Profile expectedEntity1 = new Profile();
-            repository.Save(expectedEntity1);
+            profileRepository.Save(expectedEntity1);
 
-            repository.Delete(expectedEntity1);
+            profileRepository.Delete(expectedEntity1);
 
-            IList<Entity> resultEntities = repository.GetAll().ToList<Entity>();
+            IList<Entity> resultEntities = contactRepository.GetAll().ToList<Entity>();
             Assert.AreEqual(0, resultEntities.Count);
         }
 
@@ -96,12 +98,12 @@ namespace OsteoYoga.Tests.DAO
 
             Profile expectedEntity1 = new Profile();
             Profile expectedEntity2 = new Profile();
-            repository.Save(expectedEntity1);
-            repository.Save(expectedEntity2);
-            
-            repository.DeleteAll();
+            profileRepository.Save(expectedEntity1);
+            profileRepository.Save(expectedEntity2);
 
-            IList<Entity> resultEntities = repository.GetAll().ToList<Entity>();
+            profileRepository.DeleteAll();
+
+            IList<Entity> resultEntities = profileRepository.GetAll().ToList<Entity>();
             Assert.AreEqual(0, resultEntities.Count);
         }
     }

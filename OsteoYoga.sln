@@ -29,6 +29,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsteoYoga.Site", "OsteoYoga
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsteoYoga.Tests.Helper", "OsteoYoga.Tests.Helper\OsteoYoga.Tests.Helper.csproj", "{DBD53B0C-4251-47F1-AA52-0457D192AFF9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Scripts_Database", "_Scripts_Database", "{074BB1EC-26A8-4144-A919-397289C57F24}"
+	ProjectSection(SolutionItems) = preProject
+		Initialize.sql = Initialize.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Bureau|Any CPU = Bureau|Any CPU

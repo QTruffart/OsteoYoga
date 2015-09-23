@@ -6,9 +6,11 @@ namespace OsteoYoga.Domain.Models.Mapping
     {
         public PratictionerMap()
         {
-            HasMany(x => x.OfficePreferences).Cascade.SaveUpdate();
-            Abstract();
-            Table("Pratictioner");
+            DiscriminatorValue(@"Pratictioner");
+            //HasMany(x => x.OfficePreferences).Cascade.SaveUpdate();
+            //HasManyToMany(x => x.Offices)
+            //   .Cascade.All()
+            //   .Table("PratictionerOffice");
         }
     }
 }

@@ -15,7 +15,7 @@ namespace OsteoYoga.Tests.Helper
         [TestMethod]
         public void Return_Empty_List_If_There_Are_No_Free_Slot_Between_Two_Dates()
         {
-            PratictionerPreference preference = new PratictionerPreference()
+            PratictionerOffice office = new PratictionerOffice()
             {
                 DateWaiting = 5,
                 MinInterval = 1,

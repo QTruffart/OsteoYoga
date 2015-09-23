@@ -7,7 +7,6 @@ namespace OsteoYoga.Domain.Models.Mapping
        //Constructor
         public ContactMap()
         {
-            UseUnionSubclassForInheritanceMapping();
 
             Id(x => x.Id)
                 .Column("Id")
@@ -16,7 +15,9 @@ namespace OsteoYoga.Domain.Models.Mapping
                 .CustomSqlType("int")
                 .Not.Nullable()
                 .Precision(10)
-                .GeneratedBy.Assigned();
+                .GeneratedBy.Identity();
+
+            DiscriminateSubClassesOnColumn("ClassType").Not.Nullable();
 
             Map(x => x.FullName);
             Map(x => x.Mail);
@@ -26,7 +27,7 @@ namespace OsteoYoga.Domain.Models.Mapping
 
             HasManyToMany(x => x.Profiles).Cascade.All().Table("ContactProfile");
 
-            Table("Patient");
+            Table("Contact");
         }
     }
 }

@@ -14,7 +14,11 @@ namespace OsteoYoga.Tests.Domain.Model
         [TestMethod]
         public void InitializeCorrectlyInitialize()
         {
-            IList<PratictionerPreference> pratictionerPreference = new List<PratictionerPreference>();
+            
+            IList<PratictionerOffice> pratictionerPreference = new List<PratictionerOffice>()
+            {
+                new PratictionerOffice() { Pratictioner = new Pratictioner()}
+            };
             Office office = new Office
             {
                 Name = Name,

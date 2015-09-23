@@ -20,7 +20,7 @@ namespace OsteoYoga.Tests.Domain.Model
             IList<WorkTimeSlot> timeSlots = new List<WorkTimeSlot>();
 
 
-            PratictionerPreference pratictionerPreference = new PratictionerPreference()
+            PratictionerOffice pratictionerOffice = new PratictionerOffice()
             {
                 Pratictioner = practitioner,
                 Office = office,
@@ -32,11 +32,11 @@ namespace OsteoYoga.Tests.Domain.Model
                 MaxInterval = 45,
             };
 
-            Assert.AreEqual(practitioner, pratictionerPreference.Pratictioner);
-            Assert.AreEqual(30, pratictionerPreference.Reminder);
-            Assert.AreEqual(50, pratictionerPreference.DateWaiting);
-            Assert.AreEqual(3,  pratictionerPreference.MinInterval);
-            Assert.AreEqual(45, pratictionerPreference.MaxInterval);
+            Assert.AreEqual(practitioner, pratictionerOffice.Pratictioner);
+            Assert.AreEqual(30, pratictionerOffice.Reminder);
+            Assert.AreEqual(50, pratictionerOffice.DateWaiting);
+            Assert.AreEqual(3,  pratictionerOffice.MinInterval);
+            Assert.AreEqual(45, pratictionerOffice.MaxInterval);
         }
 
         [TestMethod]
@@ -46,12 +46,12 @@ namespace OsteoYoga.Tests.Domain.Model
             now = now.AddDays(3);
 
             //act
-            PratictionerPreference pratictionerPreference = new PratictionerPreference(){ 
+            PratictionerOffice pratictionerOffice = new PratictionerOffice(){ 
                 MinInterval = 3,
             };
             
             //assert
-            Assert.AreEqual(now.ToString("d"), pratictionerPreference.MinDateInterval.ToString("d"));
+            Assert.AreEqual(now.ToString("d"), pratictionerOffice.MinDateInterval.ToString("d"));
         }
 
         [TestMethod]
@@ -61,12 +61,12 @@ namespace OsteoYoga.Tests.Domain.Model
             now = now.AddDays(15);
 
             //act
-            PratictionerPreference pratictionerPreference = new PratictionerPreference(){ 
+            PratictionerOffice pratictionerOffice = new PratictionerOffice(){ 
                 MaxInterval = 15,
             };
             
             //assert
-            Assert.AreEqual(now.ToString("d"), pratictionerPreference.MaxDateInterval.ToString("d"));
+            Assert.AreEqual(now.ToString("d"), pratictionerOffice.MaxDateInterval.ToString("d"));
         }
 
     }

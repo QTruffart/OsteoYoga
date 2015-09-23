@@ -1,10 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Conventions.Helpers;
 using NHibernate;
-using NHibernate.Cfg;
-using NHibernate.Tool.hbm2ddl;
 using OsteoYoga.Domain.Models.Interface;
 using OsteoYoga.Repository.DAO.Interfaces;
 
@@ -12,34 +8,7 @@ namespace OsteoYoga.Repository.DAO.Abstracts
 {
     public class NHibernateRepository<T> : IRepository<T> where T : class, IEntity
     { 
-        private static ISessionFactory SessionFactory { get; set; }
-        private ISession session;
-
-        //TODO A mettre dans un Singleton
-        public ISession Session
-        {
-            get{
-                if (session == null)
-                {
-                    Configuration config = new Configuration().Configure();
-                    //setup the fluent map configuration
-                    SessionFactory = Fluently.Configure(config)
-                        .Mappings(m => m.FluentMappings.Conventions.Add(DefaultLazy.Always()).AddFromAssemblyOf<T>())
-                        .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(true, true))
-                        .BuildSessionFactory();
-
-                    session = SessionFactory.OpenSession();
-                }
-                return session;
-            }
-            set
-            {
-                if (session == null)
-                {
-                    session = value;
-                }
-            }
-        }
+        protected static ISession Session => NHibernateSession.Session;
 
         public virtual void Save(T toAdd)
         {
@@ -54,7 +23,7 @@ namespace OsteoYoga.Repository.DAO.Abstracts
         {
             using (ITransaction transaction = Session.BeginTransaction())
             {
-                session.Delete(toDelete);
+                Session.Delete(toDelete);
                 transaction.Commit();
             }
         }
@@ -74,7 +43,7 @@ namespace OsteoYoga.Repository.DAO.Abstracts
         {
             foreach (T entity in GetAll())
             {
-                session.Delete(entity);
+                Session.Delete(entity);
             }
             Session.Flush();
         }

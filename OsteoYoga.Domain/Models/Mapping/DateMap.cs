@@ -15,7 +15,7 @@ namespace OsteoYoga.Domain.Models.Mapping
             References(x => x.Pratictioner);
             References(x => x.Patient);
 
-            Map(x => x.Begin);
+            Map(x => x.BeginTime);
             
             Table("Date");
         }

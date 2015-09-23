@@ -14,16 +14,16 @@ namespace OsteoYoga.Tests.Domain.Model
 
             DateTime begin = new DateTime();
             DateTime end = new DateTime();
-            PratictionerPreference preference = new PratictionerPreference();
+            PratictionerOffice office = new PratictionerOffice();
             WorkTimeSlot workTimeSlot = new WorkTimeSlot()
                                     {
                                         BeginTime = begin,
                                         EndTime = end,
-                                        //PratictionerPreference = preference
+                                        //PratictionerOffice = office
                                     };
             Assert.AreEqual(begin, workTimeSlot.BeginTime);
             Assert.AreEqual(end, workTimeSlot.EndTime);
-            //Assert.AreEqual(preference, WorkTimeSlot.PratictionerPreference);
+            //Assert.AreEqual(office, WorkTimeSlot.PratictionerOffice);
         }
     }
 }

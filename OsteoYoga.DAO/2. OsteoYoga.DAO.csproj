@@ -142,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstracts\GoogleRepository.cs" />
+    <Compile Include="Abstracts\NHibernateSession.cs" />
     <Compile Include="Implements\PatientRepository.cs" />
     <Compile Include="Interfaces\IProfileRepository.cs" />
     <Compile Include="Implements\DurationRepository.cs" />

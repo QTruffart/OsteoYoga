@@ -7,7 +7,7 @@ namespace OsteoYoga.Helper.Helpers.Interfaces
 {
     public interface IFreeSlotHelper
     {
-        IList<FreeSlot> CalculateFreeSlotBetweenTwoDays(IList<Event> events, PratictionerPreference preference );
+        IList<FreeSlot> CalculateFreeSlotBetweenTwoDays(IList<Event> events, PratictionerOffice office );
         IList<FreeSlot> CalculateFreeSlotOnADay(IList<Event> events, DateTime begin, DateTime end );
     }
 }

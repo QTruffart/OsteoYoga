@@ -30,7 +30,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         private readonly Mock<IGoogleRepository<Event>> googleRepositoryMock = new Mock<IGoogleRepository<Event>>();
         private readonly Mock<IFreeSlotHelper> freeSlotHelperMock = new Mock<IFreeSlotHelper>();
 
-        private readonly PratictionerPreference preference = new PratictionerPreference();
+        private readonly PratictionerOffice office = new PratictionerOffice();
         
         private readonly IList<Duration> durations = new List<Duration>();
         private readonly IList<Office> offices = new List<Office>();
@@ -77,31 +77,18 @@ namespace OsteoYoga.Tests.Display.Controllers
             //arrange
             durationRepositoryMock.Setup(drm => drm.GetAll()).Returns(durations);
             officeRepositoryMock.Setup(orm => orm.GetAll()).Returns(offices);
-            googleRepositoryMock.Setup(grm => grm.GetAllForPractionerInterval(It.IsAny<PratictionerPreference>())).Returns(events);
-            freeSlotHelperMock.Setup(fsm => fsm.CalculateFreeSlotBetweenTwoDays(events, It.IsAny<PratictionerPreference>())).Returns(freeSlots);
+            googleRepositoryMock.Setup(grm => grm.GetAllForPractionerInterval(It.IsAny<PratictionerOffice>())).Returns(events);
+            freeSlotHelperMock.Setup(fsm => fsm.CalculateFreeSlotBetweenTwoDays(events, It.IsAny<PratictionerOffice>())).Returns(freeSlots);
             
             //act
             PartialViewResult result = Controller.Index();
 
             //assert
             Assert.AreEqual(offices, ((DateViewResult)result.Model).Offices );
-            Assert.AreEqual(durations, ((DateViewResult)result.Model).Durations );
-            Assert.AreEqual(freeSlots, ((DateViewResult)result.Model).FreeSlots);
             Assert.AreEqual("Index", result.ViewName);
         }
 
 
-        //[TestMethod]
-        //public void GoToIndexPageWithOfficeListModel()
-        //{
-        //    List<Office> offices = new List<Office>();
-        //    officeRepositoryMock.Setup(o => o.GetAll()).Returns(offices);
-            
-        //    PartialViewResult viewResult = Controller.Index();
-            
-        //    Assert.AreEqual(offices, viewResult.Model);
-        //    Assert.AreEqual(IndexPath, viewResult.ViewName);
-        //}
 
         [TestMethod]
         public void Propose_Durations_With_Office()

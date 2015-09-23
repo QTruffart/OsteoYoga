@@ -10,7 +10,10 @@ namespace OsteoYoga.Domain.Models.Mapping
             Map(x => x.Name);
             Map(x => x.Adress);
             
-            HasMany(x => x.PratictionerPreference).Cascade.SaveUpdate();
+            //HasMany(x => x.PratictionerPreference);
+            HasManyToMany(x => x.Pratictioners)
+               .Cascade.All()
+               .Table("PratictionerOffice");
 
             Table("Office");
         }

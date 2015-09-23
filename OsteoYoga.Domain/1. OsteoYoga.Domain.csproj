@@ -68,7 +68,7 @@
     <Compile Include="Models\Mapping\OfficeMap.cs" />
     <Compile Include="Models\Mapping\PatientMap.cs" />
     <Compile Include="Models\Mapping\PractitionerMap.cs" />
-    <Compile Include="Models\Mapping\PratictionerPreferenceMap.cs" />
+    <Compile Include="Models\Mapping\PratictionerOfficeMap.cs" />
     <Compile Include="Models\Mapping\ProfileMap.cs" />
     <Compile Include="Models\Mapping\WorkTimeSlotMap.cs" />
     <Compile Include="Models\Patient.cs" />
@@ -76,7 +76,7 @@
     <Compile Include="Models\Duration.cs" />
     <Compile Include="Models\Interface\IEntityGoogle.cs" />
     <Compile Include="Models\Office.cs" />
-    <Compile Include="Models\PratictionerPreference.cs" />
+    <Compile Include="Models\PratictionerOffice.cs" />
     <Compile Include="Models\FreeSlot.cs" />
     <Compile Include="Models\Profile.cs" />
     <Compile Include="Models\Contact.cs" />

@@ -14,7 +14,7 @@ namespace OsteoYoga.Tests.DAO
     public class PratictionerRepositoryHaveTo : BaseTestsNHibernate
     {
 
-        private readonly PratictionerPreference pratictionerPreference = new PratictionerPreference()
+        private readonly PratictionerOffice pratictionerOffice = new PratictionerOffice()
         {
             Pratictioner = new Pratictioner(),
             Office = new Office(),
