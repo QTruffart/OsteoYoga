@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -8,7 +7,6 @@ using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper.Helpers.Implements;
 using OsteoYoga.Helper.Helpers.Interfaces;
 using OsteoYoga.Helper.Profile;
-using OsteoYoga.Repository.DAO;
 using OsteoYoga.Repository.DAO.Abstracts;
 using OsteoYoga.Repository.DAO.Implements;
 using OsteoYoga.Repository.DAO.Interfaces;
@@ -24,10 +22,12 @@ namespace OsteoYoga.Site.Controllers
         public IRepository<Duration> DurationRepository { get; set; }
         public IGoogleRepository<Event> GoogleRepository { get; set; }
         public IFreeSlotHelper FreeSlotHelper { get; set; }
+        public IPratictionerOfficeRepository PratictionerOfficeRepository { get; set; }
 
         public RendezVousController()
         {
             OfficeRepository = new OfficeRepository();
+            PratictionerOfficeRepository = new PratictionerOfficeRepository();
             DurationRepository = new DurationRepository();
             GoogleRepository = new GoogleRepository();
             FreeSlotHelper = new FreeSlotHelper();
@@ -48,6 +48,24 @@ namespace OsteoYoga.Site.Controllers
             };
 
             return PartialView("Index", model);
+        }
+
+        [PatientProfile]
+        public JsonResult Pratictioners(int officeId)
+        {
+            IList<Pratictioner> pratictioners = OfficeRepository.GetById(officeId).Pratictioners;
+            IList<DropDowJsonViewResult> result = pratictioners.Select(p => new DropDowJsonViewResult() {Id = p.Id, Name = p.FullName}).ToList();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [PatientProfile]
+        public JsonResult Durations(int officeId, int pratictionerId)
+        {
+            IList<Duration> durations = PratictionerOfficeRepository.GetByOfficeIdAndPratictionerId(officeId, pratictionerId).Durations;
+            IList<DropDowJsonViewResult> result = durations.Select(p => new DropDowJsonViewResult() { Id = p.Id, Name = p.Value.ToString() }).ToList();
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         //[HttpPost]
@@ -126,21 +144,5 @@ namespace OsteoYoga.Site.Controllers
         //    return PartialView("Validate");
         //}
 
-        public ActionResult Pratictioners(int officeId)
-        {
-            // TODO: Fetch the suburbs from your repository based on the cityId
-            IList<Pratictioner> pratictioners = new NHibernateRepository<Pratictioner>().GetAll();
-            return Json( pratictioners.Select(x => new {Id = x.Id, Name = x.FullName}), JsonRequestBehavior.AllowGet );
-
-                
-
-            return Json(pratictioners, JsonRequestBehavior.AllowGet);
-        }
-
-        public ActionResult Durations()
-        {
-            var suburbs = new NHibernateRepository<Duration>().GetAll();
-            return Json(suburbs, JsonRequestBehavior.AllowGet);
-        }
     }
 }

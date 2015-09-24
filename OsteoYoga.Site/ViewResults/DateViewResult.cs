@@ -9,6 +9,7 @@ namespace OsteoYoga.Site.ViewResults
 
         public string SelectedOfficeId { get; set; }
         public string SelectedPratictionerId { get; set; }
+        public string SelectedDurationId { get; set; }
         //public string SelectedSuburbId { get; set; }
         //public IEnumerable<Province> Provinces { get; set; }
 

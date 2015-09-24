@@ -143,6 +143,7 @@
   <ItemGroup>
     <Compile Include="BaseTestsNHibernate.cs" />
     <Compile Include="PatientRepositoryHaveTo.cs" />
+    <Compile Include="PratictionerOfficeRepositoryHaveTo.cs" />
     <Compile Include="ProfileRepositoryHaveTo.cs" />
     <Compile Include="PratictionerRepositoryHaveTo.cs" />
     <Compile Include="GoogleRepositoryHaveTo.cs" />

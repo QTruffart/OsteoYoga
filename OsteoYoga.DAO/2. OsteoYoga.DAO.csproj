@@ -144,6 +144,8 @@
     <Compile Include="Abstracts\GoogleRepository.cs" />
     <Compile Include="Abstracts\NHibernateSession.cs" />
     <Compile Include="Implements\PatientRepository.cs" />
+    <Compile Include="Implements\PratictionerOfficeRepository.cs" />
+    <Compile Include="Interfaces\IPratictionerOfficeRepository.cs" />
     <Compile Include="Interfaces\IProfileRepository.cs" />
     <Compile Include="Implements\DurationRepository.cs" />
     <Compile Include="Implements\ProfileRepository.cs" />
