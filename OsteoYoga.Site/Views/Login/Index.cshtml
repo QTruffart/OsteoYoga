@@ -91,33 +91,39 @@
     }
 </script>
 
-<div role="main" id="mainContent" class="span5 content">
-    @using (Html.BeginForm("Login", "Login", FormMethod.Post))
-    {
-        <div id="Errors" class="error">@ViewBag.Errors</div>
-        <div>
-            <fieldset>
-                <legend><h1>@LoginResource.Connection</h1></legend>
-                <div><input type="text" name="email" id="email" /></div>
-                <div><input class="btn btn-primary" type="submit" value="@LoginResource.ConnectMySelf" /></div>
-            </fieldset>
-            <span>@LoginResource.IfNoAccountSignIn @Html.ActionLink(LoginResource.CreateAccount, "SignIn", "Login")</span>
-        </div>
-    }
-</div>
-<div class="span6 content">
-    <fieldset>
-        <legend><h1>@LoginResource.ConnectionFacebook</h1></legend>
-        <fb:login-button scope="public_profile,email" onlogin="CheckLoginFacebook();" data-size="large">
-        </fb:login-button>
-        <legend><h1>@LoginResource.ConnectionGoogle</h1></legend>
-        <span id="signinButton">
-            <span class="g-signin"
-                  data-callback="signinCallback"
-                  data-clientid="237939290637-7d89hn7672rvu32gcs6n6ail1sn5bees.apps.googleusercontent.com"
-                  data-clientsecret="2QWm3dzRA28eLKtKJvPvRJNN"
-                  data-cookiepolicy="single_host_origin"
-                  data-scope="https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"></span>
-        </span>
-    </fieldset>
+<div role="main" class="span11">
+    <div id="mainContent" class="span5 content">
+        @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+        {
+            <div id="Errors" class="error">@ViewBag.Errors</div>
+            <div>
+                <fieldset>
+                    <legend><h1>@LoginResource.Connection</h1></legend>
+                    <div><input type="text" name="email" id="email" /></div>
+                    <div><input class="btn btn-primary" type="submit" value="@LoginResource.ConnectMySelf" /></div>
+                </fieldset>
+                <span>@LoginResource.IfNoAccountSignIn @Html.ActionLink(LoginResource.CreateAccount, "SignIn", "Login")</span>
+            </div>
+        }
+    </div>
+    <div class="span6 content">
+        <fieldset>
+            <legend>
+                <h1>@LoginResource.ConnectionFacebook</h1>
+            </legend>
+            <fb:login-button scope="public_profile,email" onlogin="CheckLoginFacebook();" data-size="large">
+            </fb:login-button>
+            <legend>
+                <h1>@LoginResource.ConnectionGoogle</h1>
+            </legend>
+            <span id="signinButton">
+                <span class="g-signin"
+                      data-callback="signinCallback"
+                      data-clientid="237939290637-7d89hn7672rvu32gcs6n6ail1sn5bees.apps.googleusercontent.com"
+                      data-clientsecret="2QWm3dzRA28eLKtKJvPvRJNN"
+                      data-cookiepolicy="single_host_origin"
+                      data-scope="https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email"></span>
+            </span>
+        </fieldset>
+    </div>
 </div>

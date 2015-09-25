@@ -37,20 +37,19 @@
 </script>*@
 
 <script type="text/javascript">
-    (function ($) {
+    @*(function ($) {
         $.fn.cascade = function (options) {
             var defaults = {};
+            console.log(options);
             var opts = $.extend(defaults, options);
-
             return this.each(function () {
                 $(this).change(function () {
                     var params = {};
                     console.log(opts.parametres);
                     opts.parametres.split(";").forEach(function(element, index, array) {
                         params[element.split("=")[0]] = element.split("=")[1];
-
                     });
-
+                    alert(opts.parametres);
                     $.getJSON(opts.url, params, function (items) {
                         opts.childSelect.empty();
                         var count = 0;
@@ -70,7 +69,6 @@
     })(jQuery);
 
     $(function () {
-        console.log($("#SelectedOfficeId option:selected"));
         $('#SelectedOfficeId').cascade({
             url: '@Url.Action("Pratictioners")',
             parametres: 'officeId=' + $("#SelectedOfficeId option:selected").val(),
@@ -85,9 +83,38 @@
     });
     $(document).ready(function () {
         $('#SelectedOfficeId').change();
+    });*@
+
+    $(function () {
+        $('#SelectedOfficeId').change(function () {
+            var selectedOfficeId = $(this).val();
+            $.getJSON('@Url.Action("Pratictioners")', { officeId: selectedOfficeId }, function (practioners) {
+                var practionersSelect = $('#SelectedPratictionerId');
+                practionersSelect.empty();
+                $.each(practioners, function (index, pratictioner) {
+                    practionersSelect.append($('<option/>').attr('value', pratictioner.Id).text(pratictioner.Name));
+                    $('#SelectedPratictionerId').change();
+                });
+            });
+        });
+
+        $('#SelectedPratictionerId').change(function () {
+            var selectedOfficeId = $("#SelectedOfficeId option:selected").val();
+            var selectedPratictionerId = $(this).val();
+            $.getJSON('@Url.Action("Durations")', { officeId: selectedOfficeId, pratictionerId: selectedPratictionerId }, function (durations) {
+                var durationsSelect = $('#SelectedDurationId');
+                durationsSelect.empty();
+                $.each(durations, function (index, duration) {
+                    durationsSelect.append($('<option/>').attr('value', duration.Id).text(duration.Name));
+                    $('#SelectedDurationId').change();
+                });
+            });
+        });
     });
 
-    //$(document).ready(function() {
+    $(document).ready(function () {
+        $('#SelectedOfficeId').change();
+    });
     //    $('#offices').change(function() {
     //        SetFormValues();
     //    });
@@ -97,7 +124,7 @@
     //    $("#DatesPicker").datepicker({
     //        minDates: +3,
     //        beforeShowDay: disableSpecificDates,
-            
+
     //        dateFormat: 'dd/mm/yy',
     //        onSelect: function (date) {
     //            $("#timeSlotSelection").show();
@@ -167,55 +194,28 @@
 
 
 </script>
-<div role="main" id="mainContent">
+<div role="main" id="mainContent" class="span11">
     <fieldset>
         <legend><h1>@DateResource.DateQuery</h1></legend>
         <label class="error" id="erreurs">@ViewBag.ResultMessage</label>
-        <table>
-            <tr>
-                <th>
-                    <h2>@DateResource.OfficeList</h2>
-                </th>
-                <th>
-                    <h2>Ostéopathe</h2>
-                </th>
-            </tr>
-            <tr>
-                <td>
-                    <select id="SelectedOfficeId">
-                        @foreach (Office office in Model.Offices)
-                        {
-                            <option value="@office.Id">@office.Name</option>
-                        }
-                    </select>
-                    @*@Html.DropDownListFor(x => x.SelectedOfficeId, new SelectList(Model.Offices, "Id", "Name"))*@
-                </td>
-                <td>
-                    @Html.DropDownListFor(x => x.SelectedPratictionerId, Enumerable.Empty<SelectListItem>())
-                </td>
-                <td>
-                    @Html.DropDownListFor(x => x.SelectedDurationId, Enumerable.Empty<SelectListItem>())
-                </td>
-                @*<td>
-                    <select name="durations" id="durations">
-                        @foreach (var item in Model.Durations)
-                        {
-                            <option value="@item.Id">@item.Value</option>
-                        }
-                    </select>
-                </td>*@
 
+        <div class="span4">
+            <h2>@DateResource.OfficeList</h2>
+            @Html.DropDownListFor(x => x.SelectedOfficeId, new SelectList(Model.Offices, "Id", "Name"))
+        </div>
+        <div class="span4">
+            <h2>Ostéopathe</h2>
+            @Html.DropDownListFor(x => x.SelectedPratictionerId, Enumerable.Empty<SelectListItem>())
+        </div>
+        <div class="span3">
+            <h2>Durée</h2>
+            @Html.DropDownListFor(x => x.SelectedDurationId, Enumerable.Empty<SelectListItem>(), new { @class = "" } )
+        </div>
+        <div class="span11">
+            <h2>@DateResource.DateSelection</h2>
+        </div>
 
-            </tr>
-            <tr>
-                <th><h2>@DateResource.DateSelection</h2></th>
-            </tr>
-            <tr>
-                <td style="width:25%; vertical-align:top; background-color: transparent;">
-                    <div align="center" id="DatesPicker" />
-                </td>
-            </tr>
-        </table>
+        @*<div align="center" id="DatesPicker" />*@
 
         @*@using (Html.BeginForm("ProposeDate", "RendezVous", FormMethod.Post))
         {
