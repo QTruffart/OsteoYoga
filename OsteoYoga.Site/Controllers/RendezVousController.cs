@@ -21,7 +21,7 @@ namespace OsteoYoga.Site.Controllers
         public IOfficeRepository OfficeRepository { get; set; }
         public IRepository<Duration> DurationRepository { get; set; }
         public IGoogleRepository<Event> GoogleRepository { get; set; }
-        public IFreeSlotHelper FreeSlotHelper { get; set; }
+        public IDaySlotHelper DaySlotHelper { get; set; }
         public IPratictionerOfficeRepository PratictionerOfficeRepository { get; set; }
 
         public RendezVousController()
@@ -30,7 +30,7 @@ namespace OsteoYoga.Site.Controllers
             PratictionerOfficeRepository = new PratictionerOfficeRepository();
             DurationRepository = new DurationRepository();
             GoogleRepository = new GoogleRepository();
-            FreeSlotHelper = new FreeSlotHelper();
+            DaySlotHelper = new DaySlotHelper();
         }
 
         [HttpGet]
@@ -38,10 +38,6 @@ namespace OsteoYoga.Site.Controllers
         [ExceptionHandler(ExceptionType = typeof(Exception), View = "RendezVous")]
         public PartialViewResult Index()
         {
-            ////TODO : A gérer en base avec praticien courant
-
-            //IList<Event> events = GoogleRepository.GetAllForPractionerInterval(office);
-
             DateViewResult model = new DateViewResult()
             {
                 Offices = OfficeRepository.GetAll()
@@ -51,6 +47,7 @@ namespace OsteoYoga.Site.Controllers
         }
 
         [PatientProfile]
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "Pratictioners")]
         public JsonResult Pratictioners(int officeId)
         {
             IList<Pratictioner> pratictioners = OfficeRepository.GetById(officeId).Pratictioners;
@@ -60,11 +57,25 @@ namespace OsteoYoga.Site.Controllers
         }
 
         [PatientProfile]
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "Durations")]
         public JsonResult Durations(int officeId, int pratictionerId)
         {
             IList<Duration> durations = PratictionerOfficeRepository.GetByOfficeIdAndPratictionerId(officeId, pratictionerId).Durations;
             IList<DropDowJsonViewResult> result = durations.Select(p => new DropDowJsonViewResult() { Id = p.Id, Name = p.Value.ToString() }).ToList();
 
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        [PatientProfile]
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "FreeDays")]
+        public JsonResult FreeDays(int officeId, int pratictionerId, int durationId)
+        {
+            PratictionerOffice pratictionerOffice = PratictionerOfficeRepository.GetByOfficeIdAndPratictionerId(officeId, pratictionerId);
+            Duration duration = pratictionerOffice.Durations.FirstOrDefault(d => d.Id == durationId);
+
+            IList<DateTime> freeDays = DaySlotHelper.CalculateFreeDays(pratictionerOffice, duration);
+
+            IList<FreeDayJsonViewResult> result = freeDays.Select(d => new FreeDayJsonViewResult {FreeDay = d}).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -143,6 +154,7 @@ namespace OsteoYoga.Site.Controllers
         //    //Email.GetInstance().SendForAdminValidation(date);
         //    return PartialView("Validate");
         //}
+
 
     }
 }

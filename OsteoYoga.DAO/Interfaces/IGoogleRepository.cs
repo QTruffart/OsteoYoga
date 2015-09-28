@@ -5,7 +5,7 @@ using OsteoYoga.Domain.Models;
 
 namespace OsteoYoga.Repository.DAO.Interfaces
 {
-    public interface IGoogleRepository<T>
+    public interface IGoogleRepository<T> where T : Event
     {
         Event Save(Date date, string summary, string description, PratictionerOffice office);
         Event Update(string eventId, Date date, string summary, string description, PratictionerOffice office);

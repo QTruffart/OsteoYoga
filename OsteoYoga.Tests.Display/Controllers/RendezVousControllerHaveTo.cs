@@ -23,23 +23,14 @@ namespace OsteoYoga.Tests.Display.Controllers
     [TestClass]
     public class RendezVousControllerHaveTo
     {
-        readonly JavaScriptSerializer js = new JavaScriptSerializer();
-
         private const string ServerAddress = "http://osteoyoga.fr";
         private readonly Patient patient = new Patient();
         private readonly Mock<SessionHelper> sessionHelperMock = new Mock<SessionHelper>();
         private readonly Mock<IOfficeRepository> officeRepositoryMock = new Mock<IOfficeRepository>();
         private readonly Mock<IPratictionerOfficeRepository> pratictionerOfficeRepositoryMock = new Mock<IPratictionerOfficeRepository>();
-        private readonly Mock<DurationRepository> durationRepositoryMock = new Mock<DurationRepository>();
-        private readonly Mock<IGoogleRepository<Event>> googleRepositoryMock = new Mock<IGoogleRepository<Event>>();
-        private readonly Mock<IFreeSlotHelper> freeSlotHelperMock = new Mock<IFreeSlotHelper>();
+        private readonly Mock<IDaySlotHelper> freeSlotHelperMock = new Mock<IDaySlotHelper>();
 
-        private readonly PratictionerOffice pratictionerOffice = new PratictionerOffice();
-        
-        private readonly IList<Duration> durations = new List<Duration>();
         private readonly IList<Office> offices = new List<Office>();
-        private readonly IList<Event> events = new List<Event>();
-        private readonly IList<FreeSlot> freeSlots = new List<FreeSlot>();
 
         private readonly Mock<Email> emailMock = new Mock<Email>();
         private readonly Mock<Constants> constantsMock = new Mock<Constants>();
@@ -51,10 +42,10 @@ namespace OsteoYoga.Tests.Display.Controllers
             Controller = new RendezVousController
             {
                 OfficeRepository = officeRepositoryMock.Object,
-                PratictionerOfficeRepository = pratictionerOfficeRepositoryMock.Object
+                PratictionerOfficeRepository = pratictionerOfficeRepositoryMock.Object,
+                DaySlotHelper = freeSlotHelperMock.Object
                 //GoogleRepository = googleRepositoryMock.Object,
                 //DurationRepository = durationRepositoryMock.Object,
-                //FreeSlotHelper = freeSlotHelperMock.Object
             };
             SessionHelper.Instance = sessionHelperMock.Object;
             sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(patient);
@@ -73,7 +64,7 @@ namespace OsteoYoga.Tests.Display.Controllers
             Assert.IsInstanceOfType(controller.OfficeRepository, typeof(OfficeRepository));
             Assert.IsInstanceOfType(controller.PratictionerOfficeRepository, typeof(PratictionerOfficeRepository));
             Assert.IsInstanceOfType(controller.GoogleRepository, typeof(GoogleRepository));
-            Assert.IsInstanceOfType(controller.FreeSlotHelper, typeof(FreeSlotHelper));
+            Assert.IsInstanceOfType(controller.DaySlotHelper, typeof(DaySlotHelper));
 
         }
 
@@ -155,6 +146,39 @@ namespace OsteoYoga.Tests.Display.Controllers
             Assert.AreEqual("30", data[0].Name);
             Assert.AreEqual(4, data[1].Id);
             Assert.AreEqual("45", data[1].Name);
+        }
+
+        [TestMethod]
+        public void Return_Free_Days_By_Office_And_Pratictioner_And_Duration_Id()
+        {
+            //arrange
+            const int officeId = 1;
+            const int pratictionerId = 2;
+            const int durationId = 3;
+            DateTime day1 = new DateTime();
+            DateTime day2 = new DateTime();
+            Office expectedOffice = new Office() { Id = officeId };
+            Pratictioner expectedPratictioner = new Pratictioner() { Id = pratictionerId };
+            Duration expectedDuration = new Duration() { Id = durationId, Value = 45};
+
+            PratictionerOffice pratictionerOffices = new PratictionerOffice()
+            {
+                Office = expectedOffice,
+                Pratictioner = expectedPratictioner,
+                Durations = new List<Duration>() { expectedDuration }
+            };
+
+            pratictionerOfficeRepositoryMock.Setup(r => r.GetByOfficeIdAndPratictionerId(officeId, pratictionerId)).Returns(pratictionerOffices);
+            freeSlotHelperMock.Setup(r => r.CalculateFreeDays(pratictionerOffices, expectedDuration)).Returns(new List<DateTime>() {day1,day2});
+
+            //act
+            JsonResult result = Controller.FreeDays(officeId, pratictionerId, durationId);
+
+            //assert     
+            IList<FreeDayJsonViewResult> data = (IList<FreeDayJsonViewResult>)result.Data;
+            Assert.AreEqual(2, data.Count);
+            Assert.AreEqual(day1, data[0].FreeDay);
+            Assert.AreEqual(day2, data[1].FreeDay);
         }
     }
 }

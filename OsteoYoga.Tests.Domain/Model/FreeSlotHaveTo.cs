@@ -13,18 +13,15 @@ namespace OsteoYoga.Tests.Domain.Model
         {
             DateTime expectedBegin = new DateTime();
             DateTime expectedEnd = new DateTime();
-            PratictionerOffice office = new PratictionerOffice();
 
             FreeSlot freeSlot = new FreeSlot()
                                     {
                                         Begin = expectedBegin,
-                                        End = expectedEnd,
-                                        Office = office
+                                        End = expectedEnd
                                     };
 
             Assert.AreEqual(expectedBegin, freeSlot.Begin);
             Assert.AreEqual(expectedEnd, freeSlot.End);
-            Assert.AreEqual(office, freeSlot.Office);
             Assert.AreEqual(freeSlot.Duration, (freeSlot.End - freeSlot.Begin).TotalMinutes);
         }
     }

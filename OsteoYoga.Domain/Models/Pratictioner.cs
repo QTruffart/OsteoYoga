@@ -6,5 +6,6 @@ namespace OsteoYoga.Domain.Models
     {
         //public virtual IList<Office> Offices { get; set; }
         //public virtual IList<PratictionerOffice> OfficePreferences { get; set; }
+        public virtual string Profession { get; set; }
     }
 }
