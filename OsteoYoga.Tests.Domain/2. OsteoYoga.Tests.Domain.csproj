@@ -105,9 +105,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\DefaultWorkDayPOHaveTo.cs" />
+    <Compile Include="Model\DefaultWorkDayHaveTo.cs" />
     <Compile Include="Model\PatientHaveTo.cs" />
     <Compile Include="Model\PractitionerHaveTo.cs" />
-    <Compile Include="Model\PratictionerPreferenceHaveTo.cs" />
+    <Compile Include="Model\PratictionerOfficeHaveTo.cs" />
     <Compile Include="Model\DateHaveTo.cs" />
     <Compile Include="Model\DurationHaveTo.cs" />
     <Compile Include="Model\FreeSlotHaveTo.cs" />

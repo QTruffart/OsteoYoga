@@ -62,9 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Date.cs" />
+    <Compile Include="Models\DefaultWorkDaysPO.cs" />
+    <Compile Include="Models\DefaultWorkDay.cs" />
     <Compile Include="Models\Mapping\ContactMap.cs" />
     <Compile Include="Models\Mapping\DateMap.cs" />
+    <Compile Include="Models\Mapping\DefaultWorkDaysPOMap.cs" />
     <Compile Include="Models\Mapping\DurationMap.cs" />
+    <Compile Include="Models\Mapping\DefaultWorkDayMap.cs" />
     <Compile Include="Models\Mapping\OfficeMap.cs" />
     <Compile Include="Models\Mapping\PatientMap.cs" />
     <Compile Include="Models\Mapping\PractitionerMap.cs" />

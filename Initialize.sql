@@ -6,6 +6,13 @@ declare @idOffice2 int
 declare @idpratictionerOffice1 int
 declare @idpratictionerOffice2 int
 
+declare @idLundi	int
+declare @idMardi	int
+declare @idMercredi int
+declare @idJeudi	int
+declare @idVendredi int
+declare @idSamedi	int
+
 INSERT INTO [dbo].[Contact]
            ([ClassType]
            ,[FullName]
@@ -87,7 +94,52 @@ set @idpratictionerOffice2 = (select SCOPE_IDENTITY())
 INSERT INTO [dbo].[Duration]
            ([Value], [PratictionerOffice_id])
      VALUES (45, @idpratictionerOffice2),		 
-			 (60, @idpratictionerOffice2)
+			(60, @idpratictionerOffice2)
+			
+INSERT INTO [dbo].[DefaultWorkDay] ([DayOfTheWeek])
+     VALUES ('Monday')
+set @idLundi = (select SCOPE_IDENTITY())
+	 
+INSERT INTO [dbo].[DefaultWorkDay] ([DayOfTheWeek])
+     VALUES ('Tuesday')
+set @idMardi = (select SCOPE_IDENTITY())
+
+INSERT INTO [dbo].[DefaultWorkDay] ([DayOfTheWeek])
+     VALUES ('Wednesday')
+set @idMercredi = (select SCOPE_IDENTITY())
+
+INSERT INTO [dbo].[DefaultWorkDay] ([DayOfTheWeek])
+     VALUES ('Thursday')
+set @idJeudi = (select SCOPE_IDENTITY())
+
+INSERT INTO [dbo].[DefaultWorkDay] ([DayOfTheWeek])
+     VALUES ('Friday')
+set @idVendredi = (select SCOPE_IDENTITY())
+
+INSERT INTO [dbo].[DefaultWorkDay] ([DayOfTheWeek])
+     VALUES ('Saturday')
+set @idSamedi = (select SCOPE_IDENTITY())
+
+INSERT INTO [dbo].[DefaultWorkDay] ([DayOfTheWeek])
+     VALUES ('Sunday')
+set @idLundi = (select SCOPE_IDENTITY())
 
 
+USE [OsteoYoga_tests]
+GO
+
+INSERT INTO [dbo].[DefaultWorkDaysPO]
+           (@idpratictionerOffice1
+           ,@idLundi           
+           ,'01/01/2001 08:30'
+           ,'01/01/2001 08:30'
+           ,[DefaultWorkDaysPO_id])
+     VALUES
+           (<PratictionerOffice_id, int,>
+           ,<DefaultWorkDay_id, int,>
+           ,<Id, int,>
+           ,<BeginTime, datetime,>
+           ,<EndTime, datetime,>
+           ,<DefaultWorkDaysPO_id, int,>)
+GO
 

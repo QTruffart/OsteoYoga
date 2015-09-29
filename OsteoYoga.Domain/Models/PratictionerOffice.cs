@@ -13,6 +13,7 @@ namespace OsteoYoga.Domain.Models
         public virtual int MaxInterval { get; set; }
         public virtual IList<Duration> Durations { get; set; }
         public virtual IList<WorkTimeSlot> TimeSlots { get; set; }
+        public virtual IList<DefaultWorkDaysPO> DefaultWorkDaysPO { get; set; }
 
 
         public virtual DateTime MinDateInterval
@@ -33,6 +34,5 @@ namespace OsteoYoga.Domain.Models
             } 
         }
 
-        
     }
 }

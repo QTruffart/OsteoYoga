@@ -6,7 +6,7 @@ using OsteoYoga.Domain.Models;
 namespace OsteoYoga.Tests.Domain.Model
 {
     [TestClass]
-    public class PratictionerPreferenceHaveTo
+    public class PratictionerOfficeHaveTo
     {
         DateTime now = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
@@ -18,6 +18,7 @@ namespace OsteoYoga.Tests.Domain.Model
             Office office = new Office();
             IList<Duration> durations = new List<Duration>();
             IList<WorkTimeSlot> timeSlots = new List<WorkTimeSlot>();
+            IList<DefaultWorkDaysPO> defaultWorkDays = new List<DefaultWorkDaysPO>();
 
 
             PratictionerOffice pratictionerOffice = new PratictionerOffice()
@@ -26,6 +27,7 @@ namespace OsteoYoga.Tests.Domain.Model
                 Office = office,
                 Durations = durations,
                 TimeSlots = timeSlots,
+                DefaultWorkDaysPO = defaultWorkDays,
                 Reminder = 30,
                 DateWaiting = 50,
                 MinInterval = 3,
@@ -33,6 +35,9 @@ namespace OsteoYoga.Tests.Domain.Model
             };
 
             Assert.AreEqual(practitioner, pratictionerOffice.Pratictioner);
+            Assert.AreEqual(office, pratictionerOffice.Office);
+            Assert.AreEqual(durations, pratictionerOffice.Durations);
+            Assert.AreEqual(defaultWorkDays, pratictionerOffice.DefaultWorkDaysPO);
             Assert.AreEqual(30, pratictionerOffice.Reminder);
             Assert.AreEqual(50, pratictionerOffice.DateWaiting);
             Assert.AreEqual(3,  pratictionerOffice.MinInterval);

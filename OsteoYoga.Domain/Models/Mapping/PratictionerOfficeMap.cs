@@ -16,7 +16,8 @@ namespace OsteoYoga.Domain.Models.Mapping
             References(x => x.Pratictioner).Cascade.SaveUpdate();
 
             HasMany(x => x.Durations).Cascade.SaveUpdate();
-            //HasMany(x => x.TimeSlots).Cascade.SaveUpdate();
+
+            HasManyToMany(x => x.DefaultWorkDaysPO).Table("DefaultWorkDaysPO");
 
             Table("PratictionerOffice");
         }
