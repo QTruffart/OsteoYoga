@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OsteoYoga.Domain.Models;
 
@@ -8,7 +9,7 @@ namespace OsteoYoga.Tests.Domain.Model
     public class DefaultWorkDayHaveTo
     {
 
-        private const string DayOfTheWeek = "Monday";
+        private string DayOfTheWeek = "Monday";
 
         [TestMethod]
         public void InitializeCorrectlyInitialize()

@@ -10,6 +10,5 @@ namespace OsteoYoga.Helper.Helpers.Interfaces
     {
         IList<DateTime> CalculateFreeDays(PratictionerOffice pratictionerOffices, Duration expectedDuration);
         IGoogleRepository<Event> GoogleRepository { get; set; }
-
     }
 }

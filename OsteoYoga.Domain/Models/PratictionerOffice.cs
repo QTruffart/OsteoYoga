@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OsteoYoga.Domain.Models
 {
@@ -14,25 +15,22 @@ namespace OsteoYoga.Domain.Models
         public virtual IList<Duration> Durations { get; set; }
         public virtual IList<WorkTimeSlot> TimeSlots { get; set; }
         public virtual IList<DefaultWorkDaysPO> DefaultWorkDaysPO { get; set; }
-
-
-        public virtual DateTime MinDateInterval
+        
+        public virtual IList<DateTime> GetWorkDaysBetweenIntervals(DateTime reference)
         {
-            get
-            {
-                DateTime now = DateTime.Now.AddDays(MinInterval);
-                return  new DateTime(now.Year, now.Month, now.Day, 0,0,0);
-            } 
-        }
 
-        public virtual DateTime MaxDateInterval
-        {
-            get
-            {
-                DateTime now = DateTime.Now.AddDays(MaxInterval);
-                return  new DateTime(now.Year, now.Month, now.Day,23,59,59);
-            } 
-        }
+            DateTime begin = new DateTime(reference.Year, reference.Month, reference.Day, 0, 0, 0).AddDays(MinInterval);
+            DateTime end = new DateTime(reference.Year, reference.Month, reference.Day, 23, 59, 59).AddDays(MaxInterval);
 
+            IList<DateTime> toReturn = new List<DateTime>();
+            for (DateTime date = begin; date.Date <= end.Date; date = date.AddDays(1))
+            {
+                if (DefaultWorkDaysPO.Select(w => w.DefaultWorkDay.DayOfWeek()).Any(dayOfWeek => dayOfWeek == date.DayOfWeek))
+                {
+                    toReturn.Add(date);
+                }
+            }
+            return toReturn;
+        }
     }
 }
