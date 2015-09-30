@@ -348,6 +348,7 @@
     <Content Include="Theme\Scripts\jquery.cascadingdropdown.js" />
     <Content Include="Theme\Scripts\gcal.js" />
     <Content Include="Theme\Scripts\gmap3.min.js" />
+    <EmbeddedResource Include="Json\client_secret.json" />
     <None Include="Theme\Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Theme\Scripts\jquery-1.10.2.js" />
     <Content Include="Theme\Scripts\jquery-1.10.2.min.js" />

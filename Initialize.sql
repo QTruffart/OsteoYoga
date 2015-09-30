@@ -13,34 +13,43 @@ declare @idJeudi	int
 declare @idVendredi int
 declare @idSamedi	int
 
-INSERT INTO [dbo].[Contact]
-           ([ClassType]
-           ,[FullName]
-           ,[Mail]
-           ,[NetworkId]
-           ,[NetworkType]
-           ,[Phone]
-           ,[History])
-     VALUES
-           ('Pratictioner'
-           ,'Truffart Nicolas'
-           ,'quentin.truffart@gmail.com'
-           ,null
-           ,null
-           ,'+33(0)6 95 01 44 21'
-           ,null)
-set @idContact = (select SCOPE_IDENTITY())
+delete from DefaultWorkDaysPO
+delete from Duration
+delete from PratictionerOffice
+delete from DefaultWorkDay
+delete from ContactProfile
+delete from office
+delete from Profile
+delete from contact
 
+INSERT INTO [dbo].[Contact]
+			([ClassType]
+			,[FullName]
+			,[Mail]
+			,[NetworkId]
+			,[NetworkType]
+			,[Phone]
+			,[History])
+		VALUES
+			('Pratictioner'
+			,'Truffart Nicolas'
+			,'quentin.truffart@gmail.com'
+			,null
+			,null
+			,'+33(0)6 95 01 44 21'
+			,null)
+set @idContact = (select SCOPE_IDENTITY())
+	
 INSERT INTO [dbo].[Profile]
-           ([Name])
-     VALUES
-           ('Patient')	   
+			([Name])
+		VALUES
+			('Patient')	   
 set @idProfil1 = (select SCOPE_IDENTITY())
 
 INSERT INTO [dbo].[Profile]
-           ([Name])
-     VALUES
-		   ('Administrator')	
+			([Name])
+		VALUES
+			('Administrator')	
 set @idProfil2 = (select SCOPE_IDENTITY())
 
 INSERT INTO [dbo].[Office]
@@ -52,7 +61,6 @@ INSERT INTO [dbo].[Office]
            ([Name],[Adress])
      VALUES ('Rion des Landes', '461 Avenue de Verdun 33700 Mérignac')
 set @idOffice2 = (select SCOPE_IDENTITY())
-
 
 
 INSERT INTO [dbo].[ContactProfile]
@@ -125,21 +133,81 @@ INSERT INTO [dbo].[DefaultWorkDay] ([DayOfTheWeek])
 set @idLundi = (select SCOPE_IDENTITY())
 
 
-USE [OsteoYoga_tests]
-GO
-
 INSERT INTO [dbo].[DefaultWorkDaysPO]
-           (@idpratictionerOffice1
-           ,@idLundi           
-           ,'01/01/2001 08:30'
-           ,'01/01/2001 08:30'
-           ,[DefaultWorkDaysPO_id])
+           ([BeginTime]
+           ,[EndTime]
+           ,[PratictionerOffice_id]
+           ,[DefaultWorkDay_id]
+           )
      VALUES
-           (<PratictionerOffice_id, int,>
-           ,<DefaultWorkDay_id, int,>
-           ,<Id, int,>
-           ,<BeginTime, datetime,>
-           ,<EndTime, datetime,>
-           ,<DefaultWorkDaysPO_id, int,>)
-GO
+           ('01/01/2001 08:30'
+           ,'01/01/2001 20:00'
+           ,@idpratictionerOffice1
+           ,@idLundi )
 
+		   
+INSERT INTO [dbo].[DefaultWorkDaysPO]
+           ([BeginTime]
+           ,[EndTime]
+           ,[PratictionerOffice_id]
+           ,[DefaultWorkDay_id]
+           )
+     VALUES
+           ('01/01/2001 09:00'
+           ,'01/01/2001 19:00'
+           ,@idpratictionerOffice1
+           ,@idMercredi )
+
+		   
+INSERT INTO [dbo].[DefaultWorkDaysPO]
+           ([BeginTime]
+           ,[EndTime]
+           ,[PratictionerOffice_id]
+           ,[DefaultWorkDay_id]
+           )
+     VALUES
+           ('01/01/2001 08:00'
+           ,'01/01/2001 12:00'
+           ,@idpratictionerOffice1
+           ,@idJeudi )
+
+		   
+INSERT INTO [dbo].[DefaultWorkDaysPO]
+           ([BeginTime]
+           ,[EndTime]
+           ,[PratictionerOffice_id]
+           ,[DefaultWorkDay_id]
+           )
+     VALUES
+           ('01/01/2001 09:30'
+           ,'01/01/2001 20:00'
+           ,@idpratictionerOffice2
+           ,@idMardi )
+
+		   
+		   
+INSERT INTO [dbo].[DefaultWorkDaysPO]
+           ([BeginTime]
+           ,[EndTime]
+           ,[PratictionerOffice_id]
+           ,[DefaultWorkDay_id]
+           )
+     VALUES
+           ('01/01/2001 08:00'
+           ,'01/01/2001 18:00'
+           ,@idpratictionerOffice2
+           ,@idVendredi )
+
+		   
+		   
+INSERT INTO [dbo].[DefaultWorkDaysPO]
+           ([BeginTime]
+           ,[EndTime]
+           ,[PratictionerOffice_id]
+           ,[DefaultWorkDay_id]
+           )
+     VALUES
+           ('01/01/2001 14:00'
+           ,'01/01/2001 21:00'
+           ,@idpratictionerOffice2
+           ,@idSamedi )

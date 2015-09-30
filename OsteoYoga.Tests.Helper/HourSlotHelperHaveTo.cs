@@ -90,5 +90,28 @@ namespace OsteoYoga.Tests.Helper
             Assert.AreEqual(now2000.Ticks, results[3].End.Ticks);
 
         }
+
+
+        [TestMethod]
+        public void Return_Free_Time_Slots_On_A_Day_If_There_Are_No_Event()
+        {
+           
+            DateTime now0800 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0);
+            DateTime now2000 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 20, 0, 0);
+
+
+            IList<Event> eventsParmeter = new List<Event>() {  };
+
+            DateTime dayToInspect = DateTime.Now;
+            Duration duration = new Duration() { Value = 60 };
+
+            IList<FreeSlot> results = HourSlotHelper.CalculateFreeHours(dayToInspect, duration, eventsParmeter);
+
+            Assert.AreEqual(1, results.Count);
+
+            Assert.AreEqual(now0800.Ticks, results[0].Begin.Ticks);
+            Assert.AreEqual(now2000.Ticks, results[0].End.Ticks);
+
+        }
     }
 }

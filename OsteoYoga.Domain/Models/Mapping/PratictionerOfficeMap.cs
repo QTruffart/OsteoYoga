@@ -17,7 +17,8 @@ namespace OsteoYoga.Domain.Models.Mapping
 
             HasMany(x => x.Durations).Cascade.SaveUpdate();
 
-            HasManyToMany(x => x.DefaultWorkDaysPO).Table("DefaultWorkDaysPO");
+            //TODO : pourquoi ya la clef DefaultWorkDaysPO_id
+            HasMany(x => x.DefaultWorkDaysPO).Table("DefaultWorkDaysPO");
 
             Table("PratictionerOffice");
         }

@@ -22,7 +22,14 @@ namespace OsteoYoga.Helper.Helpers.Implements
             IList<FreeSlot> freeSlots = new List<FreeSlot>();
 
             IList<Event> eventsOrderded = events.OrderBy(e => e.Start.DateTime).ToList();
-
+            if (!eventsOrderded.Any())
+            {
+                freeSlots.Add(new FreeSlot()
+                {
+                    Begin = begin,
+                    End = end
+                });
+            }
             foreach (Event eventTime in eventsOrderded)
             {
 
@@ -66,30 +73,6 @@ namespace OsteoYoga.Helper.Helpers.Implements
             }
 
 
-
-
-            //TimeSpan timeSpan = new TimeSpan(0,duration.Value,0);
-            //for (long i = begin.Ticks; i < end.Ticks; i += timeSpan.Ticks)
-            //{
-            //    bool isNotInclusive = true;
-            //    //TODO : Transformer les all Days ! Important
-            //    foreach (Event eventTime in events)
-            //    {
-            //        if (InclusiveDays(eventTime.End.DateTime.Value.Ticks, eventTime.Start.DateTime.Value.Ticks, (i + timeSpan.Ticks), i))
-            //        {
-            //            isNotInclusive = false;
-            //            break;
-            //        }
-            //    }
-            //    if (isNotInclusive)
-            //    {
-            //        freeSlots.Add(new FreeSlot()
-            //        {
-            //            Begin = new DateTime(i),
-            //            End = new DateTime((i + timeSpan.Ticks))
-            //        });
-            //    }
-            //}
 
             return freeSlots;
         }

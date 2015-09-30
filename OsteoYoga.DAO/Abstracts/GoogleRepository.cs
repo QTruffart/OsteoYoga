@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using System.Threading;
 using Google.Apis.Auth.OAuth2;
@@ -27,25 +28,34 @@ namespace OsteoYoga.Repository.DAO.Abstracts
                 {
                     UserCredential credential;
 
-                    using (var stream = new FileStream("client_secret.json", FileMode.Open, FileAccess.Read))
+                    var assembly = Assembly.GetExecutingAssembly();
+                   
+                    using (var resStream = assembly.GetManifestResourceStream("OsteoYoga.Repository.DAO.Json.client_secret.json"))
                     {
-                        string credPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-                        credPath = Path.Combine(credPath, ".credentials");
+                        byte[] buffer = new byte[resStream.Length];
+                        resStream.Read(buffer, 0, buffer.Length);
+                        // TODO: use the buffer that was read
+                        using (var stream = new MemoryStream(buffer))
+                        {
+                            string credPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+                            credPath = Path.Combine(credPath, ".credentials");
 
-                        credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                           GoogleClientSecrets.Load(stream).Secrets,
-                          Scopes,
-                          "user",
-                          CancellationToken.None,
-                          new FileDataStore(credPath, true)).Result;
+                            credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+                               GoogleClientSecrets.Load(stream).Secrets,
+                              Scopes,
+                              "user",
+                              CancellationToken.None,
+                              new FileDataStore(credPath, true)).Result;
+                        }
+
+                        // Create Calendar Service.
+                        service = new CalendarService(new BaseClientService.Initializer()
+                        {
+                            HttpClientInitializer = credential,
+                            ApplicationName = ApplicationName,
+                        });
+                        
                     }
-
-                    // Create Calendar Service.
-                    service = new CalendarService(new BaseClientService.Initializer()
-                    {
-                        HttpClientInitializer = credential,
-                        ApplicationName = ApplicationName,
-                    });
                 }
                 return service;
             }

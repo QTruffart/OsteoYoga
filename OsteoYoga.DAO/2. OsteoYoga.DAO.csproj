@@ -166,9 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="client_secret.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <EmbeddedResource Include="Json\client_secret.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -54,5 +54,6 @@ namespace OsteoYoga.Helper
         public virtual string FacebookNetwork { get { return ConfigurationManager.AppSettings["FacebookNetwork"]; } }
         public string PatientProfile { get { return ConfigurationManager.AppSettings["PatientProfile"]; } }
         public string AdministratorProfile { get { return ConfigurationManager.AppSettings["AdministratorProfile"]; } }
+        public string GoogleDateFormat { get { return "yyyy-MM-dd"; } }
     }
 }

@@ -21,7 +21,7 @@ namespace OsteoYoga.Domain.Models
             get
             {
                 DateTime now = DateTime.Now.AddDays(MinInterval);
-                return  new DateTime(now.Year, now.Month, now.Day);
+                return  new DateTime(now.Year, now.Month, now.Day, 0,0,0);
             } 
         }
 
@@ -30,7 +30,7 @@ namespace OsteoYoga.Domain.Models
             get
             {
                 DateTime now = DateTime.Now.AddDays(MaxInterval);
-                return  new DateTime(now.Year, now.Month, now.Day);
+                return  new DateTime(now.Year, now.Month, now.Day,23,59,59);
             } 
         }
 

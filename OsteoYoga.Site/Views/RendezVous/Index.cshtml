@@ -110,6 +110,18 @@
                 });
             });
         });
+
+        $('#SelectedDurationId').change(function () {
+            var selectedOfficeId = $("#SelectedOfficeId option:selected").val();
+            var selectedPratictionerId = $("#SelectedPratictionerId option:selected").val();
+            var selectedDurationId = $(this).val();
+            $.getJSON('@Url.Action("FreeDays")', { officeId: selectedOfficeId, pratictionerId: selectedPratictionerId, durationId: selectedDurationId }, function (freeDays) {
+                $.each(freeDays, function (index, freeday) {
+                    console.log(freeday);
+                    $('#freeDays').innerHTML(freeday);
+                });
+            });
+        });
     });
 
     $(document).ready(function () {
@@ -214,6 +226,7 @@
         <div class="span11">
             <h2>@DateResource.DateSelection</h2>
         </div>
+        <div id="freeDays" ></div>
 
         @*<div align="center" id="DatesPicker" />*@
 
