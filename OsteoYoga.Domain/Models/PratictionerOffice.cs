@@ -15,22 +15,8 @@ namespace OsteoYoga.Domain.Models
         public virtual IList<Duration> Durations { get; set; }
         public virtual IList<WorkTimeSlot> TimeSlots { get; set; }
         public virtual IList<DefaultWorkDaysPO> DefaultWorkDaysPO { get; set; }
-        
-        public virtual IList<DateTime> GetWorkDaysBetweenIntervals(DateTime reference)
-        {
 
-            DateTime begin = new DateTime(reference.Year, reference.Month, reference.Day, 0, 0, 0).AddDays(MinInterval);
-            DateTime end = new DateTime(reference.Year, reference.Month, reference.Day, 23, 59, 59).AddDays(MaxInterval);
-
-            IList<DateTime> toReturn = new List<DateTime>();
-            for (DateTime date = begin; date.Date <= end.Date; date = date.AddDays(1))
-            {
-                if (DefaultWorkDaysPO.Select(w => w.DefaultWorkDay.DayOfWeek()).Any(dayOfWeek => dayOfWeek == date.DayOfWeek))
-                {
-                    toReturn.Add(date);
-                }
-            }
-            return toReturn;
-        }
+        public DateTime MinDateInterval => new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0).AddDays(MinInterval);
+        public DateTime MaxDateInterval => new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 59, 59).AddDays(MaxInterval);
     }
 }

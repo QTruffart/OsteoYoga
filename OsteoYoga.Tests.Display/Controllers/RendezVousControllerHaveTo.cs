@@ -28,7 +28,7 @@ namespace OsteoYoga.Tests.Display.Controllers
         private readonly Mock<SessionHelper> sessionHelperMock = new Mock<SessionHelper>();
         private readonly Mock<IOfficeRepository> officeRepositoryMock = new Mock<IOfficeRepository>();
         private readonly Mock<IPratictionerOfficeRepository> pratictionerOfficeRepositoryMock = new Mock<IPratictionerOfficeRepository>();
-        private readonly Mock<IDaySlotHelper> freeSlotHelperMock = new Mock<IDaySlotHelper>();
+        private readonly Mock<IDaySlotHelper> daySlotHelperMock = new Mock<IDaySlotHelper>();
 
         private readonly IList<Office> offices = new List<Office>();
 
@@ -43,7 +43,7 @@ namespace OsteoYoga.Tests.Display.Controllers
             {
                 OfficeRepository = officeRepositoryMock.Object,
                 PratictionerOfficeRepository = pratictionerOfficeRepositoryMock.Object,
-                DaySlotHelper = freeSlotHelperMock.Object
+                DaySlotHelper = daySlotHelperMock.Object
                 //GoogleRepository = googleRepositoryMock.Object,
                 //DurationRepository = durationRepositoryMock.Object,
             };
@@ -157,6 +157,8 @@ namespace OsteoYoga.Tests.Display.Controllers
             const int durationId = 3;
             DateTime day1 = new DateTime();
             DateTime day2 = new DateTime();
+            DateTime day3 = new DateTime();
+            IList<DateTime> defaultDaysOnPeriod = new List<DateTime>() {day1, day2, day3,};
             Office expectedOffice = new Office() { Id = officeId };
             Pratictioner expectedPratictioner = new Pratictioner() { Id = pratictionerId };
             Duration expectedDuration = new Duration() { Id = durationId, Value = 45};
@@ -169,7 +171,8 @@ namespace OsteoYoga.Tests.Display.Controllers
             };
 
             pratictionerOfficeRepositoryMock.Setup(r => r.GetByOfficeIdAndPratictionerId(officeId, pratictionerId)).Returns(pratictionerOffices);
-            freeSlotHelperMock.Setup(r => r.CalculateFreeDays(pratictionerOffices, expectedDuration)).Returns(new List<DateTime>() {day1,day2});
+            daySlotHelperMock.Setup(r => r.GetAllWorkDaysOnPeriod(pratictionerOffices, It.IsAny<DateTime>())).Returns(defaultDaysOnPeriod);
+            daySlotHelperMock.Setup(r => r.CalculateFreeDays(pratictionerOffices, expectedDuration, defaultDaysOnPeriod)).Returns(new List<DateTime>() {day1,day2});
 
             //act
             JsonResult result = Controller.FreeDays(officeId, pratictionerId, durationId);

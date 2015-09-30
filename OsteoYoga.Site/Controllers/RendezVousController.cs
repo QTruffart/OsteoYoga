@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -73,7 +74,8 @@ namespace OsteoYoga.Site.Controllers
             PratictionerOffice pratictionerOffice = PratictionerOfficeRepository.GetByOfficeIdAndPratictionerId(officeId, pratictionerId);
             Duration duration = pratictionerOffice.Durations.FirstOrDefault(d => d.Id == durationId);
 
-            IList<DateTime> freeDays = DaySlotHelper.CalculateFreeDays(pratictionerOffice, duration);
+            IList<DateTime> workDaysOnPeriod = DaySlotHelper.GetAllWorkDaysOnPeriod(pratictionerOffice, DateTime.Now);
+            IList<DateTime> freeDays = DaySlotHelper.CalculateFreeDays(pratictionerOffice, duration, workDaysOnPeriod);
 
             IList<FreeDayJsonViewResult> result = freeDays.Select(d => new FreeDayJsonViewResult {FreeDay = d}).ToList();
             return Json(result, JsonRequestBehavior.AllowGet);

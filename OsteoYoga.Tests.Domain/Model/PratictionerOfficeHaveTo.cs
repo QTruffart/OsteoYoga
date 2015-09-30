@@ -45,35 +45,34 @@ namespace OsteoYoga.Tests.Domain.Model
             Assert.AreEqual(45, pratictionerOffice.MaxInterval);
         }
 
-      
-
         [TestMethod]
-        public void Get_Work_Days_Between_Two_Days()
+        public void Get_Min_Date_Value_By_Min_Interval()
         {
             //arrange
-            PratictionerOffice pratictionerOffice = new PratictionerOffice()
-            {
-                MinInterval = 1,
-                MaxInterval = 4,
-                DefaultWorkDaysPO = new List<DefaultWorkDaysPO>()
-                {
-                    new DefaultWorkDaysPO { DefaultWorkDay = new DefaultWorkDay() { DayOfTheWeek = "Monday" } },
-                    new DefaultWorkDaysPO { DefaultWorkDay = new DefaultWorkDay() { DayOfTheWeek = "Tuesday" } },
-                    new DefaultWorkDaysPO { DefaultWorkDay = new DefaultWorkDay() { DayOfTheWeek = "Thursday" } },
-                    new DefaultWorkDaysPO { DefaultWorkDay = new DefaultWorkDay() { DayOfTheWeek = "Friday" } },
-                    new DefaultWorkDaysPO { DefaultWorkDay = new DefaultWorkDay() { DayOfTheWeek = "Sunday" } }
-                }
-            };
+            now = now.AddDays(3);
 
             //act
-            IList<DateTime> workDays =  pratictionerOffice.GetWorkDaysBetweenIntervals(new DateTime(2015,09,28));
-
-
+            PratictionerOffice pratictionerOffice = new PratictionerOffice(){ 
+                MinInterval = 3,
+            };
+            
             //assert
-            Assert.AreEqual(3, workDays.Count);
-            CollectionAssert.Contains(workDays.Select(w => w.ToString("dd/MM/yyyy")).ToList(), "29/09/2015");
-            CollectionAssert.Contains(workDays.Select(w => w.ToString("dd/MM/yyyy")).ToList(), "01/10/2015");
-            CollectionAssert.Contains(workDays.Select(w => w.ToString("dd/MM/yyyy")).ToList(), "02/10/2015");
+            Assert.AreEqual(now.ToString("d"), pratictionerOffice.MinDateInterval.ToString("d"));
+        }
+
+        [TestMethod]
+        public void Get_Max_Date_Value_By_Min_Interval()
+        {
+            //arrange
+            now = now.AddDays(15);
+
+            //act
+            PratictionerOffice pratictionerOffice = new PratictionerOffice(){ 
+                MaxInterval = 15,
+            };
+            
+            //assert
+            Assert.AreEqual(now.ToString("d"), pratictionerOffice.MaxDateInterval.ToString("d"));
         }
     }
 }

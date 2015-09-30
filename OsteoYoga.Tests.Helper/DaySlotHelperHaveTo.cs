@@ -49,6 +49,40 @@ namespace OsteoYoga.Tests.Helper
         }
 
 
+
+        [TestMethod]
+        public void Get_Work_Days_Between_Two_Days()
+        {
+            //arrange
+            PratictionerOffice pratictionerOffice = new PratictionerOffice()
+            {
+                MinInterval = 1,
+                MaxInterval = 4,
+                DefaultWorkDaysPO = new List<DefaultWorkDaysPO>()
+                {
+                    new DefaultWorkDaysPO { DefaultWorkDay = new DefaultWorkDay() { DayOfTheWeek = "Monday" } },
+                    new DefaultWorkDaysPO { DefaultWorkDay = new DefaultWorkDay() { DayOfTheWeek = "Tuesday" } },
+                    new DefaultWorkDaysPO { DefaultWorkDay = new DefaultWorkDay() { DayOfTheWeek = "Thursday" } },
+                    new DefaultWorkDaysPO { DefaultWorkDay = new DefaultWorkDay() { DayOfTheWeek = "Friday" } },
+                    new DefaultWorkDaysPO { DefaultWorkDay = new DefaultWorkDay() { DayOfTheWeek = "Sunday" } }
+                }
+            };
+
+            //act
+            IList<DateTime> workDays = DaySlotHelper.GetAllWorkDaysOnPeriod(pratictionerOffice, new DateTime(2015, 09, 28));
+
+
+            //assert
+            Assert.AreEqual(3, workDays.Count);
+            CollectionAssert.Contains(workDays.Select(w => w.ToString("dd/MM/yyyy")).ToList(), "29/09/2015");
+            CollectionAssert.Contains(workDays.Select(w => w.ToString("dd/MM/yyyy")).ToList(), "01/10/2015");
+            CollectionAssert.Contains(workDays.Select(w => w.ToString("dd/MM/yyyy")).ToList(), "02/10/2015");
+        }
+
+
+
+
+
         //[TestMethod]
         //public void Return_Days_Where_There_Are_Free_Hours()
         //{
