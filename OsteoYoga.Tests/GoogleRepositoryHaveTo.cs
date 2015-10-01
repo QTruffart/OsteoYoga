@@ -197,7 +197,7 @@ namespace OsteoYoga.Tests.DAO
                 Patient = new Patient() {FullName = "fullName", Mail = "padbox@gmail.com"},
                 Duration = new Duration() {Value = 45},
                 Office = new Office {Adress = "461 avenue de Verdun Mérignac 33700"},
-                BeginTime = DateTime.Now.AddDays(15)
+                BeginTime = DateTime.Now.AddDays(16)
             };
 
             Event entityIntoInterval1 = googleRepository.Save(dateIntoInterval1, Summary, Description,pratictionerOffice);

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Google.Apis.Calendar.v3.Data;
 using OsteoYoga.Domain.Models;
@@ -9,13 +10,8 @@ namespace OsteoYoga.Helper.Helpers.Implements
 {
     public class HourSlotHelper : IHourSlotHelper
     {
-        public HourSlotHelper()
-        {
-        }
-
         public IList<FreeSlot> CalculateFreeHours(DateTime day, Duration duration, IList<Event> events)
         {
-            
             DateTime begin = new DateTime(day.Year,day.Month,day.Day, 8,0,0);
             DateTime end = new DateTime(day.Year,day.Month,day.Day, 20,0,0);
 
@@ -71,18 +67,26 @@ namespace OsteoYoga.Helper.Helpers.Implements
                     }
                 }
             }
-
-
-
             return freeSlots;
         }
 
-        private bool InclusiveDays(long s1, long e1, long s2, long e2)
+        public bool IsDuringAnAllDayEvent(IList<Event> events, DateTime dateToInspect)
         {
-            if (e1 < e2 && s1 > s2) return true;
-            if (e1 < e2 && s1 > e2) return true;
-            if (e1 < s2 && s1 > s2) return true;
-            if (e1 > e2 && s1 < s2) return true;
+            foreach (Event @event in events)
+            {
+                if (!string.IsNullOrEmpty(@event.Start.Date) && !string.IsNullOrEmpty(@event.End.Date))
+                {
+                    DateTime begin;
+                    if (DateTime.TryParseExact(@event.Start.Date, "yyyy-MM-dd", new DateTimeFormatInfo(), DateTimeStyles.AdjustToUniversal, out begin))
+                    {
+                        DateTime end;
+                        if (DateTime.TryParseExact(@event.End.Date, "yyyy-MM-dd", new DateTimeFormatInfo(), DateTimeStyles.AdjustToUniversal, out end))
+                        {
+                            if (dateToInspect >= begin && dateToInspect <= end) return true;
+                        }
+                    }
+                }
+            }
             return false;
         }
     }

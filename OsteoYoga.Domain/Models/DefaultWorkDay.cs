@@ -6,7 +6,7 @@ namespace OsteoYoga.Domain.Models
     {
         public virtual string DayOfTheWeek { get; set; }
 
-        public DayOfWeek DayOfWeek()
+        public virtual DayOfWeek DayOfWeek()
         {
             DayOfWeek dayOfWeek;
             if (Enum.TryParse(DayOfTheWeek, out dayOfWeek))

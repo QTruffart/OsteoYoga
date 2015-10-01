@@ -16,7 +16,7 @@ namespace OsteoYoga.Domain.Models
         public virtual IList<WorkTimeSlot> TimeSlots { get; set; }
         public virtual IList<DefaultWorkDaysPO> DefaultWorkDaysPO { get; set; }
 
-        public DateTime MinDateInterval => new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0).AddDays(MinInterval);
-        public DateTime MaxDateInterval => new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 59, 59).AddDays(MaxInterval);
+        public virtual DateTime MinDateInterval => new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0).AddDays(MinInterval);
+        public virtual DateTime MaxDateInterval => new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 23, 59, 59).AddDays(MaxInterval);
     }
 }

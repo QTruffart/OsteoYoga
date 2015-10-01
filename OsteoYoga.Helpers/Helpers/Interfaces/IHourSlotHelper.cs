@@ -9,5 +9,6 @@ namespace OsteoYoga.Helper.Helpers.Interfaces
     public interface IHourSlotHelper
     {
         IList<FreeSlot> CalculateFreeHours(DateTime day, Duration duration, IList<Event> events);
+        bool IsDuringAnAllDayEvent(IList<Event> events, DateTime dateToInspect);
     }
 }

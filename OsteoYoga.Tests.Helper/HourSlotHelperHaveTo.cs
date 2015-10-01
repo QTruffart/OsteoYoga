@@ -113,5 +113,26 @@ namespace OsteoYoga.Tests.Helper
             Assert.AreEqual(now2000.Ticks, results[0].End.Ticks);
 
         }
+
+
+
+        [TestMethod]
+        public void Return_True_If_There_Are_An_All_Day_Event_On_The_Date()
+        {
+            Event allDayEvent = new Event()
+            {
+                Start = new EventDateTime() {Date = "2015-09-29"},
+                End = new EventDateTime() { Date = "2015-10-02" }
+            };
+
+
+            Assert.IsTrue(HourSlotHelper.IsDuringAnAllDayEvent(new List<Event>() {allDayEvent}, new DateTime(2015, 09, 29)));
+            Assert.IsTrue(HourSlotHelper.IsDuringAnAllDayEvent(new List<Event>() {allDayEvent}, new DateTime(2015, 09, 30)));
+            Assert.IsTrue(HourSlotHelper.IsDuringAnAllDayEvent(new List<Event>() {allDayEvent}, new DateTime(2015, 10, 01)));
+            Assert.IsTrue(HourSlotHelper.IsDuringAnAllDayEvent(new List<Event>() {allDayEvent}, new DateTime(2015, 10, 02)));
+            Assert.IsFalse(HourSlotHelper.IsDuringAnAllDayEvent(new List<Event>() {allDayEvent}, new DateTime(2015, 09, 28)));
+            Assert.IsFalse(HourSlotHelper.IsDuringAnAllDayEvent(new List<Event>() {allDayEvent}, new DateTime(2015, 10, 03)));
+
+        }
     }
 }
