@@ -108,7 +108,7 @@ namespace OsteoYoga.Tests.Helper
             IList<DateTime> freeDays = DaySlotHelper.CalculateFreeDays(pratictionerOffice, duration, dateToInspect);
 
             //Assert
-            hourSlotHelperMock.Verify(h => h.CalculateFreeHours(unexpecteddate1, duration, events), Times.Never);
+            hourSlotHelperMock.Verify(h => h.CalculateFreeHours(unexpecteddate1, duration, It.IsAny<IList<Event>>()), Times.Never);
             Assert.AreEqual(1, freeDays.Count);
             CollectionAssert.Contains(freeDays.ToList(), expecteddate);
         }

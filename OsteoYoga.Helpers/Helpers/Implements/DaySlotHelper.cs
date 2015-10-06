@@ -26,12 +26,15 @@ namespace OsteoYoga.Helper.Helpers.Implements
         public IList<DateTime> CalculateFreeDays(PratictionerOffice pratictionerOffices, Duration expectedDuration, IList<DateTime> defaultDaysOnPeriod)
         {
             IList<Event> events = GoogleRepository.GetAllForPractionerInterval(pratictionerOffices);
+            IList<Event> eventsWithoutAllDay = events.Where(e => string.IsNullOrEmpty(e.Start.Date) && string.IsNullOrEmpty(e.End.Date)).ToList();
+
             IList<DateTime> result = new List<DateTime>();
             foreach (DateTime dateTime in defaultDaysOnPeriod)
             {
                 if (!HourSlotHelper.IsDuringAnAllDayEvent(events, dateTime))
                 {
-                    if (HourSlotHelper.CalculateFreeHours(dateTime, expectedDuration, events).Any())
+                    IList<Event> eventsOnTheDay = eventsWithoutAllDay.Where(e => e.Start.DateTime.Value.Date == dateTime.Date).ToList();
+                    if (HourSlotHelper.CalculateFreeHours(dateTime, expectedDuration, eventsOnTheDay).Any())
                     {
                         result.Add(dateTime);
                     }

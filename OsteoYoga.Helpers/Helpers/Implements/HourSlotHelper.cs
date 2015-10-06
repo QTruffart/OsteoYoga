@@ -10,14 +10,14 @@ namespace OsteoYoga.Helper.Helpers.Implements
 {
     public class HourSlotHelper : IHourSlotHelper
     {
-        public IList<FreeSlot> CalculateFreeHours(DateTime day, Duration duration, IList<Event> events)
+        public IList<FreeSlot> CalculateFreeHours(DateTime day, Duration duration, IList<Event> eventsOnTheDay)
         {
             DateTime begin = new DateTime(day.Year,day.Month,day.Day, 8,0,0);
             DateTime end = new DateTime(day.Year,day.Month,day.Day, 20,0,0);
 
             IList<FreeSlot> freeSlots = new List<FreeSlot>();
 
-            IList<Event> eventsOrderded = events.OrderBy(e => e.Start.DateTime).ToList();
+            IList<Event> eventsOrderded = eventsOnTheDay.OrderBy(e => e.Start.DateTime).ToList();
             if (!eventsOrderded.Any())
             {
                 freeSlots.Add(new FreeSlot()
