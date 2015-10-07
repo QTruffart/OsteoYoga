@@ -82,7 +82,7 @@ namespace OsteoYoga.Helper.Helpers.Implements
                         DateTime end;
                         if (DateTime.TryParseExact(@event.End.Date, "yyyy-MM-dd", new DateTimeFormatInfo(), DateTimeStyles.AdjustToUniversal, out end))
                         {
-                            if (dateToInspect >= begin && dateToInspect <= end) return true;
+                            if (dateToInspect >= begin && dateToInspect < end) return true;
                         }
                     }
                 }

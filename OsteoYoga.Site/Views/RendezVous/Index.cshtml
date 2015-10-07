@@ -85,6 +85,7 @@
         $('#SelectedOfficeId').change();
     });*@
 
+    var days = [];
     $(function () {
         $('#SelectedOfficeId').change(function () {
             var selectedOfficeId = $(this).val();
@@ -93,8 +94,8 @@
                 practionersSelect.empty();
                 $.each(practioners, function (index, pratictioner) {
                     practionersSelect.append($('<option/>').attr('value', pratictioner.Id).text(pratictioner.Name));
-                    $('#SelectedPratictionerId').change();
                 });
+                $('#SelectedPratictionerId').change();
             });
         });
 
@@ -106,8 +107,8 @@
                 durationsSelect.empty();
                 $.each(durations, function (index, duration) {
                     durationsSelect.append($('<option/>').attr('value', duration.Id).text(duration.Name));
-                    $('#SelectedDurationId').change();
                 });
+                $('#SelectedDurationId').change();
             });
         });
 
@@ -115,18 +116,42 @@
             var selectedOfficeId = $("#SelectedOfficeId option:selected").val();
             var selectedPratictionerId = $("#SelectedPratictionerId option:selected").val();
             var selectedDurationId = $(this).val();
-            $.getJSON('@Url.Action("FreeDays")', { officeId: selectedOfficeId, pratictionerId: selectedPratictionerId, durationId: selectedDurationId }, function (freeDays) {
-                $.each(freeDays, function (index, freeday) {
-                    console.log(freeday);
-                    $('#freeDays').innerHTML(freeday);
+            $.getJSON('@Url.Action("FreeDays")', { officeId: selectedOfficeId, pratictionerId: selectedPratictionerId, durationId: selectedDurationId },
+            function (freeDays) {
+                days = [];
+                $.each(freeDays, function (index, value) {
+                    var date = new Date(parseInt(value.FreeDay.substr(6)));
+                    days[index] = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
                 });
+                loadDayPicker();
             });
         });
+
     });
 
     $(document).ready(function () {
+        $("#DaysPicker").datepicker({
+            dateFormat: 'dd/mm/yy',
+            disabled: true,
+            onSelect: function (date) {
+                selectDay(date);
+            }
+        });
         $('#SelectedOfficeId').change();
     });
+
+    function selectDay(date) {
+        console.log(date);
+        $.getJSON('@Url.Action("FreeSlots")', { choosedDay: date },
+        function (freeSlots) {
+            console.log(freeSlots);
+        });
+    }
+
+    function loadDayPicker() {
+        $("#DaysPicker").datepicker("option", "disabled", false);
+        $("#DaysPicker").datepicker("option", "beforeShowDay", enableSpecificDate);
+    }
     //    $('#offices').change(function() {
     //        SetFormValues();
     //    });
@@ -138,11 +163,7 @@
     //        beforeShowDay: disableSpecificDates,
 
     //        dateFormat: 'dd/mm/yy',
-    //        onSelect: function (date) {
-    //            $("#timeSlotSelection").show();
-    //            $("#timeSlotSelectionValues").show();
-    //            //getProposeDates(date);
-    //        }
+    //
     //    });
     //    //$("#selectedTimeSlot").change(function () {
     //    //    getProposeDates($("#DatesPicker").val());
@@ -165,23 +186,13 @@
             }
         });
     }*@
-    @*function disableSpecificDates(date) {
-        var month = date.getMonth();
-        var day = date.getDate();
-        var dayofWeek = date.getDay();
-        var year = date.getFullYear();
-        if (dayofWeek != 0 && dayofWeek != 3) {
-            if ($.inArray((month + 1) + '-' + day + '-' + year) != -1) {
-                return [false];
-            }
-            //for (var i = 0; i < daysToDisable.length; i++) {
-            //    if ($.inArray((month + 1) + '-' + day + '-' + year, daysToDisable) != -1) {
-            //        return [false];
-            //    }
-            //}
-            return [true];
+    function enableSpecificDate(date) {
+        var dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
+        if ($.inArray(dmy, days) !== -1) {
+            return [true, "", "Available"];
+        } else {
+            return [false, "", "unAvailable"];
         }
-        return [false];
     }
 
     function SetFormValues() {
@@ -202,7 +213,7 @@
                 alert(errorThrown);
             }
         });
-    }*@
+    }
 
 
 </script>
@@ -223,12 +234,15 @@
             <h2>Durée</h2>
             @Html.DropDownListFor(x => x.SelectedDurationId, Enumerable.Empty<SelectListItem>(), new { @class = "" } )
         </div>
-        <div class="span11">
-            <h2>@DateResource.DateSelection</h2>
+        <div class="span7">
+            <h2>Choississez une date</h2>
+            <div align="center" id="DaysPicker"></div>
         </div>
-        <div id="freeDays" ></div>
+        <div class="span4">
+            <h2>Choississez une horaire</h2>
+        </div>
 
-        @*<div align="center" id="DatesPicker" />*@
+        @**@
 
         @*@using (Html.BeginForm("ProposeDate", "RendezVous", FormMethod.Post))
         {

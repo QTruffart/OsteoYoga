@@ -81,6 +81,13 @@ namespace OsteoYoga.Site.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        [PatientProfile]
+        [ExceptionHandler(ExceptionType = typeof(Exception), View = "FreeSlots")]
+        public JsonResult FreeSlots(string choosedDay)
+        {
+            throw new NotImplementedException();
+        }
+
         //[HttpPost]
         //[PatientProfile]
         //[AdministratorProfile]
@@ -156,6 +163,7 @@ namespace OsteoYoga.Site.Controllers
         //    //Email.GetInstance().SendForAdminValidation(date);
         //    return PartialView("Validate");
         //}
+
 
 
     }

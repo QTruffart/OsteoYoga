@@ -88,7 +88,6 @@ namespace OsteoYoga.Tests.Helper
             
             Assert.AreEqual(now1800.Ticks, results[3].Begin.Ticks);
             Assert.AreEqual(now2000.Ticks, results[3].End.Ticks);
-
         }
 
 
@@ -122,7 +121,7 @@ namespace OsteoYoga.Tests.Helper
             Event allDayEvent = new Event()
             {
                 Start = new EventDateTime() {Date = "2015-09-29"},
-                End = new EventDateTime() { Date = "2015-10-02" }
+                End = new EventDateTime() { Date = "2015-10-03" }
             };
 
 
