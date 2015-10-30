@@ -166,7 +166,7 @@
     <value>2. Sélectionnez une tranche de disponibilité.</value>
   </data>
   <data name="OfficeList" xml:space="preserve">
-    <value>Choisissez un cabinet</value>
+    <value>Cabinet</value>
   </data>
   <data name="Office_Name_Name" xml:space="preserve">
     <value>Name</value>

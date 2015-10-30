@@ -3,9 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using OsteoYoga.Domain.Models;
-using OsteoYoga.Helper.Helpers;
 using OsteoYoga.Helper.Helpers.Implements;
-using OsteoYoga.Repository.DAO;
 using OsteoYoga.Repository.DAO.Implements;
 
 namespace OsteoYoga.Helper.Profile
@@ -22,17 +20,33 @@ namespace OsteoYoga.Helper.Profile
             ProfileRepository = new ProfileRepository();
         }
         public abstract string ProfileType { get; }
+        public string ActionResult{ get; set; }
+
 
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             Contact contact = SessionHelper.GetInstance().CurrentUser;
-            return contact != null && contact.Profiles.Contains(ProfileRepository.GetByName(ProfileType));
+            if (contact != null)
+            {
+                if (!contact.Profiles.Contains(ProfileRepository.GetByName(ProfileType)))
+                {
+                    ActionResult = "Index";
+                    return false;
+                }
+                if (!contact.IsConfirmed)
+                {
+                    ActionResult = "ConfirmAccount";
+                    return false;
+                }
+                return true;
+            }
+            ActionResult = "Index";
+            return false;
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-                filterContext.Result = new RedirectToRouteResult(new
-                RouteValueDictionary(new { controller = "Login", action = "Index" }));
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Login", action = ActionResult }));
         }
     }
 }

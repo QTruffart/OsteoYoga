@@ -12,7 +12,7 @@ namespace OsteoYoga.Helper
         private const string SmtpOsteoyogaFr = "smtp.osteoyoga.fr";
         private const string FormatDate = "dd/MM/yyyy";
         private const int Port = 587;
-        private bool ssl = true;
+        
 
         public static Email Instance
         {

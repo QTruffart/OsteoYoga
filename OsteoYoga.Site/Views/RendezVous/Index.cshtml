@@ -1,5 +1,4 @@
 ﻿@using System.Web.Mvc.Html
-@using OsteoYoga.Domain.Models
 @using OsteoYoga.Resource.RendezVous
 @model OsteoYoga.Site.ViewResults.DateViewResult
 <script src="@Url.Content("~/Theme/Scripts/jquery-1.9.1.js")" type="text/javascript" ></script>
@@ -10,81 +9,15 @@
 <script src="@Url.Content("~/Theme/Scripts/jquery.unobtrusive-ajax.min.js")" type="text/javascript" ></script>
 <script src="@Url.Content("~/Theme/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
 <script src="@Url.Content("~/Theme/Scripts/MicrosoftMvcAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Theme/Scripts/MyScripts/date.js")" type="text/javascript"></script>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Prise de rendez vous sur internet";
     ViewBag.Meta = "Prise de rendez vous sur internet facile et rapide selon vos disponibilités. La prise en compte est immédiate.";
 }
 
-@*<script type="text/javascript">
-    var compteurId = 0;
-    var ids = new Array();
-    //var dayHours = '@Constants.GetInstance().AMBegin()-@Constants.GetInstance().PMToto()';
-    var daysToDisable = [@foreach (Holiday holiday in Model)
-                         {
-                             if (holiday.BeginHour <= Constants.GetInstance().AMBegin() && holiday.TotoHour == Constants.GetInstance().PMToto() )
-                             {
-                                <text>'@(holiday.Day.Month)-@(holiday.Day.Day)-@(holiday.Day.Year)',</text>
-                             }
-                         }];
-    $(document).ready(function () {
-        
-    });
-
-    
-
-    
-</script>*@
 
 <script type="text/javascript">
-    @*(function ($) {
-        $.fn.cascade = function (options) {
-            var defaults = {};
-            console.log(options);
-            var opts = $.extend(defaults, options);
-            return this.each(function () {
-                $(this).change(function () {
-                    var params = {};
-                    console.log(opts.parametres);
-                    opts.parametres.split(";").forEach(function(element, index, array) {
-                        params[element.split("=")[0]] = element.split("=")[1];
-                    });
-                    alert(opts.parametres);
-                    $.getJSON(opts.url, params, function (items) {
-                        opts.childSelect.empty();
-                        var count = 0;
-                        $.each(items, function (index, item) {
-                            if (count === 0) {
-                                opts.childSelect.append($('<option/>').attr('value', item.Id).text(item.Name));
-                                count = count + 1;
-                            } else {
-                                opts.childSelect.append($('<option/>').attr('value', item.Id).text(item.Name));
-                            }
-                            opts.childSelect.change();
-                        });
-                    });
-                });
-            });
-        };
-    })(jQuery);
-
-    $(function () {
-        $('#SelectedOfficeId').cascade({
-            url: '@Url.Action("Pratictioners")',
-            parametres: 'officeId=' + $("#SelectedOfficeId option:selected").val(),
-            childSelect: $('#SelectedPratictionerId')
-        });
-
-        $('#SelectedPratictionerId').cascade({
-            url: '@Url.Action("Durations")',
-            parametres: 'officeId=' + $("#SelectedOfficeId option:selected").val() + ';pratictionerId=' + $("#SelectedPratictionerId option:selected").val(),
-            childSelect: $('#SelectedDurationId')
-        });
-    });
-    $(document).ready(function () {
-        $('#SelectedOfficeId').change();
-    });*@
-
     var days = [];
     $(function () {
         $('#SelectedOfficeId').change(function () {
@@ -141,10 +74,28 @@
     });
 
     function selectDay(date) {
-        console.log(date);
-        $.getJSON('@Url.Action("FreeSlots")', { choosedDay: date },
+        var selectedOfficeId = $("#SelectedOfficeId option:selected").val();
+        var selectedPratictionerId = $("#SelectedPratictionerId option:selected").val();
+        var selectedDurationId = $("#SelectedDurationId option:selected").val();
+        $.getJSON('@Url.Action("FreeSlots")', { choosedDay: date, officeId: selectedOfficeId, pratictionerId: selectedPratictionerId, durationId: selectedDurationId },
         function (freeSlots) {
-            console.log(freeSlots);
+            var slotsDiv = $('#SlotsPicker');
+            slotsDiv.empty();
+            var count = 0;
+            
+            $.each(freeSlots, function (index, value) {
+                var begin = new Date(parseInt(value.FreeSlotBegin.substr(6))).toString("HH:mm");
+                var end = new Date(parseInt(value.FreeSlotEnd.substr(6))).toString("HH:mm");
+                slotsDiv.append($('' +
+                    '<div>' +
+                    '<input type="radio" name="radio" id="radio' + count + '" class="radio" />' +
+                    '<label class="labelRadio" for="radio' + count + '"> ' + 'De ' + begin + ' à ' + end + '</label>' +
+                    '</div>'));
+                //slotsDiv.append($(''));
+                $("#radio" + count).hide();
+
+                count++;
+            });
         });
     }
 
@@ -152,40 +103,7 @@
         $("#DaysPicker").datepicker("option", "disabled", false);
         $("#DaysPicker").datepicker("option", "beforeShowDay", enableSpecificDate);
     }
-    //    $('#offices').change(function() {
-    //        SetFormValues();
-    //    });
-    //    $('#durations').change(function () {
-    //        SetFormValues();
-    //    });
-    //    $("#DatesPicker").datepicker({
-    //        minDates: +3,
-    //        beforeShowDay: disableSpecificDates,
 
-    //        dateFormat: 'dd/mm/yy',
-    //
-    //    });
-    //    //$("#selectedTimeSlot").change(function () {
-    //    //    getProposeDates($("#DatesPicker").val());
-    //    //});
-    //});
-
-    @*function getProposeDates(date) {
-        $.ajax({
-            url: '@Url.Action("ProposeDates", "RendezVous")',
-            data: {
-                patientDates: date,
-                patientHours: $("#selectedTimeSlot").val()
-            },
-            type: 'POST',
-            success: function (data, textStatus, jqXHR) {
-                $("#proposeDates").html(data);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert(errorThrown);
-            }
-        });
-    }*@
     function enableSpecificDate(date) {
         var dmy = date.getDate() + "-" + (date.getMonth() + 1) + "-" + date.getFullYear();
         if ($.inArray(dmy, days) !== -1) {
@@ -195,10 +113,6 @@
         }
     }
 
-    function SetFormValues() {
-        $('#officeId').val($('#offices').val());
-        $('#durationId').val($('#durations').val());
-    }
     function replaceDurations(officeId) {
         $.ajax({
             url: '@Url.Action("ProposeDate", "RendezVous")',
@@ -221,28 +135,30 @@
     <fieldset>
         <legend><h1>@DateResource.DateQuery</h1></legend>
         <label class="error" id="erreurs">@ViewBag.ResultMessage</label>
-
-        <div class="span4">
-            <h2>@DateResource.OfficeList</h2>
-            @Html.DropDownListFor(x => x.SelectedOfficeId, new SelectList(Model.Offices, "Id", "Name"))
+        <div class="span11 alignCenter">
+            <div class="span4">
+                <h2>@DateResource.OfficeList</h2>
+                @Html.DropDownListFor(x => x.SelectedOfficeId, new SelectList(Model.Offices, "Id", "Name"))
+            </div>
+            <div class="span4">
+                <h2>Ostéopathe</h2>
+                @Html.DropDownListFor(x => x.SelectedPratictionerId, Enumerable.Empty<SelectListItem>())
+            </div>
+            <div class="span3">
+                <h2>Durée</h2>
+                @Html.DropDownListFor(x => x.SelectedDurationId, Enumerable.Empty<SelectListItem>(), new {@class = ""})
+            </div>
         </div>
-        <div class="span4">
-            <h2>Ostéopathe</h2>
-            @Html.DropDownListFor(x => x.SelectedPratictionerId, Enumerable.Empty<SelectListItem>())
+        <div class="span11 alignCenter">
+            <div class="span7">
+                <h2>Choississez une date</h2>
+                <div align="center" id="DaysPicker"></div>
+            </div>
+            <div class="span4">
+                <h2>Choississez une horaire</h2>
+                <div align="center" id="SlotsPicker"></div>
+            </div>
         </div>
-        <div class="span3">
-            <h2>Durée</h2>
-            @Html.DropDownListFor(x => x.SelectedDurationId, Enumerable.Empty<SelectListItem>(), new { @class = "" } )
-        </div>
-        <div class="span7">
-            <h2>Choississez une date</h2>
-            <div align="center" id="DaysPicker"></div>
-        </div>
-        <div class="span4">
-            <h2>Choississez une horaire</h2>
-        </div>
-
-        @**@
 
         @*@using (Html.BeginForm("ProposeDate", "RendezVous", FormMethod.Post))
         {

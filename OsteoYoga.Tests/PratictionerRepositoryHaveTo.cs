@@ -28,6 +28,7 @@ namespace OsteoYoga.Tests.DAO
             Mail = "test@test.com",
             Phone = "+33(0)556578996",
             NetworkId = "NetworkId",
+            Password = "password",
             NetworkType = Constants.GetInstance().FacebookNetwork,
             
         };
@@ -67,7 +68,15 @@ namespace OsteoYoga.Tests.DAO
         [TestMethod]
         public void Return_Null_If_Contact_Does_Not_Exist()
         {
-            Assert.IsNull(pratictionerRepository.GetByEmail("toto@toto.com"));
+            Assert.IsNull(pratictionerRepository.GetByEmailAndPassword("toto@toto.com", "password"));
+        }
+
+        [TestMethod]
+        public void Return_Null_If_Password_Is_Incorrect()
+        {
+            pratictionerRepository.Save(pratictioner);
+
+            Assert.IsNull(pratictionerRepository.GetByEmailAndPassword(pratictioner.Mail, "wrongPassword"));
         }
 
         [TestMethod]
@@ -75,7 +84,7 @@ namespace OsteoYoga.Tests.DAO
         {
             pratictionerRepository.Save(pratictioner);
 
-            Assert.AreEqual(pratictioner, pratictionerRepository.GetByEmail(pratictioner.Mail));
+            Assert.AreEqual(pratictioner, pratictionerRepository.GetByEmailAndPassword(pratictioner.Mail, "password"));
         }
 
         [TestMethod]

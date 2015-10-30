@@ -2,7 +2,7 @@
 
 namespace OsteoYoga.Helper.Profile
 {
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Method)]
     public class PatientProfileAttribute : ProfileAttribute
     {
         public override string ProfileType

@@ -126,12 +126,12 @@ namespace OsteoYoga.Repository.DAO.Abstracts
             return  Service.Events.List("primary").Execute().Items;
         }
 
-        public IList<Event> GetAllForPractionerInterval(PratictionerOffice pratictionerOffice)
+        public IList<Event> GetAllForInterval(DateTime min, DateTime max)
         {
             EventsResource.ListRequest request = Service.Events.List("primary");
             
-            request.TimeMin = pratictionerOffice.MinDateInterval;
-            request.TimeMax = pratictionerOffice.MaxDateInterval;
+            request.TimeMin = min;
+            request.TimeMax = max;
             
             return request.Execute().Items;
         }

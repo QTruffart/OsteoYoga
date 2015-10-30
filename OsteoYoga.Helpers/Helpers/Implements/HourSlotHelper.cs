@@ -16,8 +16,11 @@ namespace OsteoYoga.Helper.Helpers.Implements
             DateTime end = new DateTime(day.Year,day.Month,day.Day, 20,0,0);
 
             IList<FreeSlot> freeSlots = new List<FreeSlot>();
-
+            eventsOnTheDay.Add(new Event() {Start = new EventDateTime() {DateTime = begin }, End = new EventDateTime() { DateTime = begin } });
+            eventsOnTheDay.Add(new Event() {Start = new EventDateTime() {DateTime = end }, End = new EventDateTime() { DateTime = end } });
             IList<Event> eventsOrderded = eventsOnTheDay.OrderBy(e => e.Start.DateTime).ToList();
+
+
             if (!eventsOrderded.Any())
             {
                 freeSlots.Add(new FreeSlot()
@@ -28,32 +31,8 @@ namespace OsteoYoga.Helper.Helpers.Implements
             }
             foreach (Event eventTime in eventsOrderded)
             {
-
                 int indexCurrentElement = eventsOrderded.IndexOf(eventTime);
-
-                if (indexCurrentElement == 0)
-                {
-                    if ((eventTime.Start.DateTime - begin).Value.TotalMinutes >= duration.Value)
-                    {
-                        freeSlots.Add(new FreeSlot()
-                        {
-                            Begin = begin,
-                            End = eventTime.Start.DateTime.Value
-                        });
-                    }
-                }
-                else if (eventTime == eventsOrderded.Last())
-                {
-                    if (( end - eventTime.End.DateTime).Value.TotalMinutes >= duration.Value)
-                    {
-                        freeSlots.Add(new FreeSlot()
-                        {
-                            Begin = eventTime.End.DateTime.Value,
-                            End = end
-                        });
-                    }
-                }
-                else
+                if (eventTime != eventsOrderded.Last())
                 {
                     Event nextEvent = eventsOrderded[indexCurrentElement + 1];
 

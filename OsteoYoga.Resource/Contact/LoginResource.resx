@@ -133,7 +133,7 @@
     <value>Si vous n'avez pas encore un compte, vous devez en créer un :</value>
   </data>
   <data name="UnknownEmail" xml:space="preserve">
-    <value>L'email n'existe pas, veuillez réessayer ou vous inscrire.</value>
+    <value>L'email ou/et le mot de passe est incorrect, veuillez réessayer ou vous inscrire.</value>
   </data>
   <data name="From" xml:space="preserve">
     <value> =&gt; De </value>
@@ -149,5 +149,11 @@
   </data>
   <data name="PhoneFormat" xml:space="preserve">
     <value>Le numéro de téléphone doit être au format : "+33(0) __ __ __ __"</value>
+  </data>
+  <data name="CodeEmail" xml:space="preserve">
+    <value>Code à 5 chiffres</value>
+  </data>
+  <data name="ConfirmEmail" xml:space="preserve">
+    <value>Vore compte doit être valider en rentrant le code qui vous a été envoyé par mail.</value>
   </data>
 </root>

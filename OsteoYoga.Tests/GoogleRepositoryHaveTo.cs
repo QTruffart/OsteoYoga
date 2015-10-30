@@ -207,7 +207,7 @@ namespace OsteoYoga.Tests.DAO
 
             //act
 
-            IList<Event> events = googleRepository.GetAllForPractionerInterval(pratictionerOffice);
+            IList<Event> events = googleRepository.GetAllForInterval(pratictionerOffice.MinDateInterval, pratictionerOffice.MaxDateInterval);
 
             //assert
             CollectionAssert.Contains(events.Select( e => e.Id).ToList(), entityIntoInterval1.Id);

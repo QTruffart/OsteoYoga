@@ -25,7 +25,7 @@ namespace OsteoYoga.Helper.Helpers.Implements
 
         public IList<DateTime> CalculateFreeDays(PratictionerOffice pratictionerOffices, Duration expectedDuration, IList<DateTime> defaultDaysOnPeriod)
         {
-            IList<Event> events = GoogleRepository.GetAllForPractionerInterval(pratictionerOffices);
+            IList<Event> events = GoogleRepository.GetAllForInterval(pratictionerOffices.MinDateInterval, pratictionerOffices.MaxDateInterval);
             IList<Event> eventsWithoutAllDay = events.Where(e => string.IsNullOrEmpty(e.Start.Date) && string.IsNullOrEmpty(e.End.Date)).ToList();
 
             IList<DateTime> result = new List<DateTime>();
@@ -60,17 +60,29 @@ namespace OsteoYoga.Helper.Helpers.Implements
             return toReturn;
         }
 
-
-        private bool EventAllDayOnThisDate(DateTime date, string eventDate)
+        public IList<FreeSlot> GetAllFreeSlotOnADay(PratictionerOffice pratictionerOffices, Duration duration, DateTime date)
         {
-            string format = Constants.GetInstance().GoogleDateFormat;
-            DateTime toReturn;
-            if (DateTime.TryParseExact(eventDate, format, new CultureInfo(CultureInfo.CurrentCulture.Name),
-                DateTimeStyles.AdjustToUniversal, out toReturn))
+            IList<Event> events = GoogleRepository.GetAllForInterval(
+                new DateTime(date.Year,date.Month,date.Day, 0, 0, 0), 
+                new DateTime(date.Year, date.Month, date.Day, 23, 59, 59)
+            );
+
+            IList<FreeSlot> toSplit = HourSlotHelper.CalculateFreeHours(date, duration, events);
+            IList<FreeSlot> toReturn = new List<FreeSlot>();
+            foreach (FreeSlot freeSlot in toSplit)
             {
-                return toReturn.Date == date.Date;
+                int count = 0;
+                while (count + duration.Value <= freeSlot.Duration)
+                {
+                    toReturn.Add(new FreeSlot()
+                    {
+                        Begin = new DateTime(date.Year, date.Month, date.Day, freeSlot.Begin.Hour, freeSlot.Begin.Minute, 0).AddMinutes(count),
+                        End = new DateTime(date.Year, date.Month, date.Day, freeSlot.Begin.Hour, freeSlot.Begin.Minute, 0).AddMinutes(count + duration.Value),
+                    });
+                    count += duration.Value;
+                }
             }
-            return false;
+            return toReturn;
         }
     }
 }

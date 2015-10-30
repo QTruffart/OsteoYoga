@@ -11,5 +11,6 @@ namespace OsteoYoga.Helper.Helpers.Interfaces
         IList<DateTime> CalculateFreeDays(PratictionerOffice pratictionerOffices, Duration expectedDuration, IList<DateTime> defaultDaysOnPeriod);
         IGoogleRepository<Event> GoogleRepository { get; set; }
         IList<DateTime> GetAllWorkDaysOnPeriod(PratictionerOffice pratictionerOffice, DateTime reference);
+        IList<FreeSlot> GetAllFreeSlotOnADay(PratictionerOffice pratictionerOffices, Duration duration, DateTime date);
     }
 }

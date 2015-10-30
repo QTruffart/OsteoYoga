@@ -12,6 +12,6 @@ namespace OsteoYoga.Repository.DAO.Interfaces
         void Delete(string toDelete);
         Event GetById(string id);
         IList<Event> GetAll();
-        IList<Event> GetAllForPractionerInterval(PratictionerOffice pratictionerOffice);
+        IList<Event> GetAllForInterval(DateTime min, DateTime max);
     }
 }

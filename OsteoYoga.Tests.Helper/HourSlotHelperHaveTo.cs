@@ -92,6 +92,44 @@ namespace OsteoYoga.Tests.Helper
 
 
         [TestMethod]
+        public void Return_Free_Time_Slots_On_A_Day_Version_2()
+        {
+            DateTime now0800 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 8, 0, 0);
+            DateTime now1230 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 12, 30, 0);
+            DateTime now1330 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 13, 30, 0);
+            DateTime now1500 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 15, 00, 0);
+            DateTime now1600 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 16, 00, 0);
+            DateTime now1700 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 17, 00, 0);
+            DateTime now1800 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 18, 00, 0);
+            DateTime now2000 = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 20, 0, 0);
+
+            Event event1 = new Event { Start = new EventDateTime() { DateTime = now1230 }, End = new EventDateTime { DateTime = now1330 } };
+            Event event2 = new Event { Start = new EventDateTime() { DateTime = now1500 }, End = new EventDateTime { DateTime = now1600 } };
+            Event event3 = new Event { Start = new EventDateTime() { DateTime = now1700 }, End = new EventDateTime { DateTime = now1800 } };
+
+            IList<Event> eventsParmeter = new List<Event>() { event1, event2, event3, };
+
+            DateTime dayToInspect = DateTime.Now;
+            Duration duration = new Duration() { Value = 60 };
+
+            IList<FreeSlot> results = HourSlotHelper.CalculateFreeHours(dayToInspect, duration, eventsParmeter);
+
+            Assert.AreEqual(4, results.Count);
+
+            Assert.AreEqual(now0800.Ticks, results[0].Begin.Ticks);
+            Assert.AreEqual(now1230.Ticks, results[0].End.Ticks);
+
+            Assert.AreEqual(now1330.Ticks, results[1].Begin.Ticks);
+            Assert.AreEqual(now1500.Ticks, results[1].End.Ticks);
+
+            Assert.AreEqual(now1600.Ticks, results[2].Begin.Ticks);
+            Assert.AreEqual(now1700.Ticks, results[2].End.Ticks);
+
+            Assert.AreEqual(now1800.Ticks, results[3].Begin.Ticks);
+            Assert.AreEqual(now2000.Ticks, results[3].End.Ticks);
+        }
+
+        [TestMethod]
         public void Return_Free_Time_Slots_On_A_Day_If_There_Are_No_Event()
         {
            

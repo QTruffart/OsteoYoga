@@ -21,9 +21,12 @@ namespace OsteoYoga.Domain.Models.Mapping
 
             Map(x => x.FullName);
             Map(x => x.Mail);
+            Map(x => x.Password);
             Map(x => x.NetworkId);
             Map(x => x.NetworkType);
             Map(x => x.Phone);
+            Map(x => x.IsConfirmed);
+            Map(x => x.ConfirmedCode);
 
             HasManyToMany(x => x.Profiles).Cascade.All().Table("ContactProfile");
 

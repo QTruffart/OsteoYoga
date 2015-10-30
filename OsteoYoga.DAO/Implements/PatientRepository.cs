@@ -12,9 +12,9 @@ namespace OsteoYoga.Repository.DAO.Implements
             return Session.QueryOver<Contact>().Where(ts => ts.Mail == mail).RowCount() > 0;
         }
 
-        public virtual Contact GetByEmail(string mail)
+        public virtual Contact GetByEmailAndPassword(string mail, string password)
         {
-            return Session.QueryOver<Contact>().Where(ts => ts.Mail == mail).List<Contact>().FirstOrDefault();
+            return Session.QueryOver<Contact>().Where(ts => ts.Mail == mail && ts.Password == password).List<Contact>().FirstOrDefault();
         }
         
         public virtual bool SocialNetworkEmailAlreadyExists(string mail, string socialId, string networkType)

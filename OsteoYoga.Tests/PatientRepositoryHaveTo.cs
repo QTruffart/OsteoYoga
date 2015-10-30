@@ -13,6 +13,7 @@ namespace OsteoYoga.Tests.DAO
         private readonly Patient contact = new Patient
         {
             FullName = "test",
+            Password = "password",
             Mail = "test@test.com",
             Phone = "+33(0)556578996",
             NetworkId = "NetworkId",
@@ -48,7 +49,15 @@ namespace OsteoYoga.Tests.DAO
         [TestMethod]
         public void Return_Null_If_Contact_Does_Not_Exist()
         {
-            Assert.IsNull(contactRepository.GetByEmail("toto@toto.com"));
+            Assert.IsNull(contactRepository.GetByEmailAndPassword("toto@toto.com", "password"));
+        }
+
+        [TestMethod]
+        public void Return_Null_If_Password_Is_Incorrect()
+        {
+            contactRepository.Save(contact);
+
+            Assert.IsNull(contactRepository.GetByEmailAndPassword(contact.Mail, "wrongPassword"));
         }
 
         [TestMethod]
@@ -56,7 +65,7 @@ namespace OsteoYoga.Tests.DAO
         {
             contactRepository.Save(contact);
 
-            Assert.AreEqual(contact, contactRepository.GetByEmail(contact.Mail));
+            Assert.AreEqual(contact, contactRepository.GetByEmailAndPassword(contact.Mail, "password"));
         }
 
         [TestMethod]

@@ -27,6 +27,8 @@
     $(document).ready(function () {
         $('#FullName').watermark('@StringHelper.GetInstance().ToJavascript(ModelResource.YourFullName)');
         $('#Mail').watermark('@StringHelper.GetInstance().ToJavascript(ModelResource.YourMail)');
+        $('#Password').watermark('@StringHelper.GetInstance().ToJavascript(ModelResource.YourPassword)');
+        $('#ConfirmPassword').watermark('@StringHelper.GetInstance().ToJavascript(ModelResource.YourPasswordAgain)');
         $('#Phone').watermark('@StringHelper.GetInstance().ToJavascript(ModelResource.YourPhone)');
         $("#Phone").mask("+33(0)9 99 99 99 99");
         jQuery.validator.setDefaults({
@@ -45,13 +47,32 @@
             rules: {
                 FullName: { required: true },
                 Mail: { required: true, email: true },
-                Phone: { required: true }
+                Phone: { required: true },
+                Password: {
+                    required: true,
+                    minlength: 5
+                },
+                ConfirmPassword: {
+                    equalTo: "#Password"
+                }
             },
             messages: {
-                FullName: { required: "@StringHelper.GetInstance().ToJavascript(ModelResource.FullNameMandatory)" },
-                Mail: { required: "@StringHelper.GetInstance().ToJavascript(ModelResource.MailMandatory)", 
-                        email: "@StringHelper.GetInstance().ToJavascript(ModelResource.MailFormattingError)" },
-                Phone: { required: "@StringHelper.GetInstance().ToJavascript(ModelResource.PhoneMandatory)" }
+                FullName: {
+                    required: "@StringHelper.GetInstance().ToJavascript(ModelResource.FullNameMandatory)"
+                },
+                Mail: {
+                    required: "@StringHelper.GetInstance().ToJavascript(ModelResource.MailMandatory)",
+                    email: "@StringHelper.GetInstance().ToJavascript(ModelResource.MailFormattingError)" },
+                Phone: {
+                    required: "@StringHelper.GetInstance().ToJavascript(ModelResource.PhoneMandatory)"
+                },
+                Password: {
+                    required: "@StringHelper.GetInstance().ToJavascript(ModelResource.PasswordMandatory)",
+                    minlength: "@StringHelper.GetInstance().ToJavascript(ModelResource.PasswordLength)"
+                },
+                ConfirmPassword: {
+                    equalTo: "@StringHelper.GetInstance().ToJavascript(ModelResource.ConfirmPassword)"
+                }
             }
         });
     });
@@ -70,6 +91,12 @@
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.Mail)
+                </div>
+                <div class="editor-field">
+                    @Html.PasswordFor(model => model.Password)
+                </div>
+                <div class="editor-field">
+                    <input type="password" id="ConfirmPassword" name="ConfirmPassword"/>
                 </div>
                 <div class="editor-field">
                     @Html.EditorFor(model => model.Phone)

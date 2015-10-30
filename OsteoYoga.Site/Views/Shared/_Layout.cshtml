@@ -90,6 +90,7 @@
         </header>
         <div class="row-fluid" style="text-align: center">
             <div class="span3" style="vertical-align: middle">
+                @*<div class="fb-like-box" data-force-wall="true" id="fbplugin" data-width="100" data-href="https://www.facebook.com/pages/osteoyogafr/184250505057824" data-show-faces="false" data-stream="true" data-show-border="false" data-header="true"></div>*@
                 <nav id="mainMenu" class="navbar">
                     <!-- Main Menu -->
                     <ul class="nav">
@@ -102,42 +103,39 @@
                                 <li>@Html.ActionLink("Pour les femmes enceintes", "QuandConsulterGrossesse", "Home")</li>
                             </ul>
                         </li>
-                        <br />
+                        <br/>
                         <li class="dropdown-submenu">@Html.ActionLink("Ostéopathie", "Osthéopathie", "Home")</li>
-                        <br />
+                        <br/>
                         <li class="dropdown-submenu">@Html.ActionLink("Yoga thérapie", "Yogathérapie", "Home")</li>
-                        <br />
+                        <br/>
                         <li class="dropdown-submenu">
                             @Html.ActionLink("Ma pratique", "MaPratique", "Home")
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Mon parcours", "QuiSuisJe", "Home")</li>
                             </ul>
                         </li>
-                        <br />
+                        <br/>
                         <li class="dropdown-submenu">@Html.ActionLink("Questions fréquentes", "QuestionsFrequentes", "Home")</li>
-                        <br />
+                        <br/>
                         <li class="dropdown-submenu">
                             @Html.ActionLink("Liens utiles", "Partenaires", "Home")
                             <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Cours de Yoga", "CoursYoga", "Home")</li>
-                            <li>@Html.ActionLink("Associations", "Association", "Home")</li>
-                            <li>@Html.ActionLink("Divers", "LiensDivers", "Home")</li>
-                        </ul>
-                    </li>
-                    <br />
-                    <li class="dropdown-submenu">@Html.ActionLink("Certifications", "Certifications", "Home")</li>
-                    <br />
-                    @*<li class="dropdown-submenu">@Html.ActionLink("Administration", "Index", "Administration")</li>*@
-                </ul>
-            </nav>
+                                <li>@Html.ActionLink("Cours de Yoga", "CoursYoga", "Home")</li>
+                                <li>@Html.ActionLink("Associations", "Association", "Home")</li>
+                                <li>@Html.ActionLink("Divers", "LiensDivers", "Home")</li>
+                            </ul>
+                        </li>
+                        <br/>
+                        <li class="dropdown-submenu">@Html.ActionLink("Certifications", "Certifications", "Home")</li>
+                        <br/>
+                        @*<li class="dropdown-submenu">@Html.ActionLink("Administration", "Index", "Administration")</li>*@
+                    </ul>
+                </nav>
+            </div>
+            <div class="span9" style="text-align: center">
+                @RenderBody()
+            </div>
         </div>
-        <div class="span6" style="text-align: center">
-            @RenderBody()
-        </div>
-        <div class="span3" id="fbContent">
-            <div class="fb-like-box" data-force-wall="true" id="fbplugin" data-width="100" data-href="https://www.facebook.com/pages/osteoyogafr/184250505057824" data-show-faces="false" data-stream="true" data-show-border="false" data-header="true"></div>
-        </div>
-    </div>
     <footer id="mainFooter">
         <!-- Main Footer -->
         <div id="toTop"><a href="#top" id="topLink" title="Haut de la page"><i class="icon-chevron-up"></i></a></div>

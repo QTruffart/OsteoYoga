@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Google.Apis.Calendar.v3.Data;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System.Web.Mvc;
-using System.Web.Script.Serialization;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper;
 using OsteoYoga.Helper.Helpers.Implements;
@@ -44,8 +40,6 @@ namespace OsteoYoga.Tests.Display.Controllers
                 OfficeRepository = officeRepositoryMock.Object,
                 PratictionerOfficeRepository = pratictionerOfficeRepositoryMock.Object,
                 DaySlotHelper = daySlotHelperMock.Object
-                //GoogleRepository = googleRepositoryMock.Object,
-                //DurationRepository = durationRepositoryMock.Object,
             };
             SessionHelper.Instance = sessionHelperMock.Object;
             sessionHelperMock.Setup(shm => shm.CurrentUser).Returns(patient);
@@ -65,7 +59,6 @@ namespace OsteoYoga.Tests.Display.Controllers
             Assert.IsInstanceOfType(controller.PratictionerOfficeRepository, typeof(PratictionerOfficeRepository));
             Assert.IsInstanceOfType(controller.GoogleRepository, typeof(GoogleRepository));
             Assert.IsInstanceOfType(controller.DaySlotHelper, typeof(DaySlotHelper));
-
         }
 
         [TestMethod]
@@ -182,6 +175,66 @@ namespace OsteoYoga.Tests.Display.Controllers
             Assert.AreEqual(2, data.Count);
             Assert.AreEqual(day1, data[0].FreeDay);
             Assert.AreEqual(day2, data[1].FreeDay);
+        }
+
+        [TestMethod]
+        public void Return_Free_Time_Slots_By_DurationId_OfficeId_And_PratictionnerId() 
+        {
+            //arrange
+            const int officeId = 1;
+            const int pratictionerId = 2;
+            const int durationId = 3;
+            string dateTime = "23/12/2015";
+            Office expectedOffice = new Office { Id = officeId };
+            Pratictioner expectedPratictioner = new Pratictioner { Id = pratictionerId };
+            Duration expectedDuration = new Duration { Id = durationId, Value = 45 };
+            IList<FreeSlot> freeSlotsOnPeriod = new List<FreeSlot>
+            {
+                new FreeSlot()
+                {
+                    Begin = new DateTime(2015,12,23,09,00,00),
+                    End = new DateTime(2015,12,23,09,45,00),
+                },
+
+                new FreeSlot()
+                {
+                    Begin = new DateTime(2015,12,23,15,30,00),
+                    End = new DateTime(2015,12,23,16,15,00),
+                },
+            };
+            PratictionerOffice pratictionerOffices = new PratictionerOffice
+            {
+                Office = expectedOffice,
+                Pratictioner = expectedPratictioner,
+                Durations = new List<Duration> { expectedDuration }
+            };
+            pratictionerOfficeRepositoryMock.Setup(r => r.GetByOfficeIdAndPratictionerId(officeId, pratictionerId)).Returns(pratictionerOffices);
+            daySlotHelperMock.Setup(r => r.GetAllFreeSlotOnADay(pratictionerOffices, expectedDuration, It.Is<DateTime>(d => d.Year == 2015 && d.Month == 12 && d.Day == 23))).Returns(freeSlotsOnPeriod);
+
+            //act
+            JsonResult result = Controller.FreeSlots(dateTime, officeId, pratictionerId, durationId);
+
+            //assert
+            IList<FreeSlotJsonViewResult> data = (IList<FreeSlotJsonViewResult>)result.Data;
+            Assert.AreEqual(2, data.Count);
+            Assert.IsTrue(data[0].FreeSlotBegin.Hour == 9  && data[0].FreeSlotBegin.Minute == 0 );
+            Assert.IsTrue(data[0].FreeSlotEnd.Hour == 9  && data[0].FreeSlotEnd.Minute == 45);
+            Assert.IsTrue(data[1].FreeSlotBegin.Hour == 15 && data[1].FreeSlotBegin.Minute == 30 );
+            Assert.IsTrue(data[1].FreeSlotEnd.Hour == 16 && data[1].FreeSlotEnd.Minute == 15 );
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception), "Mauvais format de date")]
+        public void Throw_Exception_If_Date_Is_Bad_Formatted()
+        {
+            //arrange
+            const int officeId = 1;
+            const int pratictionerId = 2;
+            const int durationId = 3;
+            string dateTime = "12/23/2015";
+            
+            //act
+            Controller.FreeSlots(dateTime, officeId, pratictionerId, durationId);
         }
     }
 }
