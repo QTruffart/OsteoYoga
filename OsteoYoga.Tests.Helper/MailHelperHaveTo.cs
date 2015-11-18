@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Google.Apis.Calendar.v3.Data;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OsteoYoga.Domain.Models;
 using OsteoYoga.Helper.Helpers.Implements;
-using OsteoYoga.Helper.Helpers.Interfaces;
-using OsteoYoga.Repository.DAO.Abstracts;
-using OsteoYoga.Repository.DAO.Interfaces;
 
 namespace OsteoYoga.Tests.Helper
 {
@@ -16,7 +8,8 @@ namespace OsteoYoga.Tests.Helper
     public class MailHelperHaveTo
     {
         [TestMethod]
-        public void MethodName()
+        //[Ignore]
+        public void Email_Send_Test()
         {
             //arrange
             Contact contact = new Patient() {Mail = "quentin.truffart@gmail.com"};
@@ -26,6 +19,5 @@ namespace OsteoYoga.Tests.Helper
 
             mailHelper.SendMail(contact);
         }
-
     }
 }

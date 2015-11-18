@@ -176,5 +176,14 @@ namespace OsteoYoga.Resource.Contact {
                 return ResourceManager.GetString("UnknownEmail", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Recherche une chaîne localisée semblable à Valider.
+        /// </summary>
+        public static string Validation {
+            get {
+                return ResourceManager.GetString("Validation", resourceCulture);
+            }
+        }
     }
 }

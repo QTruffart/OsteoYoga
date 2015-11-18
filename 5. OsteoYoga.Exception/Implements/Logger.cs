@@ -9,8 +9,8 @@ namespace _5.OsteoYoga.Exception.Implements
 {
     public class Logger :  ILogger
     {
-        ILog Log { get; set; }
-        int Level { get; set; }
+        ILog Log { get; }
+        int Level { get; }
 
         public Logger(Type origin, bool direct)
         {
@@ -20,43 +20,43 @@ namespace _5.OsteoYoga.Exception.Implements
         }
         public void Error(string message, System.Exception exception)
         {
-            Log.Error(string.Format("Method -> \"{0}\" : \"{1}\"", GetCalledMethod(), message), exception);
+            Log.Error($"Method -> \"{GetCalledMethod()}\" : \"{message}\"", exception);
         }
         public void Info(string message)
         {
-            Log.Info(string.Format("Method -> \"{0}\" : \"{1}\"", GetCalledMethod(), message));
+            Log.Info($"Method -> \"{GetCalledMethod()}\" : \"{message}\"");
         }
         public void Warning(string message, System.Exception exception)
         {
-            Log.Warn(string.Format("Method -> \"{0}\" : \"{1}\"", GetCalledMethod(), message), exception);
+            Log.Warn($"Method -> \"{GetCalledMethod()}\" : \"{message}\"", exception);
         }
         public void Fatal(string message, System.Exception exception)
         {
-            Log.Fatal(string.Format("Method -> \"{0}\" : \"{1}\"", GetCalledMethod(), message), exception);
+            Log.Fatal($"Method -> \"{GetCalledMethod()}\" : \"{message}\"", exception);
         }
         public void Debug(string message)
         {
-            Log.Debug(string.Format("Method -> \"{0}\" : \"{1}\"", GetCalledMethod(), message));
+            Log.Debug($"Method -> \"{GetCalledMethod()}\" : \"{message}\"");
         }
         public void Error(string message, System.Exception exception, string method)
         {
-            Log.Error(string.Format("Method -> \"{0}\" : \"{1}\"", method, message), exception);
+            Log.Error($"Method -> \"{method}\" : \"{message}\"", exception);
         }
         public void Info(string message, string method)
         {
-            Log.Info(string.Format("Method -> \"{0}\" : \"{1}\"", method, message));
+            Log.Info($"Method -> \"{method}\" : \"{message}\"");
         }
         public void Warning(string message, System.Exception exception, string method)
         {
-            Log.Warn(string.Format("Method -> \"{0}\" : \"{1}\"", method, message), exception);
+            Log.Warn($"Method -> \"{method}\" : \"{message}\"", exception);
         }
         public void Fatal(string message, System.Exception exception, string method)
         {
-            Log.Fatal(string.Format("Method -> \"{0}\" : \"{1}\"", method, message), exception);
+            Log.Fatal($"Method -> \"{method}\" : \"{message}\"", exception);
         }
         public void Debug(string message, string method)
         {
-            Log.Debug(string.Format("Method -> \"{0}\" : \"{1}\"", method, message));
+            Log.Debug($"Method -> \"{method}\" : \"{message}\"");
         }
         private string GetCalledMethod()
         {

@@ -293,10 +293,11 @@ namespace OsteoYoga.Tests.Display.Controllers
             contactRepositoryMock.Setup(crm => crm.GetById(idContact)).Returns(contact);
 
             //act
-            RedirectResult result = Controller.ValidateAccountCode(validCode, idContact);
+            RedirectToRouteResult result = ((RedirectToRouteResult)Controller.ValidateAccountCode(validCode, idContact));
 
             //assert
-            Assert.AreEqual("RendezVous", result.ViewName);
+            Assert.AreEqual("RendezVous", result.RouteValues["controller"]);
+            Assert.AreEqual("Index", result.RouteValues["action"]);
             contactRepositoryMock.Verify(crm => crm.Save(It.Is<Patient>(p => p.IsConfirmed && p.Id == idContact && p.ConfirmedCode == validCode)));
         }
 

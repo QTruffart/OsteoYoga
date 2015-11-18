@@ -284,7 +284,9 @@
     <Content Include="Theme\Images\imageRions.jpg" />
     <Content Include="Theme\Images\KungFu.png" />
     <Content Include="Theme\Images\logo.jpg" />
-    <Content Include="Theme\Images\logo.png" />
+    <Content Include="Theme\Images\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Theme\Images\logodefAsso.png" />
     <Content Include="Theme\Images\logo_label_euro_stdo.jpg" />
     <Content Include="Theme\Images\logo_old.png">

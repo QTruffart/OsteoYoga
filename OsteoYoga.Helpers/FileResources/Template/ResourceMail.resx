@@ -117,46 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Connection" xml:space="preserve">
-    <value>Connexion</value>
+  <data name="Hello" xml:space="preserve">
+    <value>Bonjour</value>
   </data>
-  <data name="ConnectMySelf" xml:space="preserve">
-    <value>Se Connecter</value>
-  </data>
-  <data name="ConnectToAccesToCategory" xml:space="preserve">
-    <value>Vous devez vous connecter pour accéder à cette section.</value>
-  </data>
-  <data name="CreateAccount" xml:space="preserve">
-    <value>Se créer un compte</value>
-  </data>
-  <data name="IfNoAccountSignIn" xml:space="preserve">
-    <value>Si vous n'avez pas encore un compte, vous devez en créer un :</value>
-  </data>
-  <data name="UnknownEmail" xml:space="preserve">
-    <value>L'email ou/et le mot de passe est incorrect, veuillez réessayer ou vous inscrire.</value>
-  </data>
-  <data name="From" xml:space="preserve">
-    <value> =&gt; De </value>
-  </data>
-  <data name="ConnectionFacebook" xml:space="preserve">
-    <value>Connexion Facebook</value>
-  </data>
-  <data name="ConnectionGoogle" xml:space="preserve">
-    <value>Connexion Google</value>
-  </data>
-  <data name="MailFormat" xml:space="preserve">
-    <value>L'email doit être du format : "______@_____.___"</value>
-  </data>
-  <data name="PhoneFormat" xml:space="preserve">
-    <value>Le numéro de téléphone doit être au format : "+33(0) __ __ __ __"</value>
-  </data>
-  <data name="CodeEmail" xml:space="preserve">
-    <value>Code à 5 chiffres</value>
-  </data>
-  <data name="ConfirmEmail" xml:space="preserve">
-    <value>Vore compte doit être valider en rentrant le code qui vous a été envoyé par mail.</value>
-  </data>
-  <data name="Validation" xml:space="preserve">
-    <value>Valider</value>
+  <data name="RDV" xml:space="preserve">
+    <value />
   </data>
 </root>

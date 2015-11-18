@@ -167,6 +167,11 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="Email.cs" />
+    <Compile Include="FileResources\Template\ResourceMail.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResourceMail.resx</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\Abstracts\BaseMailHelper.cs" />
     <Compile Include="Helpers\Implements\ConfirmMailHelper.cs" />
     <Compile Include="Helpers\Implements\DaySlotHelper.cs" />
@@ -197,10 +202,18 @@
   <ItemGroup>
     <EmbeddedResource Include="FileResources\Encrypt\Key" />
     <EmbeddedResource Include="FileResources\Template\AccountConfirmTemplate.cshtml" />
+    <EmbeddedResource Include="FileResources\Template\ResourceMail.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ResourceMail.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="FileResources\Template\Image\logo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FileResources\Encrypt\IV" />
   </ItemGroup>

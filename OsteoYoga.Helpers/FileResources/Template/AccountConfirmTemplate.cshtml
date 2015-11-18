@@ -1,3 +1,33 @@
-﻿<body>
-test
+﻿@using OsteoYoga.Helper.FileResources.Template
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Validation de votre compte Ostéoyoga</title>
+<body>
+<table style="width:100%">
+    <tr>
+        <td>
+            <img src="~/FileResources/Template/Image/logo.png" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+
+        </td>
+    </tr>
+</table>
+
+        
+@ResourceMail.Hello, <br/>
+
+Vous vous êtes inscrit sur Ostéoyoga.fr <br/>
+
+Afin de valider votre compte, veuillez :
+<ul>
+    <li>Suivre le lien suivant : http://www.google.fr</li>
+    <li>Ou de rentrer le code suivant dans la saisie qui vous est proposée sur le site : @Model.ConfirmedCode</li>
+</ul>
 </body>

@@ -42,6 +42,7 @@ namespace OsteoYoga.Helper.Helpers.Abstracts
         {
             using (MailMessage mail = new MailMessage())
             {
+                string contentID = "contentID";
                 mail.Subject = Subject;
                 mail.IsBodyHtml = true;
 
@@ -50,10 +51,26 @@ namespace OsteoYoga.Helper.Helpers.Abstracts
                 mail.To.Add(new MailAddress(((Contact)model).Mail));
                 mail.From = new MailAddress(ConfigurationManager.AppSettings["MailSender"]);
 
-                AlternateView avHtml = AlternateView.CreateAlternateViewFromString(mail.Body, null,
-                    MediaTypeNames.Text.Html);
-                mail.AlternateViews.Add(avHtml);
+                AlternateView View = AlternateView.CreateAlternateViewFromString(mail.Body, null, "text/html");
+                LinkedResource resource;
+               
+                resource = new LinkedResource(@"./FileResources/Template/Image/logo.png", "image/png");
+                resource.ContentId = item.ImagePlaceHolde;
+                View.LinkedResources.Add(resource);
+                string ImageTag = "<img src=cid:" + item.ImagePlaceHolde + "width='" + item.width + "' and height='" + item.height + "px'/></p>";
+                mail.Body = mail.Body.Replace(item.ImagePlaceHolde, ImageTag);
+                mail.AlternateViews.Add(View);
+                }
 
+                AlternateView htmlView = AlternateView.CreateAlternateViewFromString(mail.Body, null, MediaTypeNames.Text.Html);
+
+                LinkedResource imagelink = new LinkedResource(@"./FileResources/Template/Image/logo.png", "image/png");
+
+
+                imagelink.TransferEncoding = TransferEncoding.Base64;
+                htmlView.LinkedResources.Add(imagelink);
+
+                mail.AlternateViews.Add(htmlView);
                 using (
                     var smtp = new SmtpClient(ConfigurationManager.AppSettings["MailServer"],
                         int.Parse(ConfigurationManager.AppSettings["MailPort"])))
@@ -62,5 +79,21 @@ namespace OsteoYoga.Helper.Helpers.Abstracts
                 }
             }
         }
+
+        public class EmbedImages
+        {
+            public EmbedImages(string _ImagePlaceHolde, string _ImagePath, string _width, string _height)
+            {
+                this.ImagePlaceHolde = _ImagePlaceHolde;
+                this.ImagePath = _ImagePath;
+                this.width = _width;
+                this.height = _height;
+            }
+            public string ImagePlaceHolde { get; set; }
+            public string ImagePath { get; set; }
+            public string width { get; set; }
+            public string height { get; set; }
+        }
+
     }
 }
